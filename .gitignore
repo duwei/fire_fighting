@@ -5,8 +5,8 @@ serv/conf/*.[oa]
 serv/lib/*.o
 serv/lib/libbase.a
 root/extjs-4.1/
-logs/*
-serv/logs/*
+logs/*.log
+serv/logs/*.log
 xulrunner/
 
 main.exe
