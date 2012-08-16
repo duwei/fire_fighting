@@ -234,11 +234,11 @@ function submitForm() {
 <form autocomplete="off" action="login.app" method="post">
 <div id="overallWrapper">
 <div id="pageContent">
-	<div id="horizonTop">
-		<h1 style="padding-top: 80px; margin-top: 0px; margin-bottom: 0px;">
-			XXXXX系统
-		</h1>
-	</div>
+    <div id="horizonTop">
+        <h1 style="padding-top: 80px; margin-top: 0px; margin-bottom: 0px;">
+            济南消防干部信息管理系统
+        </h1>
+    </div>
 <div class="mainPane">
 <table cellspacing="0" cellpadding="0" class="carbonBox">
 <tbody><tr><td class="carbonBoxBottom">
@@ -260,19 +260,19 @@ function submitForm() {
 <table class="loginForm">
 <tbody>
 <tr>
-	<td class="labelCell"><label class="" for="user" id="lblUserName">用户名:</label></td>
-	<td><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></td>
+    <td class="labelCell"><label class="" for="user" id="lblUserName">用户名:</label></td>
+    <td><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></td>
 </tr>
 <tr>
-	<td class="labelCell"><label for="password" id="lblPasswd">密码:</label></td>
-	<td><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></td>
+    <td class="labelCell"><label for="password" id="lblPasswd">密码:</label></td>
+    <td><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></td>
 </tr>
 <tr>
-	<td class="loginButtonPane" colspan="2">
-		<div class="customButton loginButton">
-			<a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><span class="rightDoor">登录</span></a>
-		</div>
-	</td>
+    <td class="loginButtonPane" colspan="2">
+        <div class="customButton loginButton">
+            <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><span class="rightDoor">登录</span></a>
+        </div>
+    </td>
 </tr>
 </tbody></table>
 <div class="spacer"></div>
