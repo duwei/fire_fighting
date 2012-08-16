@@ -92,17 +92,25 @@ Ext.define('FV.controller.RenYs', {
     chgCurRenY: function(selModel, selected) {
 		this.curRenY = selected[0];
 		if(this.curRenY){
-			console.log('chgCurRenY:' + this.curRenY.get('姓名'));
-			this.getChangYXX().setSource(this.curRenY.data);
-			this.getChangYXX().setTitle('人员信息');
+			var w = this.getChangYXX();
+			var o = Ext.apply({},this.curRenY.data);
+			delete o.danWId;
+			w.setSource(o);
+			w.setTitle('人员信息');
 		}
     },
 	
     chgCurBianZh: function(selModel, selected) {
 		this.curBianZh = selected[0];
 		if(this.curBianZh){
-			this.getChangYXX().setSource(this.curBianZh.data);
-			this.getChangYXX().setTitle('编制信息');
+			var w = this.getChangYXX();
+			var o = Ext.apply({},this.curBianZh.data);
+			delete o.rid;
+			delete o.danWId;
+			o['类型']=o.flag;
+			delete o.flag;
+			w.setSource(o);
+			w.setTitle('编制信息');
 		}
     }
 

@@ -60,7 +60,7 @@ Ext.define('FV.controller.DanWs', {
 			scope: this
 		});
     },
-    onLaunch: function() {
+	onLaunch: function() {
 		console.log("onLaunch");
 		var tree = this.getDanWTree(),
 			st = this.getDanWsStore();
@@ -72,7 +72,7 @@ Ext.define('FV.controller.DanWs', {
 				st.expand(false);
 			}
 		}
-    },
+	},
 	
 	refreshDanW: function(){
 		this.getDanWsStore().load();
