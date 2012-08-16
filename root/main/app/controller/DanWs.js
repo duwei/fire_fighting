@@ -82,6 +82,7 @@ Ext.define('FV.controller.DanWs', {
 			form = this.getDanWForm(),
 			dw  = this.getDanWModel().create({iconCls:'danW',});
 		form.loadRecord(dw);
+		win.setTitle('创建单位');
 		win.show();
 	},
 	rmvDanW: function() {
@@ -117,6 +118,7 @@ Ext.define('FV.controller.DanWs', {
 		var win = this.getDanWWindow(),
 			form = this.getDanWForm();
 		form.loadRecord(this.curDanW);
+		win.setTitle('编辑单位');
 		win.show();
 	},
 	saveDanW: function() {
