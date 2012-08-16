@@ -88,8 +88,22 @@ Ext.define('FV.controller.RenYs', {
 		}
     },
 	delRenYs: function(){
-		if(this.curRenY)
-		console.log('delRenYs:' + this.curRenY.get('姓名'));
+		var reny = this.curRenY,
+			st = this.getRenYsStore();
+		Ext.Msg.confirm('警告!','确定要删除人员: '+reny.get('姓名')+' 么? 删除后不能恢复。',function(kid){
+			if(kid=='yes'){
+				st.remove(reny);
+				st.sync({
+					success: function(batch,opt){
+						this.chgCurRenY(null,[null]);
+					},
+					failure: function(batch,opt){
+						console.log("failure");
+					},
+					scope: this
+				});
+			}
+		},this);
     },
 	
 	refreshRenYs: function(){
