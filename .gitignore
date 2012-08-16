@@ -7,4 +7,5 @@ serv/lib/libbase.a
 root/extjs-4.1/
 logs/*
 serv/logs/*
+xulrunner/
 
