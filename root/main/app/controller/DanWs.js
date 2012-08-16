@@ -9,6 +9,7 @@ Ext.define('FV.controller.DanWs', {
 	],
     
     refs: [
+		{ref: 'renYMain', selector: 'renymain'},
 		{ref: 'danWTree', selector: 'danwtree'},
         {ref: 'danWForm', selector: 'danwwindow form'},
         {
@@ -61,6 +62,16 @@ Ext.define('FV.controller.DanWs', {
     },
     onLaunch: function() {
 		console.log("onLaunch");
+		var tree = this.getDanWTree(),
+			st = this.getDanWsStore();
+		if(tree&&st){
+			st = st.getRootNode();
+			if(st&&st.firstChild){
+				st=st.firstChild
+				tree.getSelectionModel().select(st);
+				st.expand(false);
+			}
+		}
     },
 	
 	refreshDanW: function(){
@@ -113,8 +124,7 @@ Ext.define('FV.controller.DanWs', {
 			form = this.getDanWForm(),
 			record = form.getRecord(),
 			values = form.getValues(),
-			st = this.getDanWsStore(),
-			flag = false;
+			st = this.getDanWsStore();
 
 		record.set(values);
 		if(record.getId()==0){
@@ -123,7 +133,6 @@ Ext.define('FV.controller.DanWs', {
 			}else{
 				st.getRootNode().appendChild(record);
 			}
-			flag = true;
 		}
 		console.log('saveDanW:'+record.get('text'));
 		st.sync({
@@ -164,6 +173,7 @@ Ext.define('FV.controller.DanWs', {
 			button2 = tree.down('button[action=edit]');
 		if (this.curDanW) {
 			console.log("当前单位: "+this.curDanW.get('text')+",id:"+this.curDanW.getId());
+			this.getRenYMain().enable();
 			button2.enable();
 			button1.enable();
 		}else {

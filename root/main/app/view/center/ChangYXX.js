@@ -8,9 +8,6 @@ Ext.define('FV.view.center.ChangYXX', {
     
     initComponent: function() {
         Ext.apply(this, {
-			source: {
-				aaa:'bbb'
-			}
         });
 
         this.callParent(arguments);
