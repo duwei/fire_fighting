@@ -67,29 +67,5 @@ Ext.define('FV.view.center.RenYXX', {
 		if(value==1)return '男';
 		else if(value==2)return '女';
 		else return value;
-    },
-
-    /**
-     * Date renderer
-     * @private
-     */
-    formatDate: function(date) {
-        if (!date) {
-            return '';
-        }
-
-        var now = new Date(),
-            d = Ext.Date.clearTime(now, true),
-            notime = Ext.Date.clearTime(date, true).getTime();
-
-        if (notime === d.getTime()) {
-            return 'Today ' + Ext.Date.format(date, 'g:i a');
-        }
-
-        d = Ext.Date.add(d, 'd', -6);
-        if (d.getTime() <= notime) {
-            return Ext.Date.format(date, 'D g:i a');
-        }
-        return Ext.Date.format(date, 'Y/m/d g:i a');
     }
 });
