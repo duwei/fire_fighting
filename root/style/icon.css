@@ -1,0 +1,30 @@
+.add {
+    background-image: url( ../images/add.gif ) !important;
+}
+.add16 {
+    background-image: url( ../images/add16.gif ) !important;
+}
+.add24 {
+    background-image: url( ../images/add24.gif ) !important;
+}
+.remove {
+    background-image: url( ../images/delete.gif ) !important;
+}
+.edit {
+    background-image: url( ../images/edit.gif ) !important;
+}
+.find {
+    background-image: url( ../images/find.gif ) !important;
+}
+.view {
+    background-image: url( ../images/view.gif ) !important;
+}
+.money-up {
+    background-image: url( ../images/money_add.png ) !important;
+}
+.money-down {
+    background-image: url( ../images/money_delete.png ) !important;
+}
+.logout {
+    background-image: url( ../images/logout.png ) !important;
+}

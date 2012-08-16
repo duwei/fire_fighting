@@ -1,0 +1,2 @@
+xulrunner安装：
+下载后解压缩到xulrunner目录
