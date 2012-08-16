@@ -9,6 +9,8 @@ Ext.define('FV.controller.RenYs', {
 	],
     
     refs: [
+		{ref: 'renYXX', selector: 'renyxx'},
+		{ref: 'bianZhXX', selector: 'bianzhxx'},
 		{ref: 'changYXX', selector: 'changyxx'},
 		{ref: 'renYMain', selector: 'renymain'},
 		{ref: 'centerTab', selector: 'centertab'},
@@ -117,17 +119,32 @@ Ext.define('FV.controller.RenYs', {
 	
     chgCurRenY: function(selModel, selected) {
 		this.curRenY = selected[0];
+		var xx = this.getRenYXX(),
+			button1 = xx.down('button[action=del]'),
+			button2 = xx.down('button[action=edit]');
+			button3 = xx.down('button[action=slct]');
 		if(this.curRenY){
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curRenY.data);
 			delete o.danWId;
 			w.setSource(o);
 			w.setTitle('人员信息');
+			button1.enable();
+			button2.enable();
+			button3.enable();
+		}else{
+			button1.disable();
+			button2.disable();
+			button3.disable();
 		}
     },
 	
     chgCurBianZh: function(selModel, selected) {
 		this.curBianZh = selected[0];
+		var xx = this.getBianZhXX(),
+			button1 = xx.down('button[action=del]'),
+			button2 = xx.down('button[action=edit]');
+			button3 = xx.down('button[action=slct]');
 		if(this.curBianZh){
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curBianZh.data);
@@ -137,6 +154,13 @@ Ext.define('FV.controller.RenYs', {
 			delete o.flag;
 			w.setSource(o);
 			w.setTitle('编制信息');
+			button1.enable();
+			button2.enable();
+			button3.enable();
+		}else{
+			button1.disable();
+			button2.disable();
+			button3.disable();
 		}
     }
 

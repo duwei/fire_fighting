@@ -36,14 +36,17 @@ Ext.define('FV.view.center.RenYXX', {
                 },{
                     iconCls: 'edit-reny',
                     text: '编辑',
+                    disabled: true,
                     action: 'edit'
                 },{
                     iconCls: 'del-reny',
                     text: '删除',
+                    disabled: true,
                     action: 'del'
                 },{
                     iconCls: 'slct-reny',
                     text: '选择',
+                    disabled: true,
                     action: 'slct'
                 },'->',{
                     iconCls: 'refresh',

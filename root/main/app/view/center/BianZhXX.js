@@ -34,14 +34,17 @@ Ext.define('FV.view.center.BianZhXX', {
                 },{
                     iconCls: 'edit-bianzh',
                     text: '编辑',
+                    disabled: true,
                     action: 'edit'
                 },{
                     iconCls: 'del-bianzh',
                     text: '删除',
+                    disabled: true,
                     action: 'del'
                 },{
                     iconCls: 'slct-bianzh',
                     text: '占编',
+                    disabled: true,
                     action: 'slct'
                 },'->',{
                     iconCls: 'refresh',
