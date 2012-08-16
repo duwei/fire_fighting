@@ -11,6 +11,8 @@ Ext.define('FV.view.center.RenYMain', {
 		'Ext.toolbar.Toolbar'
 	],
 
+    disabled: true,
+	
 	border: 0,
     layout: 'border',
 

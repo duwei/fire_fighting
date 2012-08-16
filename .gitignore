@@ -9,6 +9,8 @@ logs/*.log
 serv/logs/*.log
 xulrunner/
 
+Thumbs.db*
+
 main.exe
 serv/aaaa.db
 serv/testdba.exe.log/
