@@ -9,3 +9,13 @@ logs/*
 serv/logs/*
 xulrunner/
 
+serv/apr-2.dll
+serv/dbd.exe
+serv/fun_subr.dll
+serv/main.exe
+serv/mongoose.dll
+serv/svCore.dll
+serv/testdba.exe
+serv/testsql.exe
+serv/xml.exe
+serv/xml2sql.exe
