@@ -264,7 +264,7 @@ function submitForm() {
     <td><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></td>
 </tr>
 <tr>
-    <td class="labelCell"><label for="password" id="lblPasswd">密码:</label></td>
+    <td class="labelCell"><label for="password" id="lblPasswd">密  码:</label></td>
     <td><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></td>
 </tr>
 <tr>
