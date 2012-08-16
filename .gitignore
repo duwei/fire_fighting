@@ -9,6 +9,11 @@ logs/*
 serv/logs/*
 xulrunner/
 
+main.exe
+serv/aaaa.db
+serv/testdba.exe.log/
+serv/testsql.exe.log/
+
 serv/apr-2.dll
 serv/dbd.exe
 serv/fun_subr.dll
