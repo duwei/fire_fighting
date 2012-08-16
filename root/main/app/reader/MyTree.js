@@ -39,7 +39,6 @@ Ext.define('FV.reader.MyTree', {
 				mod.__inited=true;
 			} 
 		}else{
-			alert('logout:'+data.logout);
 			if(data.logout){
 				top.location.href = '/';
 				return this.callParent([]);
