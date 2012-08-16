@@ -4,12 +4,21 @@ Ext.define('FV.controller.RenYs', {
     stores: ['RenYs','BianZhs'],
     models: ['RenY','BianZh'],
     views: [
-		'center.RenYMain'
+		'center.RenYMain',
+		'center.RenYOne'
 	],
     
     refs: [
 		{ref: 'changYXX', selector: 'changyxx'},
-		{ref: 'renYMain', selector: 'renymain'}
+		{ref: 'renYMain', selector: 'renymain'},
+		{ref: 'centerTab', selector: 'centertab'},
+		{
+			ref: 'renYOne',
+			xtype: 'renyone',
+			closable: true,
+			forceCreate: true,
+			selector: 'renyone'
+        }
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -47,17 +56,34 @@ Ext.define('FV.controller.RenYs', {
     },
 	
 	slctRenYs: function(){
-		//this.curRenY;
 		if(this.curRenY)
 		console.log('slctRenYs:' + this.curRenY.get('姓名'));
     },
 	addRenYs: function(){
-		if(this.curRenY)
-		console.log('addRenYs:' + this.curRenY.get('姓名'));
+		var tabs = this.getCenterTab(),
+			title = Ext.id({},'新建-'),
+			tab = this.getRenYOne();
+		tab.setTitle(title);
+        tabs.add(tab);
+        tabs.setActiveTab(tab);            
     },
 	editRenYs: function(){
-		if(this.curRenY)
-		console.log('editRenYs:' + this.curRenY.get('姓名'));
+		if(this.curRenY){
+			var reny = this.curRenY,
+				tabs = this.getCenterTab(),
+				title = '编辑-'+reny.get('姓名'),
+				rid = reny.get('id'),
+				tab = tabs.down('[renYId='+rid+']');
+			if(!tab){
+				tab = this.getRenYOne();
+				tab.renYId = rid;
+				tab.setTitle(title);
+				tabs.add(tab);
+			}
+			tabs.setActiveTab(tab);            
+		}else{
+			alert('请先选择人员');
+		}
     },
 	delRenYs: function(){
 		if(this.curRenY)
