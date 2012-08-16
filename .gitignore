@@ -1,0 +1,11 @@
+serv/*.[oa]
+serv/*.def
+serv/base/*.[oa]
+serv/conf/*.[oa]
+serv/lib/*.o
+serv/lib/libbase.a
+root/extjs-4.1/
+logs/*
+serv/logs/*
+xulrunner/
+
