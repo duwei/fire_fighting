@@ -7,6 +7,7 @@ Ext.define('FV.view.west.DanWWindow', {
 
     height: 165,
     width: 400,
+	modal: true,
     title: '创建单位',
     closeAction: 'hide',
     iconCls: 'danw',

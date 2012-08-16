@@ -18,7 +18,7 @@ Ext.define('FV.reader.MyJson', {
 				var md = data.metaData || {};
 				var fds = [], col = [],fs=data.fields;
 				for(var i=0;i<fs.length;i++){
-					fds.push({ "name": fs[i][0], "type": this.getType(fs[i][1]), "mapping": i });
+					fds.push({ "name": fs[i][0], "type": this.getType(fs[i][1]), "mapping": i, "useNull": true });
 					//col.push( { "text": fs[i][0], "dataIndex": fs[i][0], "flex": 1 });
 				}
 				md.fields = fds;

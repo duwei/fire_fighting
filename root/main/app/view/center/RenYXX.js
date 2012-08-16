@@ -5,6 +5,14 @@ Ext.define('FV.view.center.RenYXX', {
     requires: ['Ext.toolbar.Toolbar'],
     
     border: 0,
+	
+	viewConfig: {
+		plugins: {
+			ddGroup: 'people-group',
+			ptype: 'gridviewdragdrop',
+			enableDrop: false
+		}
+	},
     
     initComponent: function() {
         Ext.apply(this, {

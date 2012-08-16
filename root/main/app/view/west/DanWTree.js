@@ -14,6 +14,7 @@ Ext.define('FV.view.west.DanWTree', {
 			store: "DanWs",
 			viewConfig: {
 				plugins: {
+					ddGroup: 'people-group',
 					ptype: 'treeviewdragdrop'
 				}
 			},

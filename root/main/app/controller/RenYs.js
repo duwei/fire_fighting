@@ -1,14 +1,16 @@
 Ext.define('FV.controller.RenYs', {
     extend: 'Ext.app.Controller',
 
-    stores: ['RenYs','BianZhs'],
+    stores: ['RenYs','BianZhs','RenYslct'],
     models: ['RenY','BianZh'],
     views: [
+		'center.BianZhWindow',
 		'center.RenYMain',
 		'center.RenYOne'
 	],
     
     refs: [
+		{ref: 'xuanDRY', selector: 'xuandry'},
 		{ref: 'renYXX', selector: 'renyxx'},
 		{ref: 'bianZhXX', selector: 'bianzhxx'},
 		{ref: 'changYXX', selector: 'changyxx'},
@@ -20,6 +22,13 @@ Ext.define('FV.controller.RenYs', {
 			closable: true,
 			forceCreate: true,
 			selector: 'renyone'
+        },
+        {ref: 'bianZhForm', selector: 'bianzhwindow form'},
+        {
+            ref: 'bianZhWindow', 
+            selector: 'bianzhwindow', 
+            autoCreate: true,
+            xtype: 'bianzhwindow'
         }
     ],
     
@@ -27,13 +36,14 @@ Ext.define('FV.controller.RenYs', {
     // is executed on the Application
     init: function() {
         this.control({
-            'bianzhxx': {
-                selectionchange: this.chgCurBianZh
-            },
             'danwtree': {
                 selectionchange: this.chgCurDanW
             },
+            'danwtree treeview': {
+				beforedrop: this.moveRenY
+            },
             'renyxx': {
+                itemdblclick: this.editRenYs,
                 selectionchange: this.chgCurRenY
             },
             'renyxx button[action=refresh]': {
@@ -50,16 +60,189 @@ Ext.define('FV.controller.RenYs', {
             },
             'renyxx button[action=del]': {
                 click: this.delRenYs
+            },
+            'bianzhxx': {
+                itemdblclick: this.editBianZh,
+                selectionchange: this.chgCurBianZh
+            },
+            'bianzhxx button[action=refresh]': {
+                click: this.refreshBianZh
+            },
+            'bianzhxx button[action=slct]': {
+                click: this.slctBianZh
+            },
+            'bianzhxx button[action=add]': {
+                click: this.addBianZh
+            },
+            'bianzhxx button[action=edit]': {
+                click: this.editBianZh
+            },
+            'bianzhxx button[action=del]': {
+                click: this.delBianZh
+            },
+            'bianzhwindow button[action=save]': {
+                click: this.saveBianZh
+            },
+            'xuandry button[action=openall]': {
+                click: this.xd_openall
+            },
+            'xuandry button[action=editall]': {
+                click: this.xd_editall
+            },
+            'xuandry button[action=clean]': {
+                click: this.xd_clean
+            },
+            'xuandry button[action=cleanall]': {
+                click: this.xd_cleanall
             }
         });
     },
     onLaunch: function() {
 		console.log("onLaunch");
     },
+	loadAll: function(recs){
+        var viewer = this.getCenterTab(),
+            toAdd = [],
+            id;
+			
+        Ext.Array.forEach(recs, function(reny){
+            id = reny.get('id');
+            if (!viewer.down('[renYId=' + id + ']')) {
+                tab = this.getRenYOne();
+                tab.setTitle('编辑-'+reny.get('姓名'));
+                tab.renYId = id;
+                toAdd.push(tab);
+            }
+        }, this);
+        viewer.add(toAdd);
+	},
+	xd_openall: function(){
+		this.loadAll(this.getRenYslctStore().getRange());
+	},
+	xd_editall: function(){
+		console.log('xd_editall');
+	},
+	xd_clean: function(){
+		var slt = this.getXuanDRY().getSelectionModel().getSelection();
+		if(slt){
+			slt = slt[0];
+			if(slt){
+				this.getRenYslctStore().remove(slt);
+				this.xuanDMap[slt.get('id')]=null;
+			}
+		}
+	},
+	xd_cleanall: function(){
+		this.getRenYslctStore().removeAll();
+		this.xuanDMap = null;
+	},
+	saveBianZh: function(){
+		var win = this.getBianZhWindow(),
+			form = this.getBianZhForm(),
+			bz  = this.curBianZh,
+			record = form.getRecord(),
+			values = form.getValues(),
+			st = this.getBianZhsStore();
+
+		record.set(values);
+		if(record.getId()==0){
+			st.add(record);
+		}
+		st.sync({
+			success: function(batch,opt){
+				console.log("success: "+batch.operations[0].response.responseText);
+				try{
+					var obj = Ext.decode(batch.operations[0].response.responseText);
+					if(obj.ok){
+						if(obj.data){
+							record.set(obj.data);
+							st.sync();// 只更改了id
+						}
+					}else{
+						console.log(obj.msg);
+					}
+				}catch(e){
+					console.dir(e);
+				}
+				win.close();
+			},
+			failure: function(batch,opt){
+				console.log("failure");
+			},
+			scope: this
+		});
+
+	},
 	
+	addBianZh:function(){
+		var win = this.getBianZhWindow(),
+			form = this.getBianZhForm(),
+			bz  = this.getBianZhModel().create({
+				id: 0,
+				danWId:this.curDanW.get('id'),
+				flag:0
+			});
+		form.loadRecord(bz);
+		win.setTitle('创建编制');
+		win.show();
+	},
+	editBianZh:function(){
+		var win = this.getBianZhWindow(),
+			form = this.getBianZhForm(),
+			bz  = this.curBianZh;
+		form.loadRecord(bz);
+		win.setTitle('编制维护');
+		win.show();
+	},
+	refreshBianZh:function(){
+		this.getBianZhsStore().load();
+	},
+	slctBianZh:function(){
+		Ext.Msg.confirm('警告!','确定要清除占编: '+this.curBianZh.get('职务名称')+' 么? ',function(kid){
+			if(kid=='yes'){
+				var st = this.getBianZhsStore();
+				this.curBianZh.set('rid',null);
+				this.curBianZh.set('占编人员',null);
+				st.sync({
+					success: function(batch,opt){
+						this.chgCurBianZh(null,[null]);
+					},
+					failure: function(batch,opt){
+						console.log("failure   bianzh");
+					},
+					scope: this
+				});
+			}
+		},this);
+	},
+	delBianZh:function(){
+		Ext.Msg.confirm('警告!','确定要删除编制: '+this.curBianZh.get('职务名称')+' 么? ',function(kid){
+			if(kid=='yes'){
+				var st = this.getBianZhsStore();
+				st.remove(this.curBianZh);
+				st.sync({
+					success: function(batch,opt){
+						this.chgCurBianZh(null,[null]);
+					},
+					failure: function(batch,opt){
+						console.log("failure   bianzh");
+					},
+					scope: this
+				});
+			}
+		},this);
+	},
+
 	slctRenYs: function(){
-		if(this.curRenY)
-		console.log('slctRenYs:' + this.curRenY.get('姓名'));
+		if(this.curRenY){
+			console.log('slctRenYs:' + this.curRenY.get('姓名'));
+			var m = this.xuanDMap || {},id = this.curRenY.get('id');
+			if(!m[id]){
+				this.getRenYslctStore().add(this.curRenY);
+				m[id] = 1;
+				this.xuanDMap = m;
+			}
+		}
     },
 	addRenYs: function(){
 		var tabs = this.getCenterTab(),
@@ -131,6 +314,34 @@ Ext.define('FV.controller.RenYs', {
 		});
     },
 	
+	moveRenY: function(node, data, overModel, dropPosition, eOpts){
+		var rec = data.records[0];
+		if(rec.self.getName()=='FV.model.RenY'){// 拖动人员
+			var p = overModel;
+			if(dropPosition!='append'){
+				p = overModel.parentNode;
+				if(!p)p = overModel;
+				if(p.isRoot())p = p.firstChild;
+			}
+			Ext.Msg.confirm('移动人员','确定要把['+rec.get('姓名')+'] 调入单位['+p.get('text')+']么?',function(kid){
+				if(kid=='yes'){
+					rec.set('danWId',p.get('id'));
+					this.getRenYsStore().sync({
+						success: function(batch,opt){
+							this.chgCurRenY(null,[null]);
+						},
+						failure: function(batch,opt){
+							console.log("failure..");
+						},
+						scope: this
+					});
+
+				}
+			},this);
+			return false;
+		}
+	},
+	
     chgCurRenY: function(selModel, selected) {
 		this.curRenY = selected[0];
 		var xx = this.getRenYXX(),
@@ -163,7 +374,6 @@ Ext.define('FV.controller.RenYs', {
 		if(this.curBianZh){
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curBianZh.data);
-			delete o.rid;
 			delete o.danWId;
 			o['类型']=xx.formatLeiX(o.flag);
 			delete o.flag;
@@ -171,7 +381,9 @@ Ext.define('FV.controller.RenYs', {
 			w.setTitle('编制信息');
 			button1.enable();
 			button2.enable();
-			button3.enable();
+			if(o['占编人员'])button3.enable();
+			else button3.disable();
+			delete o.rid;
 		}else{
 			button1.disable();
 			button2.disable();

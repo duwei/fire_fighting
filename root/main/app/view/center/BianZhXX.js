@@ -43,14 +43,14 @@ Ext.define('FV.view.center.BianZhXX', {
                     action: 'del'
                 },{
                     iconCls: 'slct-bianzh',
-                    text: '占编',
+                    text: '清除占编',
                     disabled: true,
                     action: 'slct'
-                },'->',{
+                }/*,'->',{
                     iconCls: 'refresh',
                     text: '刷新',
                     action: 'refresh'
-                }]
+                }*/]
             }]
         });
 

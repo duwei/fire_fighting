@@ -8,31 +8,43 @@ Ext.define('FV.view.center.XuanDRY', {
     
     initComponent: function() {
         Ext.apply(this, {
-            //store: 'Articles',
+            store: 'RenYslct',
 
             columns: [{
-                text: 'Title',
-                dataIndex: 'title',
-                flex: 1,
-                renderer: this.formatTitle
+                text: '姓名',
+                dataIndex: '姓名',
+                width: 60
+                //renderer: this.formatTitle
             }, {
-                text: 'Author',
-                dataIndex: 'author',
-                hidden: true,
-                width: 200
+                text: '部别职务',
+                dataIndex: '部别职务',
+                //renderer: this.formatBB,
+                flex: 1
             }, {
-                text: 'Date',
-                dataIndex: 'pubDate',
-                renderer: this.formatDate,
-                width: 200
+                text: '身份号',
+                dataIndex: '身份号',
+                //renderer: this.formatBB,
+                flex: 1
             }],
             dockedItems:[{
                 xtype: 'toolbar',
                 dock: 'top',
                 items: [{
                     iconCls: 'open-all',
-                    text: 'Open All',
+                    text: '编辑全部',
                     action: 'openall'
+                },{
+                    iconCls: 'open-all',
+                    text: '批量修改',
+                    action: 'editall'
+                },'->',{
+                    iconCls: 'open-all',
+                    text: '清除',
+                    action: 'clean'
+                },{
+                    iconCls: 'open-all',
+                    text: '清除全部',
+                    action: 'cleanall'
                 }]
             }]
         });
@@ -44,31 +56,7 @@ Ext.define('FV.view.center.XuanDRY', {
      * Title renderer
      * @private
      */
-    formatTitle: function(value, p, record) {
+    formatBB: function(value, p, record) {
         return Ext.String.format('<div class="topic"><b>{0}</b><span class="author">{1}</span></div>', value, record.get('author') || "Unknown");
-    },
-
-    /**
-     * Date renderer
-     * @private
-     */
-    formatDate: function(date) {
-        if (!date) {
-            return '';
-        }
-
-        var now = new Date(),
-            d = Ext.Date.clearTime(now, true),
-            notime = Ext.Date.clearTime(date, true).getTime();
-
-        if (notime === d.getTime()) {
-            return 'Today ' + Ext.Date.format(date, 'g:i a');
-        }
-
-        d = Ext.Date.add(d, 'd', -6);
-        if (d.getTime() <= notime) {
-            return Ext.Date.format(date, 'D g:i a');
-        }
-        return Ext.Date.format(date, 'Y/m/d g:i a');
     }
 });

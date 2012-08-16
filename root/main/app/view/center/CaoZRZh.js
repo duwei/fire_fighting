@@ -11,29 +11,13 @@ Ext.define('FV.view.center.CaoZRZh', {
             //store: 'Articles',
 
             columns: [{
-                text: 'Title',
-                dataIndex: 'title',
-                flex: 1,
-                renderer: this.formatTitle
+                text: '时间',
+                dataIndex: '时间',
+                width: 140
             }, {
-                text: 'Author',
-                dataIndex: 'author',
-                hidden: true,
-                width: 200
-            }, {
-                text: 'Date',
-                dataIndex: 'pubDate',
-                renderer: this.formatDate,
-                width: 200
-            }],
-            dockedItems:[{
-                xtype: 'toolbar',
-                dock: 'top',
-                items: [{
-                    iconCls: 'open-all',
-                    text: 'Open All',
-                    action: 'openall'
-                }]
+                text: '操作内容',
+                dataIndex: '操作内容',
+                flex: 1
             }]
         });
 
