@@ -127,6 +127,7 @@ Ext.define('FV.controller.RenYs', {
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curRenY.data);
 			delete o.danWId;
+			o['性别']=xx.formatXingB(o['性别']);
 			w.setSource(o);
 			w.setTitle('人员信息');
 			button1.enable();
@@ -150,7 +151,7 @@ Ext.define('FV.controller.RenYs', {
 			var o = Ext.apply({},this.curBianZh.data);
 			delete o.rid;
 			delete o.danWId;
-			o['类型']=o.flag;
+			o['类型']=xx.formatLeiX(o.flag);
 			delete o.flag;
 			w.setSource(o);
 			w.setTitle('编制信息');

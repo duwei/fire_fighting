@@ -13,8 +13,7 @@ Ext.define('FV.view.center.BianZhXX', {
             columns: [{
                 text: '职务名称',
                 dataIndex: '职务名称',
-                flex: 1,
-                renderer: this.formatTitle
+                flex: 1
             }, {
                 text: '占编人员',
                 dataIndex: '占编人员',
@@ -22,7 +21,8 @@ Ext.define('FV.view.center.BianZhXX', {
             }, {
                 text: '类型',
                 dataIndex: 'flag',
-                width: 40
+                width: 40,
+                renderer: this.formatLeiX
             }],
             dockedItems:[{
                 xtype: 'toolbar',
@@ -55,5 +55,9 @@ Ext.define('FV.view.center.BianZhXX', {
         });
 
         this.callParent(arguments);
+    },
+    formatLeiX: function(value) {
+		if(value==0)return '常规';
+		else return '超编';
     }
 });

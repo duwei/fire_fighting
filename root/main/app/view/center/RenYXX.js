@@ -23,7 +23,7 @@ Ext.define('FV.view.center.RenYXX', {
             }, {
                 text: '性别',
                 dataIndex: '性别',
-                renderer: this.formatKey,
+                renderer: this.formatXingB,
                 width: 40
             }],
             dockedItems:[{
@@ -63,8 +63,10 @@ Ext.define('FV.view.center.RenYXX', {
      * Title renderer
      * @private
      */
-    formatTitle: function(value, p, record) {
-        return Ext.String.format('<div class="topic"><b>{0}</b><span class="author">{1}</span></div>', value, record.get('author') || "Unknown");
+    formatXingB: function(value) {
+		if(value==1)return '男';
+		else if(value==2)return '女';
+		else return value;
     },
 
     /**
