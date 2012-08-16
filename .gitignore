@@ -1,3 +1,5 @@
+serv/data/data1.db
+
 serv/*.[oa]
 serv/*.def
 serv/base/*.[oa]
