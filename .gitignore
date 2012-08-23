@@ -28,3 +28,5 @@ serv/testdba.exe
 serv/testsql.exe
 serv/xml.exe
 serv/xml2sql.exe
+
+serv/db/*.dll
