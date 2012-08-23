@@ -7,7 +7,7 @@ Ext.define('FV.view.center.ZhanBWindow', {
 		'Ext.form.Panel'
 	],
 
-    height: 165,
+    height: 215,
     width: 400,
 	modal: true,
     title: '占编',
@@ -27,6 +27,7 @@ Ext.define('FV.view.center.ZhanBWindow', {
                 scope: this,
                 handler: this.close
             }],
+			bodder: 0,
 
             items: [{
                 xtype: 'form',
@@ -42,8 +43,18 @@ Ext.define('FV.view.center.ZhanBWindow', {
 				},
                 items: [{
                     xtype: 'displayfield',
-					id: 'zhanBMsg',
-                    hideLabel: true
+					name: '编制职务',
+                    fieldLabel: '编制职务'
+				},{
+                    xtype: 'displayfield',
+					name: '占编人员',
+                    fieldLabel: '占编人员'
+				},{
+                    xtype: 'datefield',
+					format: 'Y-m-d',
+					submitFormat : 'Ymd',
+					name: '占编时间',
+                    fieldLabel: '占编时间'
 				},{
                     xtype: 'checkbox',
 					boxLabel: '超编',

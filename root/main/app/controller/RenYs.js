@@ -6,7 +6,7 @@ Ext.define('FV.controller.RenYs', {
 	],
 
     stores: ['RenYs','BianZhs','RenYslct'],
-    models: ['RenY','BianZh'],
+    models: ['RenY','BianZh','ZhanB'],
     views: [
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
@@ -35,7 +35,6 @@ Ext.define('FV.controller.RenYs', {
             autoCreate: true,
             xtype: 'bianzhwindow'
         },
-        {ref: 'zhanBMsg', selector: 'zhanbwindow displayfield'},
         {ref: 'zhanBForm', selector: 'zhanbwindow form'},
         {
             ref: 'zhanBWindow', 
@@ -122,10 +121,17 @@ Ext.define('FV.controller.RenYs', {
     zhanB: function(node, data, overModel, dropPosition, eOpts) {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
-			msg = this.getZhanBMsg(),
 			rec = data.records[0];
 		if(rec.self.getName()=='FV.model.RenY'){// 拖动人员
-			msg.setValue('职务: '+overModel.get('编制职务')+' 占编人员: '+rec.get('姓名'));
+			var bz  = this.getZhanBModel().create({
+				'编制职务': overModel.get('编制职务'),
+				'占编人员': rec.get('姓名'),
+				'占编时间': null,
+				chaoB: false,
+				log: false
+			});
+			form.loadRecord(bz);
+
 			this.zhanBInfo={
 				rid:rec.get('id'),
 				bid:overModel.get('id'),
@@ -141,6 +147,7 @@ Ext.define('FV.controller.RenYs', {
 			values = form.getValues();
 		this.zhanBInfo.flag = values['chaoB']||'1';
 		this.zhanBInfo.log =  values['log'];
+		this.zhanBInfo['占编时间'] =  values['占编时间'];
 		{
 			Ext.Ajax.request({
 				url: '/data/zhanb_bianzh.app',
@@ -258,7 +265,7 @@ Ext.define('FV.controller.RenYs', {
 		});
 	},
 	slctBianZh:function(){
-		Ext.Msg.confirm('警告!','确定要清除占编: '+this.curBianZh.get('职务名称')+' 么? ',function(kid){
+		Ext.Msg.confirm('警告!','确定要清除占编: '+this.curBianZh.get('编制职务')+' 么? ',function(kid){
 			if(kid=='yes'){
 				Ext.Ajax.request({
 					url: '/data/qingch_bianzh.app',
@@ -281,7 +288,7 @@ Ext.define('FV.controller.RenYs', {
 		},this);
 	},
 	delBianZh:function(){
-		Ext.Msg.confirm('警告!','确定要删除编制: '+this.curBianZh.get('职务名称')+' 么? ',function(kid){
+		Ext.Msg.confirm('警告!','确定要删除编制: '+this.curBianZh.get('编制职务')+' 么? ',function(kid){
 			if(kid=='yes'){
 				var st = this.getBianZhsStore();
 				st.remove(this.curBianZh);
