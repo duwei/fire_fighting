@@ -8,7 +8,7 @@ Ext.define('FV.view.center.BianZhWindow', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 200,
+    height: 165,
     width: 400,
 	modal: true,
     title: '创建编制',
@@ -34,10 +34,11 @@ Ext.define('FV.view.center.BianZhWindow', {
 				frame: true,
 				bodder: 0,
                 bodyStyle: 'padding: 10px;',
+				layout: 'anchor',
 				fieldDefaults: {
 					msgTarget: 'side',
-					width: 300,
-					labelWidth: 75
+					anchor: '100%',
+					labelWidth: 100
 				},
                 items: [{
                     xtype: 'textfield',

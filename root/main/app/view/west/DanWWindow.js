@@ -34,9 +34,10 @@ Ext.define('FV.view.west.DanWWindow', {
 				frame: true,
 				bodder: 0,
                 bodyStyle: 'padding: 10px;',
+				layout: 'anchor',
 				fieldDefaults: {
 					msgTarget: 'side',
-					width: 300,
+					anchor: '100%',
 					labelWidth: 75
 				},
 				defaultType: 'textfield',
