@@ -2,13 +2,16 @@ Ext.define('FV.view.center.RenYXX', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.renyxx',
 
-    requires: ['Ext.toolbar.Toolbar'],
+    requires: [
+		'Ext.toolbar.Toolbar',
+		'FV.lib.KeyMapMng'
+	],
     
     border: 0,
 	
 	viewConfig: {
 		plugins: {
-			ddGroup: 'people-group',
+			dragGroup: 'people-group',
 			ptype: 'gridviewdragdrop',
 			enableDrop: false
 		}
@@ -31,7 +34,7 @@ Ext.define('FV.view.center.RenYXX', {
             }, {
                 text: '性别',
                 dataIndex: '性别',
-                renderer: this.formatXingB,
+                renderer: FV.lib.KeyMapMng.getGridRenderer('XingBs'),
                 width: 40
             }],
             dockedItems:[{

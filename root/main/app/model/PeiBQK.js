@@ -1,4 +1,4 @@
-Ext.define('FV.model.ZhuWDJ', {// 职务等级
+Ext.define('FV.model.PeiBQK', {// 配备情况
     extend: 'Ext.data.Model',
     
     proxy: {

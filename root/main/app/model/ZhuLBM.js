@@ -1,4 +1,4 @@
-Ext.define('FV.model.ZhuLBM', {
+Ext.define('FV.model.ZhuLBM', {// 主类别码
     extend: 'Ext.data.Model',
     
     proxy: {

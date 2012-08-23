@@ -28,8 +28,7 @@ Ext.define('FV.controller.DanWs', {
                 selectionchange: this.chgCurDanW
             },
             'danwtree treeview': {
-				beforedrop: this.beforedrop,
-				drop: this.changePid
+				beforedrop: this.beforedrop
             },
             'danwtree button[action=add]': {
 				click: this.addDanW
@@ -162,21 +161,15 @@ Ext.define('FV.controller.DanWs', {
 			scope: this
 		});
 	},
-    changePid: function(node, data, overModel, dropPosition, eOpts){
-		var rec = data.records[0];
-		if(rec.self.getName()=='FV.model.DanW'){
-			var st = this.getDanWsStore();
-			st.sync();
-		}
-	},
 	beforedrop: function(node, data, overModel, dropPosition, eOpts){
 		var rec = data.records[0];
 		if(rec.self.getName()=='FV.model.DanW'){
-			Ext.Msg.confirm('移动人员','确定要调整单位['+rec.get('text')+']到单位['+overModel.get('text')+']'+(dropPosition=='before'?'之前':dropPosition=='after'?'之后':'之中')+'么?',function(kid){
-				if(kid!='yes'){
-					return false;
-				}
-			},this);
+			if(confirm('确定要调整单位['+rec.get('text')+']到单位['+overModel.get('text')+']'+(dropPosition=='before'?'之前':dropPosition=='after'?'之后':'之中')+'么?')==true){
+				var st = this.getDanWsStore();
+				st.sync();
+			}else{
+				return false;
+			}
 		}
 	},
     chgCurDanW: function(selModel, selected) {

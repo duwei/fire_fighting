@@ -3,7 +3,10 @@ Ext.define('FV.view.west.DanWWindow', {
 
     alias: 'widget.danwwindow',
 
-    requires: ['Ext.form.Panel'],
+    requires: [
+		'Ext.form.Panel',
+		'FV.lib.KeyMapMng'
+	],
 
     height: 165,
     width: 400,
@@ -43,11 +46,17 @@ Ext.define('FV.view.west.DanWWindow', {
 					afterLabelTextTpl: this.required,
 					allowBlank:false
                 },{
-					name: '驻地名称',
-                    fieldLabel: '驻地名称'
-                },{
-					name: '驻地邮编',
-                    fieldLabel: '驻地邮编'
+					name: '机构等级',
+                    fieldLabel: '单位等级',
+                    xtype: 'combobox',
+					afterLabelTextTpl: this.required,
+                    store: FV.lib.KeyMapMng.getStore('JiGDJs'),
+                    valueField: 'value',
+                    displayField: 'label',
+                    queryMode: 'local',
+					editable: false,
+ 					allowBlank:false,
+					emptyText: '请选择...'
                 }]
             }]
         });

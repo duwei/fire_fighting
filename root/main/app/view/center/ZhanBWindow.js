@@ -4,15 +4,13 @@ Ext.define('FV.view.center.ZhanBWindow', {
     alias: 'widget.zhanbwindow',
 
     requires: [
-		'FV.store.ZhuLBMs',
-		'FV.store.ZhuWDJs',
 		'Ext.form.Panel'
 	],
 
     height: 165,
     width: 400,
 	modal: true,
-    title: '创建编制',
+    title: '占编',
     closeAction: 'hide',
     iconCls: 'slct-bianzh',
     layout: 'fit',
@@ -22,7 +20,7 @@ Ext.define('FV.view.center.ZhanBWindow', {
     initComponent: function() {
         Ext.apply(this, {
             buttons: [{
-                text: '保存',
+                text: '确定',
                 action: 'save'
             }, {
                 text: '取消',
@@ -35,50 +33,27 @@ Ext.define('FV.view.center.ZhanBWindow', {
 				frame: true,
 				bodder: 0,
                 bodyStyle: 'padding: 10px;',
+				layout: 'anchor',
 				fieldDefaults: {
 					msgTarget: 'side',
-					width: 300,
-					labelWidth: 75
+					anchor: '100%',
+					labelWidth: 75,
+					hideEmptyLabel: false
 				},
                 items: [{
-                    xtype: 'combobox',
-					name: '主类别码',
-                    fieldLabel: '主类别码',
-                    store: Ext.create('FV.store.ZhuLBMs'),
-                    valueField: 'value',
-                    displayField: 'label',
-                    queryMode: 'local',
-					readOnly: true,
- 					allowBlank:false,
-					emptyText: '请选择...'
+                    xtype: 'displayfield',
+					id: 'zhanBMsg',
+                    hideLabel: true
 				},{
-                    xtype: 'textfield',
-					name: '职务名称',
-                    fieldLabel: '职务名称'
-                },{
-                    xtype: 'combobox',
-					name: '职务等级',
-                    fieldLabel: '职务等级',
-                    store: Ext.create('FV.store.ZhuWDJs'),
-                    valueField: 'value',
-                    displayField: 'label',
-                    queryMode: 'local',
-					readOnly: true,
- 					allowBlank:false,
-                    emptyText: '请选择...'
-                },{
-					id: 'zhanBianRY',
-                    xtype: 'combobox',
-					name: '占编人员',
-                    fieldLabel: 'rid',
-					afterLabelTextTpl: this.required,
-                    store: [],
-                    valueField: 'id',
-                    displayField: '姓名',
-                    queryMode: 'local',
-					editable: false,
- 					allowBlank:false,
-                    emptyText: '请选择...'
+                    xtype: 'checkbox',
+					boxLabel: '超编',
+					name: 'chaoB',
+					inputValue: '2'
+				},{
+                    xtype: 'checkbox',
+					boxLabel: '记入入伍后简历',
+					name: 'log',
+					inputValue: '1'
                 }]
             }]
         });

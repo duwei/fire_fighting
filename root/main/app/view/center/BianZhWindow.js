@@ -4,12 +4,11 @@ Ext.define('FV.view.center.BianZhWindow', {
     alias: 'widget.bianzhwindow',
 
     requires: [
-		'FV.store.ZhuLBMs',
-		'FV.store.ZhuWDJs',
-		'Ext.form.Panel'
+		'Ext.form.Panel',
+		'FV.lib.KeyMapMng'
 	],
 
-    height: 165,
+    height: 200,
     width: 400,
 	modal: true,
     title: '创建编制',
@@ -41,27 +40,27 @@ Ext.define('FV.view.center.BianZhWindow', {
 					labelWidth: 75
 				},
                 items: [{
+                    xtype: 'textfield',
+					name: '编制职务',
+                    fieldLabel: '编制职务'
+                },{
                     xtype: 'combobox',
-					name: '主类别码',
-                    fieldLabel: '主类别码',
+					name: '编制职务等级',
+                    fieldLabel: '编制职务等级',
 					afterLabelTextTpl: this.required,
-                    store: Ext.create('FV.store.ZhuLBMs'),
+                    store: FV.lib.KeyMapMng.getStore('ZhuWDJs'),
                     valueField: 'value',
                     displayField: 'label',
                     queryMode: 'local',
 					editable: false,
  					allowBlank:false,
-					emptyText: '请选择...'
-				},{
-                    xtype: 'textfield',
-					name: '职务名称',
-                    fieldLabel: '职务名称'
+                    emptyText: '请选择...'
                 },{
                     xtype: 'combobox',
-					name: '职务等级',
-                    fieldLabel: '职务等级',
+					name: '编制类型',
+                    fieldLabel: '编制类型',
 					afterLabelTextTpl: this.required,
-                    store: Ext.create('FV.store.ZhuWDJs'),
+                    store: FV.lib.KeyMapMng.getStore('BianZhLXs'),
                     valueField: 'value',
                     displayField: 'label',
                     queryMode: 'local',

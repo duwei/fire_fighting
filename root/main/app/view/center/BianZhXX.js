@@ -6,23 +6,31 @@ Ext.define('FV.view.center.BianZhXX', {
     
     border: 0,
     
+	viewConfig: {
+		plugins: {
+			dropGroup: 'people-group',
+			ptype: 'gridviewdragdrop',
+			enableDrag: false
+		}
+	},
+
     initComponent: function() {
         Ext.apply(this, {
             store: 'BianZhs',
 
             columns: [{
-                text: '职务名称',
-                dataIndex: '职务名称',
+                text: '编制职务',
+                dataIndex: '编制职务',
                 flex: 1
             }, {
                 text: '占编人员',
                 dataIndex: '占编人员',
                 width: 80
             }, {
-                text: '类型',
-                dataIndex: 'flag',
-                width: 40,
-                renderer: this.formatLeiX
+                text: '配备情况',
+                dataIndex: '配备情况',
+                width: 60,
+                renderer: FV.lib.KeyMapMng.getGridRenderer('PeiBQKs')
             }],
             dockedItems:[{
                 xtype: 'toolbar',
@@ -55,9 +63,5 @@ Ext.define('FV.view.center.BianZhXX', {
         });
 
         this.callParent(arguments);
-    },
-    formatLeiX: function(value) {
-		if(value==0)return '常规';
-		else return '超编';
     }
 });
