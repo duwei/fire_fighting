@@ -31,7 +31,7 @@ Ext.define('FV.lib.KeyMapMng', {
 		var mp = this.getMap(st);
 		if(mp==null)return this.emptyRenderer;
 		return function(key){
-			return mp[key];
+			return mp[key]||key;
 		};
 	},
 	required: '<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>',
@@ -55,5 +55,18 @@ Ext.define('FV.lib.KeyMapMng', {
 			rt.width = width;
 		}
 		return rt;
+	},
+	formatDate: function(dt) {
+		if(dt&&dt.length==8){
+			return dt.substring(0,4)+'-'+dt.substring(4,6)+'-'+dt.substring(6);
+		}
+		return dt;
+	},
+	formatIt: function(obj,key,fun){
+		var a=obj[key];
+		if(a === undefined){
+			return;
+		}
+		obj[key] = fun(a);
 	}
 });

@@ -4,7 +4,7 @@ Ext.define('FV.controller.RenYs', {
     requires: [
 		'FV.lib.KeyMapMng'
 	],
-
+	
     stores: ['RenYs','BianZhs','RenYslct'],
     models: ['RenY','BianZh','ZhanB'],
     views: [
@@ -47,6 +47,9 @@ Ext.define('FV.controller.RenYs', {
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
     // is executed on the Application
     init: function() {
+		this.keyHlp = FV.lib.KeyMapMng;
+		this.formatIt = FV.lib.KeyMapMng.formatIt;
+
         this.control({
             'danwtree': {
                 selectionchange: this.chgCurDanW
@@ -431,7 +434,18 @@ Ext.define('FV.controller.RenYs', {
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curRenY.data);
 			delete o.danWId;
-			o['性别']=FV.lib.KeyMapMng.getGridRenderer('XingBs')(o['性别']);
+			this.formatIt(o,'性别',this.keyHlp.getGridRenderer('XingBs'));
+			this.formatIt(o,'出生时间',this.keyHlp.formatDate);
+			this.formatIt(o,'工作时间',this.keyHlp.formatDate);
+			this.formatIt(o,'入伍时间',this.keyHlp.formatDate);
+			this.formatIt(o,'民族',this.keyHlp.getGridRenderer('MinZs'));
+			this.formatIt(o,'家庭出身',this.keyHlp.getGridRenderer('JiaTChShs'));
+			this.formatIt(o,'本人成分',this.keyHlp.getGridRenderer('BenRChFs'));
+			this.formatIt(o,'文化程度',this.keyHlp.getGridRenderer('XueLs'));
+			this.formatIt(o,'学位',this.keyHlp.getGridRenderer('XueWs'));
+			this.formatIt(o,'入学时间',this.keyHlp.formatDate);
+			this.formatIt(o,'毕业时间',this.keyHlp.formatDate);
+			this.formatIt(o,'专业大类',this.keyHlp.getGridRenderer('ZhuanYDLs'));
 			w.setSource(o);
 			w.setTitle('人员信息');
 			button1.enable();
@@ -453,18 +467,24 @@ Ext.define('FV.controller.RenYs', {
 		if(this.curBianZh){
 			var w = this.getChangYXX();
 			var o = Ext.apply({},this.curBianZh.data);
-			delete o.danWId;
-			//delete o.rid;
-			o['编制类型']=FV.lib.KeyMapMng.getGridRenderer('BianZhLXs')(o['编制类型']);
-			o['配备情况']=FV.lib.KeyMapMng.getGridRenderer('PeiBQKs')(o['配备情况']);
-			o['编制职务等级']=FV.lib.KeyMapMng.getGridRenderer('ZhuWDJs')(o['编制职务等级']);
-			w.setSource(o);
-			w.setTitle('编制信息');
-			button1.enable();
-			button2.enable();
-			if(o['占编人员'])button3.enable();
+			if(o['配备情况']>1){
+				button1.disable();
+				button2.disable();
+				o.id -= 30000;
+			}else{
+				button1.enable();
+				button2.enable();
+			}
+			if(o['rid'])button3.enable();
 			else button3.disable();
+			delete o.danWId;
+			this.formatIt(o,'编制类型',this.keyHlp.getGridRenderer('BianZhLXs'));
+			this.formatIt(o,'配备情况',this.keyHlp.getGridRenderer('PeiBQKs'));
+			this.formatIt(o,'编制职务等级',this.keyHlp.getGridRenderer('ZhuWDJs'));
+			this.formatIt(o,'占编时间',this.keyHlp.formatDate);
+			w.setTitle('编制信息');
 			delete o.rid;
+			w.setSource(o);
 		}else{
 			button1.disable();
 			button2.disable();
