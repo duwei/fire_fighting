@@ -1,4 +1,5 @@
 Ext.define('FV.store.XueWs', {// 学位
+    extend: 'Ext.data.Store',
 
     model: 'FV.model.LabelValue',
 

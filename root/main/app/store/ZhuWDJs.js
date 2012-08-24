@@ -1,7 +1,7 @@
-Ext.define('FV.store.ZhuWDJs', {
+Ext.define('FV.store.ZhuWDJs', {// 职务等级
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.ZhuWDJ',
+    model: 'FV.model.LabelValue',
 
     data: [
         {value: 1,   label: '军委领导'},

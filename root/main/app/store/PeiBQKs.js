@@ -1,7 +1,7 @@
-Ext.define('FV.store.PeiBQKs', {
+Ext.define('FV.store.PeiBQKs', {// 配备情况
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.PeiBQK',
+    model: 'FV.model.LabelValue',
 
     data: [
         {value: 0,   label: '缺编'},

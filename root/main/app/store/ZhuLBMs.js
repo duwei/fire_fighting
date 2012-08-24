@@ -1,7 +1,7 @@
-Ext.define('FV.store.ZhuLBMs', {
+Ext.define('FV.store.ZhuLBMs', {// 主类别码
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.ZhuLBM',
+    model: 'FV.model.LabelValue',
 
     data: [
         {value: 1,   label: '军事干部'},

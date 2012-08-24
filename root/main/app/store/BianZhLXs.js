@@ -1,7 +1,7 @@
-Ext.define('FV.store.BianZhLXs', {
+Ext.define('FV.store.BianZhLXs', {// 编制类型
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.BianZhLX',
+    model: 'FV.model.LabelValue',
 
     data: [
         {value: 1,   label: '总队机关'},

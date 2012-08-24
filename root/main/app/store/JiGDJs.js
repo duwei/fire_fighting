@@ -1,7 +1,7 @@
-Ext.define('FV.store.JiGDJs', {
+Ext.define('FV.store.JiGDJs', {// 机构等级
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.JiGDJ',
+    model: 'FV.model.LabelValue',
 
     data: [
         //{value: 1,   label: '军委总部'},

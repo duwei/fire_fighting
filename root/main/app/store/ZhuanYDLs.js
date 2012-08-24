@@ -1,4 +1,5 @@
 Ext.define('FV.store.ZhuanYDLs', {// 专业大类
+    extend: 'Ext.data.Store',
 
     model: 'FV.model.LabelValue',
 
