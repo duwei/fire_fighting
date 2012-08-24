@@ -3,11 +3,12 @@ Ext.define('FV.reader.MyTree', {
     alias : 'reader.mytree',
 	
     readRecords: function(data) {
+		var chld=[];
 		if(data.ok){
 			// 根据fields，生成metaData中的fields（stores用）和columns（grid用）
 			// 一些需要的附加信息以后可以在SQL.xml中配置，现在用缺省值
 			// fields:[['name','INT'],,,]
-			var chld=[],fs=data.datas,o,k,f=data.fields;
+			var fs=data.datas,o,k,f=data.fields;
 			if(fs){
 				for(var i=0;i<fs.length;i++){	
 					// 要求格式：必须有这些属性: id,parentId,leaf,text 
