@@ -33,5 +33,27 @@ Ext.define('FV.lib.KeyMapMng', {
 		return function(key){
 			return mp[key];
 		};
+	},
+	required: '<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>',
+	getCombField: function(nm,label,st,required,width){
+		var rt =  {
+			xtype: 'combobox',
+			name: nm,
+			fieldLabel: label,
+			afterLabelTextTpl: required?this.required:null,
+			store: this.getStore(st),
+			valueField: 'value',
+			displayField: 'label',
+			queryMode: 'local',
+			editable: false,
+			allowBlank:false,
+			emptyText: '请选择...'
+		};
+		if(width<=1){
+			rt.flex = width;
+		}else if(width>1){
+			rt.width = width;
+		}
+		return rt;
 	}
 });
