@@ -1,47 +1,18 @@
 Ext.define('FV.store.BianZhZhWs', {// 编制职务 行政职务
     extend: 'Ext.data.Store',
 
-    model: 'FV.model.LabelValue',
+    requires: ['FV.reader.MyJson'],
 
-    data: [
-        {value: 1 ,   label: '总队长'},
-        {value: 2 ,   label: '政治委员'},
-        {value: 3 ,   label: '副总队长'},
-        {value: 4 ,   label: '副政治委员'},
-        {value: 5 ,   label: '总工程师'},
-        {value: 6 ,   label: '支队长'},
-        {value: 7 ,   label: '副支队长'},
-        {value: 8 ,   label: '参谋长'},
-        {value: 9 ,   label: '副参谋长'},
-        {value: 10,   label: '政治协理员'},
-        {value: 11,   label: '部长'},
-        {value: 12,   label: '副部长'},
-        {value: 13,   label: '主任'},
-        {value: 14,   label: '副主任'},
-        {value: 15,   label: '处长'},
-        {value: 16,   label: '副处长'},
-        {value: 17,   label: '科长'},
-        {value: 18,   label: '副科长'},
-        {value: 19,   label: '大队长'},
-        {value: 20,   label: '政治教导员'},
-        {value: 21,   label: '副大队长'},
-        {value: 22,   label: '副政治教导员'},
-        {value: 23,   label: '代理大队长'},
-        {value: 24,   label: '代理政治教导员'},
-        {value: 25,   label: '中队长'},
-        {value: 26,   label: '政治指导员'},
-        {value: 27,   label: '副中队长'},
-        {value: 28,   label: '副政治指导员'},
-        {value: 29,   label: '代理副中队长'},
-        {value: 30,   label: '代理副政治指导员'},
-        {value: 31,   label: '队长'},
-        {value: 32,   label: '所长'},
-        {value: 33,   label: '站长'},
-        {value: 34,   label: '参谋'},
-        {value: 35,   label: '干事'},
-        {value: 36,   label: '助理员'},
-        {value: 37,   label: '管理员'},
-        {value: 38,   label: '科员'},
-        {value: 0 ,   label: '无行政职务'}
-	]
+    model: 'FV.model.DictList',
+
+	proxy: {
+		type: 'ajax',
+		url: '/data/dict.app',
+		extraParams: {
+			type: 'BianZhZhW'
+		},
+		reader: {
+			type: 'myjson'
+		}
+	}
 });

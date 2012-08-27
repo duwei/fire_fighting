@@ -5,8 +5,8 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.KeyMapMng'
 	],
 	
-    stores: ['RenYs','BianZhs','RenYslct'],
-    models: ['RenY','BianZh','ZhanB'],
+    stores: ['RenYs','RenY2s','BianZhs','RenYslct'],
+    models: ['RenY','RenY2','BianZh','ZhanB'],
     views: [
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
@@ -166,6 +166,30 @@ Ext.define('FV.controller.RenYs', {
 			});
 		}
     },
+	loadRenYInfo: function(tab,reny){
+		var reny2,reny2s;
+		var f1 = tab.down('form[formId=renY1]'),
+			f2 = tab.down('form[formId=renY2]');
+		if(reny==null){
+			reny = this.getRenYModel().create({});
+			reny2 = this.getRenY2Model().create({});
+			f2.loadRecord(reny2);
+		}else{
+			reny2s = this.getRenY2sStore();
+			reny2s.load({
+				params:{
+					id: reny.get('id')
+				},
+				scope: this,
+				callback: function(records, operation, success){
+					if(success){
+						f2.loadRecord(records[0]);
+					}
+				}
+			});
+		}
+		f1.loadRecord(reny);
+	},
 	loadAll: function(recs){
         var viewer = this.getCenterTab(),
             toAdd = [],
@@ -177,6 +201,7 @@ Ext.define('FV.controller.RenYs', {
                 tab = this.getRenYOne();
                 tab.setTitle('编辑-'+reny.get('姓名'));
                 tab.renYId = id;
+				this.loadRenYInfo(tab,reny);
                 toAdd.push(tab);
             }
         }, this);
@@ -325,6 +350,7 @@ Ext.define('FV.controller.RenYs', {
 			tab = this.getRenYOne();
 		tab.setTitle(title);
         tabs.add(tab);
+		this.loadRenYInfo(tab,null);
         tabs.setActiveTab(tab);            
     },
 	editRenYs: function(){
@@ -338,6 +364,7 @@ Ext.define('FV.controller.RenYs', {
 				tab = this.getRenYOne();
 				tab.renYId = rid;
 				tab.setTitle(title);
+				this.loadRenYInfo(tab,reny);
 				tabs.add(tab);
 			}
 			tabs.setActiveTab(tab);            
@@ -435,6 +462,7 @@ Ext.define('FV.controller.RenYs', {
 			var o = Ext.apply({},this.curRenY.data);
 			delete o.danWId;
 			this.formatIt(o,'性别',this.keyHlp.getGridRenderer('XingBs'));
+			this.formatIt(o,'职务',this.keyHlp.getGridRenderer('BianZhZhWs'));
 			this.formatIt(o,'出生时间',this.keyHlp.formatDate);
 			this.formatIt(o,'工作时间',this.keyHlp.formatDate);
 			this.formatIt(o,'入伍时间',this.keyHlp.formatDate);
@@ -478,9 +506,10 @@ Ext.define('FV.controller.RenYs', {
 			if(o['rid'])button3.enable();
 			else button3.disable();
 			delete o.danWId;
+			this.formatIt(o,'编制职务',this.keyHlp.getGridRenderer('BianZhZhWs'));
 			this.formatIt(o,'编制类型',this.keyHlp.getGridRenderer('BianZhLXs'));
 			this.formatIt(o,'配备情况',this.keyHlp.getGridRenderer('PeiBQKs'));
-			this.formatIt(o,'编制职务等级',this.keyHlp.getGridRenderer('ZhuWDJs'));
+			this.formatIt(o,'编制职务等级',this.keyHlp.getGridRenderer('ZhiWDJ3s'));
 			this.formatIt(o,'占编时间',this.keyHlp.formatDate);
 			w.setTitle('编制信息');
 			delete o.rid;

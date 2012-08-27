@@ -21,7 +21,8 @@ Ext.define('FV.view.center.BianZhXX', {
             columns: [{
                 text: '编制职务',
                 dataIndex: '编制职务',
-                flex: 1
+                flex: 1,
+                renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhZhWs')
             }, {
                 text: '占编人员',
                 dataIndex: '占编人员',

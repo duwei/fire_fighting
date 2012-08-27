@@ -25,12 +25,12 @@ Ext.define('FV.view.center.RenYXX', {
                 text: '姓名',
                 dataIndex: '姓名',
                 width: 60
-                //renderer: this.formatTitle
             }, {
                 text: '职务',
                 dataIndex: '职务',
                 //hidden: true,
-                flex: 1
+                flex: 1,
+                renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhZhWs')
             }, {
                 text: '性别',
                 dataIndex: '性别',
@@ -68,15 +68,5 @@ Ext.define('FV.view.center.RenYXX', {
         });
 
         this.callParent(arguments);
-    },
-
-    /**
-     * Title renderer
-     * @private
-     */
-    formatXingB: function(value) {
-		if(value==1)return '男';
-		else if(value==2)return '女';
-		else return value;
     }
 });

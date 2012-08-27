@@ -16,8 +16,6 @@ Ext.define('FV.view.center.BianZhWindow', {
     iconCls: 'slct-bianzh',
     layout: 'fit',
 
-	required: '<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>',
-	
     initComponent: function() {
         Ext.apply(this, {
             buttons: [{
@@ -40,35 +38,11 @@ Ext.define('FV.view.center.BianZhWindow', {
 					anchor: '100%',
 					labelWidth: 100
 				},
-                items: [{
-                    xtype: 'textfield',
-					name: '编制职务',
-                    fieldLabel: '编制职务'
-                },{
-                    xtype: 'combobox',
-					name: '编制职务等级',
-                    fieldLabel: '编制职务等级',
-					afterLabelTextTpl: this.required,
-                    store: FV.lib.KeyMapMng.getStore('ZhuWDJs'),
-                    valueField: 'value',
-                    displayField: 'label',
-                    queryMode: 'local',
-					editable: false,
- 					allowBlank:false,
-                    emptyText: '请选择...'
-                },{
-                    xtype: 'combobox',
-					name: '编制类型',
-                    fieldLabel: '编制类型',
-					afterLabelTextTpl: this.required,
-                    store: FV.lib.KeyMapMng.getStore('BianZhLXs'),
-                    valueField: 'value',
-                    displayField: 'label',
-                    queryMode: 'local',
-					editable: false,
- 					allowBlank:false,
-                    emptyText: '请选择...'
-                }]
+                items: [
+					FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',true,0,{}),
+					FV.lib.KeyMapMng.getCombField('编制职务等级','编制职务等级','ZhiWDJs',true,0,{queryMode: 'local'}),
+					FV.lib.KeyMapMng.getCombField('编制类型','编制类型','BianZhLXs',true,0,{queryMode: 'local'})
+				]
             }]
         });
 

@@ -15,27 +15,71 @@ Ext.define('FV.lib.KeyMapMng', {
 		if(!rt){
 			var s = this.getStore(st);
 			if(s){
+				var proxy = s.getProxy();
 				rt = {};
-				(s.snapshot||s.data).each(function(d){
-					rt[d.get('value')]=d.get('label');
-				});
+				if(proxy instanceof Ext.data.proxy.Ajax){
+					s.on({
+						load: {
+							fn: function(thisSt,recs,succ){
+								if(succ){
+									var mp = this.maps[st];
+									Ext.each(recs,function(r){
+										mp[r.get('value')]=r.get('label');
+									});
+									delete mp.__notinited;
+								}
+							},
+							scope: this,
+							single: true
+						}
+					});
+					rt.__notinited = true;
+				}else{
+					(s.snapshot||s.data).each(function(d){
+						rt[d.get('value')]=d.get('label');
+					});
+				}
 				this.maps[st] = rt;
 			}
 		}
 		return rt;
 	},
-	emptyRenderer: function(key){
-		return key;
+	emptyRenderer: function(vl){
+		return vl;
 	},
 	getGridRenderer: function(st){
 		var mp = this.getMap(st);
+		var ths = this;
+		var kst = this.getStore(st);
 		if(mp==null)return this.emptyRenderer;
-		return function(key){
-			return mp[key]||key;
+		return function(vl,metaData,record,rowIndex,colIndex,store,view){
+			var lb = mp[vl];
+			if(lb)return lb;
+			if(metaData){
+				lb = Ext.id();
+				//metaData.attr = "id='" + lb + "'";
+				kst.on({
+					load: {
+						fn: function(thisSt,recs,succ){
+							if(succ){
+								Ext.fly(lb).update(this.maps[st][vl]);
+							}
+						},
+						scope: ths,
+						single: true
+					}
+				});
+				if(mp.__notinited){
+					if(!kst.isLoading())
+						kst.load();
+				}
+				return '<span id="'+lb+'">'+vl+'</span>';
+			}
+			return '('+vl+')';
 		};
 	},
 	required: '<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>',
-	getCombField: function(nm,label,st,required,width){
+	getCombField: function(nm,label,st,required,width,conf){
 		var rt =  {
 			xtype: 'combobox',
 			name: nm,
@@ -44,15 +88,18 @@ Ext.define('FV.lib.KeyMapMng', {
 			store: this.getStore(st),
 			valueField: 'value',
 			displayField: 'label',
-			queryMode: 'local',
+			//queryMode: 'local',
 			editable: false,
-			allowBlank:false,
+			allowBlank:required?false:true,
 			emptyText: '请选择...'
 		};
-		if(width<=1){
+		if(width>0&&width<=1){
 			rt.flex = width;
 		}else if(width>1){
 			rt.width = width;
+		}
+		if(Ext.isObject(conf)){
+			Ext.apply(rt,conf);
 		}
 		return rt;
 	},

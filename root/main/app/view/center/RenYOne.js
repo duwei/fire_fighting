@@ -35,6 +35,7 @@ Ext.define('FV.view.center.RenYOne', {
 			items: [{
 				//disabled: true,
 				//disabledCls: 'my-disabledCls',
+				formId: 'renY1',
 				items: [{
 					xtype: 'container',
 					layout: 'hbox',
@@ -92,8 +93,8 @@ Ext.define('FV.view.center.RenYOne', {
 								margin:'0 0 5 0'
 							},
 							items: [
-								FV.lib.KeyMapMng.getCombField('性别','性别','XingBs',false,1),
-								FV.lib.KeyMapMng.getCombField('民族','民族','MinZs',false,1)
+								FV.lib.KeyMapMng.getCombField('性别','性别','XingBs',false,1,{queryMode: 'local'}),
+								FV.lib.KeyMapMng.getCombField('民族','民族','MinZs',false,1,{queryMode: 'local'})
 							]
 						},{
 							xtype: 'container',
@@ -101,6 +102,7 @@ Ext.define('FV.view.center.RenYOne', {
 							defaultType: 'datefield',
 							defaults: {
 								labelWidth: 60,
+								altFormats: 'Ymd',
 								format: 'Y-m-d',
 								submitFormat : 'Ymd',
 								flex: 1,
@@ -119,15 +121,33 @@ Ext.define('FV.view.center.RenYOne', {
 						},{
 							xtype: 'container',
 							layout: 'hbox',
+							defaultType: 'textfield',
+							defaults: {
+								labelWidth: 60,
+								flex: 1,
+								margin:'0 0 5 0'
+							},
+							items: [{
+								fieldLabel: '籍贯',
+								name: '籍贯'
+							}, {
+								fieldLabel: '出生地',
+								name: '出生地'
+							}, {
+								fieldLabel: '入伍地',
+								name: '入伍地'
+							}]
+						},{
+							xtype: 'container',
+							layout: 'hbox',
 							defaults: {
 								labelWidth: 60,
 								flex: 1,
 								margin:'0 0 5 0'
 							},
 							items: [
-								FV.lib.KeyMapMng.getCombField('籍贯','籍贯','XingBs',false,1),
-								FV.lib.KeyMapMng.getCombField('出生地','出生地','XingBs',false,1), 
-								FV.lib.KeyMapMng.getCombField('入伍地','入伍地','XingBs',false,1)
+								FV.lib.KeyMapMng.getCombField('家庭出身','家庭出身','JiaTChShs',false,1,{queryMode: 'local'}),
+								FV.lib.KeyMapMng.getCombField('本人成分','本人成分','BenRChFs',false,1,{queryMode: 'local'})
 							]
 						},{
 							xtype: 'container',
@@ -138,20 +158,8 @@ Ext.define('FV.view.center.RenYOne', {
 								margin:'0 0 5 0'
 							},
 							items: [
-								FV.lib.KeyMapMng.getCombField('家庭出身','家庭出身','JiaTChShs',false,1),
-								FV.lib.KeyMapMng.getCombField('本人成分','本人成分','BenRChFs',false,1)
-							]
-						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaults: {
-								labelWidth: 60,
-								flex: 1,
-								margin:'0 0 5 0'
-							},
-							items: [
-								FV.lib.KeyMapMng.getCombField('文化程度','文化程度','XueLs',false,1),
-								FV.lib.KeyMapMng.getCombField('学位','学位','XueWs',false,1)
+								FV.lib.KeyMapMng.getCombField('文化程度','文化程度','XueLs',false,1,{queryMode: 'local'}),
+								FV.lib.KeyMapMng.getCombField('学位','学位','XueWs',false,1,{queryMode: 'local'})
 							]
 						},{
 							xtype: 'container',
@@ -172,6 +180,7 @@ Ext.define('FV.view.center.RenYOne', {
 							defaultType: 'datefield',
 							defaults: {
 								labelWidth: 60,
+								altFormats: 'Ymd',
 								format: 'Y-m-d',
 								submitFormat : 'Ymd',
 								flex: 1,
@@ -194,7 +203,7 @@ Ext.define('FV.view.center.RenYOne', {
 								margin:'0 0 5 0'
 							},
 							items: [
-								FV.lib.KeyMapMng.getCombField('专业大类','专业大类','ZhuanYDLs',false,1), 
+								FV.lib.KeyMapMng.getCombField('专业大类','专业大类','ZhuanYDLs',false,1,{queryMode: 'local'}), 
 								{
 								fieldLabel: '专业细类',
 								name: '专业细类'
@@ -203,6 +212,7 @@ Ext.define('FV.view.center.RenYOne', {
 					}]
 				}]
 			},{
+				formId: 'renY2',
 				items: [{
 					xtype: 'fieldset',
 					title: '干部常用信息',
@@ -225,7 +235,7 @@ Ext.define('FV.view.center.RenYOne', {
 					defaults: {
 						anchor: '50%'
 					},
-					items: [FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJs',false,1)]
+					items: [FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJs',false,1,{queryMode: 'local'})]
 				},{
 					xtype: 'fieldset',
 					title: '技术干部',
@@ -247,9 +257,12 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [
-							FV.lib.KeyMapMng.getCombField('技术职务','技术职务','XingBs',false,1), 
+							FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '技术职务时间',
 							name: '技术职务时间'
 						}]
@@ -263,9 +276,12 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [
-							FV.lib.KeyMapMng.getCombField('技术等级','技术等级','XingBs',false,1), 
+							FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '技术等级时间',
 							name: '技术等级时间'
 						}]
@@ -291,9 +307,12 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [
-							FV.lib.KeyMapMng.getCombField('职务资格','职务资格','XingBs',false,1), 
+							FV.lib.KeyMapMng.getCombField('职务资格','职务资格','JiShZhWs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '职务资格时间',
 							name: '职务资格时间'
 						}]
@@ -307,8 +326,8 @@ Ext.define('FV.view.center.RenYOne', {
 						margin:'0 0 5 0'
 					},
 					items: [
-						FV.lib.KeyMapMng.getCombField('工资档次','工资档次','XingBs',false,1), 
-						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','XingBs',false,1)
+						FV.lib.KeyMapMng.getCombField('工资档次','工资档次','GongZDCs',false,1,{queryMode: 'local'}), 
+						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJs',false,1,{queryMode: 'local'})
 					]
 				},{
 					xtype: 'container',
@@ -320,8 +339,11 @@ Ext.define('FV.view.center.RenYOne', {
 						margin:'0 0 5 0'
 					},
 					items: [
-						FV.lib.KeyMapMng.getCombField('衔级档次','衔级档次','XingBs',false,1),
+						FV.lib.KeyMapMng.getCombField('衔级档次','衔级档次','XianJDCs',false,1,{queryMode: 'local'}),
 						{
+							format: 'Y-m-d',
+							altFormats: 'Ymd',
+							submitFormat : 'Ymd',
 							fieldLabel: '衔级时间',
 							name: '衔级时间'
 						}]
@@ -335,7 +357,7 @@ Ext.define('FV.view.center.RenYOne', {
 						margin:'0 0 5 0'
 					},
 					items: [
-						FV.lib.KeyMapMng.getCombField('干部来源','干部来源','XingBs',false,1),
+						FV.lib.KeyMapMng.getCombField('干部来源','干部来源','GanBLYs',false,1,{queryMode: 'local'}),
 						{
 					}]
 				},{
@@ -359,9 +381,15 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '艰苦起时',
 							name: '艰苦起时'
 						},{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '艰苦止时',
 							name: '艰苦止时'
 						},{
@@ -384,8 +412,11 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '警官证号',
 							name: '警官证号'
 						},
-						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','XingBs',false,1),
+						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,1,{queryMode: 'local'}),
 						{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '党团时间',
 							name: '党团时间'
 					}]
@@ -406,9 +437,15 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '入学时间',
 							name: '入学时间1'
 						},{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '毕业时间',
 							name: '毕业时间1'
 						},{
@@ -416,9 +453,9 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '院校名称',
 							name: '院校名称1'
 						},
-						FV.lib.KeyMapMng.getCombField('学历1','学历','XingBs',false,1),
-						FV.lib.KeyMapMng.getCombField('学位1','学位','XingBs',false,1),
-						FV.lib.KeyMapMng.getCombField('专业1','专业','XingBs',false,1),{
+						FV.lib.KeyMapMng.getCombField('学历1','学历','XueWs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学位1','学位','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('专业1','专业','ZhuanYDLs',false,1,{queryMode: 'local'}),{
 							xtype: 'textfield',
 							fieldLabel: '专业细类',
 							name: '专业细类1'
@@ -433,9 +470,15 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '入学时间',
 							name: '入学时间2'
 						},{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
 							fieldLabel: '毕业时间',
 							name: '毕业时间2'
 						},{
@@ -443,9 +486,9 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '院校名称',
 							name: '院校名称2'
 						},
-						FV.lib.KeyMapMng.getCombField('学历2','学历','XingBs',false,1),
-						FV.lib.KeyMapMng.getCombField('学位2','学位','XingBs',false,1),
-						FV.lib.KeyMapMng.getCombField('专业2','专业','XingBs',false,1),{
+						FV.lib.KeyMapMng.getCombField('学历2','学历','XueWs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学位2','学位','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('专业2','专业','ZhuanYDLs',false,1,{queryMode: 'local'}),{
 							xtype: 'textfield',
 							fieldLabel: '专业细类',
 							name: '专业细类2'
@@ -459,6 +502,8 @@ Ext.define('FV.view.center.RenYOne', {
 					action: 'save'
 				}, {
 					text: '取消',
+					scope: this,
+					handler: this.close
 				}]
 			}]
         });
