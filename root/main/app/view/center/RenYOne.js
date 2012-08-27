@@ -223,6 +223,8 @@ Ext.define('FV.view.center.RenYOne', {
 					boxLabel: '文职干部',
 					hideLabel: true,
 					checked: false,
+					inputValue: 1,
+					uncheckedValue: 0,
 					style: 'margin-bottom:10px'
 				},{
 					xtype: 'fieldset',
@@ -232,6 +234,9 @@ Ext.define('FV.view.center.RenYOne', {
 					defaultType: 'textfield',
 					collapsed: true,
 					layout: 'anchor',
+					inputValue: 1,
+					uncheckedValue: 0,
+					createCheckboxCmp: this.createCheckboxCmp,
 					defaults: {
 						anchor: '50%'
 					},
@@ -241,6 +246,9 @@ Ext.define('FV.view.center.RenYOne', {
 					title: '技术干部',
 					checkboxName: '是否技术干部',
 					checkboxToggle:true,
+					inputValue: 1,
+					uncheckedValue: 0,
+					createCheckboxCmp: this.createCheckboxCmp,
 					defaultType: 'textfield',
 					collapsed: true,
 					layout: 'anchor',
@@ -291,6 +299,9 @@ Ext.define('FV.view.center.RenYOne', {
 					title: '技术资格',
 					checkboxName: '有无技术资格',
 					checkboxToggle:true,
+					inputValue: 1,
+					uncheckedValue: 0,
+					createCheckboxCmp: this.createCheckboxCmp,
 					defaultType: 'textfield',
 					collapsed: true,
 					layout: 'anchor',
@@ -365,6 +376,9 @@ Ext.define('FV.view.center.RenYOne', {
 					title: '艰苦经历',
 					checkboxName: '有无艰苦经历',
 					checkboxToggle:true,
+					inputValue: 1,
+					uncheckedValue: 0,
+					createCheckboxCmp: this.createCheckboxCmp,
 					defaultType: 'datefield',
 					collapsed: true,
 					layout: 'anchor',
@@ -509,6 +523,26 @@ Ext.define('FV.view.center.RenYOne', {
         });
 
         this.callParent(arguments);
-    }
+    },
+	createCheckboxCmp: function() {
+		var me = this,
+			suffix = '-checkbox';
+
+		me.checkboxCmp = Ext.widget({
+			xtype: 'checkbox',
+			hideEmptyLabel: true,
+			name: me.checkboxName || me.id + suffix,
+			cls: me.baseCls + '-header' + suffix,
+			id: me.id + '-legendChk',
+			checked: !me.collapsed,
+			inputValue: me.inputValue,
+			uncheckedValue: me.uncheckedValue,
+			listeners: {
+				change: me.onCheckChange,
+				scope: me
+			}
+		});
+		return me.checkboxCmp;
+	}
 
 });

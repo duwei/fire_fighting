@@ -5,7 +5,7 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.KeyMapMng'
 	],
 	
-    stores: ['RenYs','RenY2s','BianZhs','RenYslct'],
+    stores: ['RenYs','BianZhs','RenYslct'],
     models: ['RenY','RenY2','BianZh','ZhanB'],
     views: [
 		'center.ZhanBWindow',
@@ -115,12 +115,110 @@ Ext.define('FV.controller.RenYs', {
             },
             'xuandry button[action=cleanall]': {
                 click: this.xd_cleanall
-            }
+            },
+			'renyone button[action=save]': {
+				click: this.renyone_save
+			}
         });
     },
     onLaunch: function() {
 		console.log("onLaunch");
     },
+	renyone_save: function(btn){
+		var ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			f2 = ro.down('form[formId=renY2]'),
+			vs1 = f1.getValues(false,true),
+			vs2 = f2.getValues(false,false),
+			r1 = f1.getRecord(),
+			r2 = f2.getRecord(),
+			st = this.getRenYsStore(),
+			flag = false;
+		r1.set(vs1);
+		r2.set(vs2);
+
+		if(r1.get('id')==0){
+			st.add(r1);
+			flag=true;
+		}else{
+			var i,m=0;
+			vs1 = r1.getChanges();
+			for(i in vs1){
+				if(i!='id'){
+					m++;
+					break;
+				}
+			}
+			if(m==0){
+				vs1 = r2.getChanges();
+				for(i in vs1){
+					if(i!='id'){
+						m++;
+						break;
+					}
+				}
+				if(m>0){
+					r2.save({
+						success: function(){
+							Ext.Msg.alert('成功','数据保存成功！');
+						},
+						failure: function(batch,opt){
+							Ext.Msg.alert('失败','数据保存不成功！');
+						}
+					});
+				}
+				console.log('xxxxxxxxxxxx');
+				return;
+			}
+			console.log('xxxxxxxxxxxx1');
+		}
+		console.log('xxxxxxxxxxxx2');
+		st.sync({
+			success: function(batch,opt){
+				var i,m=0,o;
+				console.log("success: "+batch.operations[0].response.responseText);
+				try{
+					var obj = Ext.decode(batch.operations[0].response.responseText);
+					if(obj.ok){
+						if(obj.data){
+							if(flag){
+								r1.set(obj.data);
+								st.sync();// 只更改了id
+								r2.set({id:obj.id});
+			console.log('xxxxxxxxxxxx1xxxyyyyyyyyyy');
+							}
+						}
+			console.log('xxxxxxxxxxxx1xxxyyyyyyyyyy2');
+						o = r2.getChanges();
+						for(i in o){
+							if(i!='id'){
+								m++;
+								break;
+							}
+						}
+						if(m>0){
+							r2.save({
+								success: function(){
+									Ext.Msg.alert('成功','数据保存成功！');
+								},
+								failure: function(batch,opt){
+									Ext.Msg.alert('失败','数据保存不成功！');
+								}
+							});
+						}
+					}else{
+						console.log(obj.msg);
+					}
+				}catch(e){
+					console.dir(e);
+				}
+			},
+			failure: function(batch,opt){
+				console.log("renyone_save failure");
+			},
+			scope: this
+		});
+	},
     zhanB: function(node, data, overModel, dropPosition, eOpts) {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
@@ -167,24 +265,19 @@ Ext.define('FV.controller.RenYs', {
 		}
     },
 	loadRenYInfo: function(tab,reny){
-		var reny2,reny2s;
 		var f1 = tab.down('form[formId=renY1]'),
 			f2 = tab.down('form[formId=renY2]');
 		if(reny==null){
 			reny = this.getRenYModel().create({});
-			reny2 = this.getRenY2Model().create({});
-			f2.loadRecord(reny2);
+			f2.loadRecord(this.getRenY2Model().create({}));
 		}else{
-			reny2s = this.getRenY2sStore();
-			reny2s.load({
-				params:{
-					id: reny.get('id')
-				},
+			FV.model.RenY2.load(reny.get('id'),{
 				scope: this,
-				callback: function(records, operation, success){
-					if(success){
-						f2.loadRecord(records[0]);
-					}
+				failure: function(record, operation) {
+					console.log('load RenY2 Info ERR.');
+				},
+				success: function(record, operation) {
+					f2.loadRecord(record);
 				}
 			});
 		}
