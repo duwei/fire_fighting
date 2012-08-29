@@ -467,8 +467,8 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '院校名称',
 							name: '院校名称1'
 						},
-						FV.lib.KeyMapMng.getCombField('学历1','学历','XueWs',false,1,{queryMode: 'local'}),
-						FV.lib.KeyMapMng.getCombField('学位1','学位','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学历1','学历','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学位1','学位','XueWs',false,1,{queryMode: 'local'}),
 						FV.lib.KeyMapMng.getCombField('专业1','专业','ZhuanYDLs',false,1,{queryMode: 'local'}),{
 							xtype: 'textfield',
 							fieldLabel: '专业细类',
@@ -500,8 +500,8 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '院校名称',
 							name: '院校名称2'
 						},
-						FV.lib.KeyMapMng.getCombField('学历2','学历','XueWs',false,1,{queryMode: 'local'}),
-						FV.lib.KeyMapMng.getCombField('学位2','学位','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学历2','学历','XueLs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('学位2','学位','XueWs',false,1,{queryMode: 'local'}),
 						FV.lib.KeyMapMng.getCombField('专业2','专业','ZhuanYDLs',false,1,{queryMode: 'local'}),{
 							xtype: 'textfield',
 							fieldLabel: '专业细类',

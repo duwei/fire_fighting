@@ -7,6 +7,7 @@
     <title id="page-title">干部信息管理系统</title>
 
     <link rel="stylesheet" type="text/css" href="../extjs-4.1/resources/css/ext-all.css">
+	<link rel="stylesheet" type="text/css" href="../extjs-4.1/ux/statusbar/css/statusbar.css" />
     <link rel="stylesheet" type="text/css" href="../style/icon.css">
 
     <script type="text/javascript" src="../extjs-4.1/ext-debug.js"></script>
@@ -21,8 +22,14 @@
 
     <style type="text/css" media="screen">
         /**
-         * Icons
+         * Icons 
          */
+		.sch_chaobian .x-grid-cell {
+			background-color:#FFFFBB !important;
+		}
+		.sch_kongbian .x-grid-cell {
+			background-color:#FFBBFF !important;
+		}
        .my-disabledCls {
               opacity: 0 !important;
         }

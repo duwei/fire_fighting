@@ -39,7 +39,7 @@ Ext.define('FV.view.center.BianZhWindow', {
 					labelWidth: 100
 				},
                 items: [
-					FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',true,0,{}),
+					FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',true,0,{queryMode: 'local'}),
 					FV.lib.KeyMapMng.getCombField('编制职务等级','编制职务等级','ZhiWDJs',true,0,{queryMode: 'local'}),
 					FV.lib.KeyMapMng.getCombField('编制类型','编制类型','BianZhLXs',true,0,{queryMode: 'local'})
 				]

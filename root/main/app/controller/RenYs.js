@@ -137,7 +137,10 @@ Ext.define('FV.controller.RenYs', {
 		r1.set(vs1);
 		r2.set(vs2);
 
-		if(r1.get('id')==0){
+		if(r1.get('id')==null){
+			r1.set({
+				danWId:this.curDanW.get("id")
+			});
 			st.add(r1);
 			flag=true;
 		}else{
@@ -167,12 +170,9 @@ Ext.define('FV.controller.RenYs', {
 						}
 					});
 				}
-				console.log('xxxxxxxxxxxx');
 				return;
 			}
-			console.log('xxxxxxxxxxxx1');
 		}
-		console.log('xxxxxxxxxxxx2');
 		st.sync({
 			success: function(batch,opt){
 				var i,m=0,o;
@@ -185,10 +185,8 @@ Ext.define('FV.controller.RenYs', {
 								r1.set(obj.data);
 								st.sync();// 只更改了id
 								r2.set({id:obj.id});
-			console.log('xxxxxxxxxxxx1xxxyyyyyyyyyy');
 							}
 						}
-			console.log('xxxxxxxxxxxx1xxxyyyyyyyyyy2');
 						o = r2.getChanges();
 						for(i in o){
 							if(i!='id'){
@@ -205,6 +203,8 @@ Ext.define('FV.controller.RenYs', {
 									Ext.Msg.alert('失败','数据保存不成功！');
 								}
 							});
+						}else{
+							Ext.Msg.alert('成功','数据保存成功！');
 						}
 					}else{
 						console.log(obj.msg);
@@ -214,6 +214,7 @@ Ext.define('FV.controller.RenYs', {
 				}
 			},
 			failure: function(batch,opt){
+				Ext.Msg.alert('失败','数据保存不成功！');
 				console.log("renyone_save failure");
 			},
 			scope: this
@@ -233,9 +234,14 @@ Ext.define('FV.controller.RenYs', {
 			});
 			form.loadRecord(bz);
 
+			var a = overModel.get('id');
+			if(overModel.get('配备情况')>1){
+				a %= 10000;
+			}
+
 			this.zhanBInfo={
 				rid:rec.get('id'),
-				bid:overModel.get('id'),
+				bid:a,
 				danWId:this.curDanW.get('id')
 			};
 			win.show();
@@ -591,7 +597,7 @@ Ext.define('FV.controller.RenYs', {
 			if(o['配备情况']>1){
 				button1.disable();
 				button2.disable();
-				o.id -= 30000;
+				o.id %= 10000;
 			}else{
 				button1.enable();
 				button2.enable();

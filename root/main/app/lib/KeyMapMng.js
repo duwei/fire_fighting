@@ -61,8 +61,10 @@ Ext.define('FV.lib.KeyMapMng', {
 				kst.on({
 					load: {
 						fn: function(thisSt,recs,succ){
+							var vv='';
 							if(succ){
-								Ext.fly(lb).update(this.maps[st][vl]);
+								vv = this.maps[st][vl];
+								Ext.fly(lb).update(vv?vv:'');
 							}
 						},
 						scope: ths,
@@ -73,9 +75,9 @@ Ext.define('FV.lib.KeyMapMng', {
 					if(!kst.isLoading())
 						kst.load();
 				}
-				return '<span id="'+lb+'">'+vl+'</span>';
+				return '<span id="'+lb+'">'+(vl?vl:'')+'</span>';
 			}
-			return '('+vl+')';
+			return '('+(vl?vl:'')+')';
 		};
 	},
 	required: '<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>',

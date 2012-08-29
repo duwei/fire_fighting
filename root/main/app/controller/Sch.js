@@ -13,6 +13,7 @@ Ext.define('FV.controller.Sch', {
 	],
     
     refs: [
+		{ref: 'statusBar', selector: 'statusbar'},
 		{ref: 'schForm', selector: 'schform'},
         {ref: 'tiaoJForm', selector: 'schtiaoj form'},
         {
@@ -43,36 +44,59 @@ Ext.define('FV.controller.Sch', {
             'schlist button[action=adv]': {
                 click: this.adv
             },
+            'schlist button[action=kongbian]': {
+                toggle: this.kongbian
+            },
            'schtiaoj button[action=save]': {
                 click: this.sch
             }
         });
 		this.curDanW = 0;
+		this.showKb = 1;
     },
 	onLaunch: function() {
-		console.log("onLaunch");
 		var form = this.getSchForm(),
 			rdw = form.down('displayfield'),
 			store = Ext.create('FV.store.DanWLists');
-			store.load({
-				params:{
-					node:0
-				},
-				scope: this,
-				callback: function(recs,op,succ){
-					if(succ&&recs.length>0){
-						rdw.setValue(recs[0].get('text'));
-						this.rootDanW = recs[0].get('id');
-						this.curDanW = this.rootDanW;
-						this.addNext(form,this.rootDanW,1);
-					}
+		store.load({
+			params:{
+				node:0
+			},
+			scope: this,
+			callback: function(recs,op,succ){
+				if(succ&&recs.length>0){
+					rdw.setValue(recs[0].get('text'));
+					this.rootDanW = recs[0].get('id');
+					this.curDanW = this.rootDanW;
+					this.addNext(form,this.rootDanW,1);
 				}
-			});
-		
+			}
+		});
+		this.getSchsStore().on({
+			load: function(ths,recs,succ){
+				this.getStatusBar().setStatus({
+					text:'搜索完毕，共'+recs.length+'条数据。',
+					iconCls: 'x-status-valid'
+				});
+			},
+			scope: this
+		});
+	},
+	kongbian: function(btn,pressed){
+		this.showKb = pressed?1:0;
+		this.getStatusBar().setStatus({
+			text: '请重新搜索。',
+			iconCls: 'x-status-error'
+		});
 	},
 	showIt: function(v,rec){
 		var win = this.getSchView(),
-			form = this.getViewForm();
+			form = this.getViewForm(),
+			xlind = rec.get('xlind');
+		if(xlind>0){
+			rec.set('学历1',rec.get('学历2'));
+			rec.set('专业1',rec.get('专业2'));
+		}
 		form.loadRecord(rec);
 		win.show();
 	},
@@ -101,15 +125,15 @@ Ext.define('FV.controller.Sch', {
 			selectOnTab: false,
 			listeners:{
 				change: function(ths,newvl,ovl){
-					console.log('newvl:'+newvl);
-					console.log('ovl:'+ovl);
-					// 删除后续组件
+					this.getStatusBar().setStatus({
+						text: '请重新搜索。',
+						iconCls: 'x-status-error'
+					});
 					this.removeNext(form,ovl);
 					if(newvl==0){
 						this.curDanW = ths.pid;
 					}else{
 						this.curDanW = newvl;
-						// 创建新后续组件
 						this.addNext(form,newvl);
 					}
 				},
@@ -137,8 +161,10 @@ Ext.define('FV.controller.Sch', {
 		win.show();
 	},
 	schall: function() {
+		this.getStatusBar().showBusy();
 		this.getSchsStore().load({
 			params: {
+				showKb: this.showKb,
 				danWId:this.curDanW
 			}
 		});
@@ -147,7 +173,9 @@ Ext.define('FV.controller.Sch', {
 		var win = this.getSchTiaoJ(),
 			form = this.getTiaoJForm(),
 			vl = form.getValues();
+		this.getStatusBar().showBusy();
 		vl.danWId = this.curDanW;
+		vl.showKb = this.showKb;
 		this.getSchsStore().load({
 			params: vl
 		});

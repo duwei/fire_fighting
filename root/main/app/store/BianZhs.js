@@ -15,6 +15,9 @@ Ext.define('FV.store.BianZhs', {
 		},
 		reader: {
 			type: 'myjson'
+		},
+		writer: {
+			writeAllFields: true
 		}
 	}
 });
