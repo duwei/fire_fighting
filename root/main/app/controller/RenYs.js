@@ -2,11 +2,48 @@ Ext.define('FV.controller.RenYs', {
     extend: 'Ext.app.Controller',
 
     requires: [
+		'FV.store.BenRChFs',
+		'FV.store.BianZhLXs',
+		'FV.store.BianZhs',
+		'FV.store.BianZhZhWs',
+		'FV.store.DanWLists',
+		'FV.store.DanWs',
+		'FV.store.GanBLYs',
+		'FV.store.GongZDCs',
+		'FV.store.Imgs',
+		'FV.store.JiaTChShs',
+		'FV.store.JiGDJs',
+		'FV.store.JingGWZhs',
+		'FV.store.JingXWJ2s',
+		'FV.store.JingXWJ3s',
+		'FV.store.JingXWJs',
+		'FV.store.JiShDJs',
+		'FV.store.JiShXLs',
+		'FV.store.JiShZhWDJs',
+		'FV.store.JiShZhWs',
+		'FV.store.Logs',
+		'FV.store.MinZs',
+		'FV.store.PeiBQKs',
+		'FV.store.PeiXXShs',
+		'FV.store.RenY2s',
+		'FV.store.RenYs',
+		'FV.store.RenYslct',
+		'FV.store.Schs',
+		'FV.store.XianJDCs',
+		'FV.store.XingBs',
+		'FV.store.XueLs',
+		'FV.store.XueWs',
+		'FV.store.ZhengZhMMs',
+		'FV.store.ZhiWDJ2s',
+		'FV.store.ZhiWDJ3s',
+		'FV.store.ZhiWDJs',
+		'FV.store.ZhuanYDLs',
+		'FV.store.ZhuLBMs',
 		'FV.lib.KeyMapMng'
 	],
 	
     stores: ['RenYs','BianZhs','RenYslct'],
-    models: ['RenY','RenY2','BianZh','ZhanB'],
+    models: ['RenY','RenY2','BianZh','ZhanB','Img'],
     views: [
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
@@ -116,6 +153,9 @@ Ext.define('FV.controller.RenYs', {
             'xuandry button[action=cleanall]': {
                 click: this.xd_cleanall
             },
+			'renyone image': {
+				afterrender: this.addImageMenu
+            },
 			'renyone button[action=save]': {
 				click: this.renyone_save
 			}
@@ -124,10 +164,76 @@ Ext.define('FV.controller.RenYs', {
     onLaunch: function() {
 		console.log("onLaunch");
     },
+	readIt: function(file,img){
+		var reader = new FileReader(),
+			ths = this,
+			rec = img._rec;
+
+		reader.onloadend = Ext.Function.bind(function() { 
+			if (reader.error) { 
+				console.log(reader.error); 
+			} else { 
+				img.setSrc(reader.result);
+				if(!rec){
+					rec = this.getImgModel().create({
+						id:0,
+						rid:0,
+						img:reader.result
+					});
+				}else{
+					rec.set('img',reader.result);
+				}
+				img._rec = rec;
+			}
+		},this); 
+		reader.readAsDataURL(file); 
+	},
+	handleFiles: function(img,inputObj) {
+		this.readIt(inputObj.files[0],img);
+	},
+	addImageMenu: function(ths){
+		ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
+			'<input type="file" accept="image/*" style="display:none"/>',true);
+		ths._fileinput.dom.onchange=Ext.Function.bind(this.handleFiles,this,[ths,ths._fileinput.dom]);
+		ths.imgMenu = Ext.create('Ext.menu.Menu', {
+			items:[{
+				text: '更新照片',
+				handler: function(){
+					ths._fileinput.dom.click();
+				}
+			},{
+				text: '删除照片',
+				handler: function(){
+					console.log(this);
+				},
+				scope: this
+			}]
+		});
+		ths.getEl().on('click',function(evt){
+			ths.imgMenu.showAt(evt.getXY());
+		},this,{
+			stopEvent: true
+		});
+		
+	},
+	hasProps: function(o){
+		var i,m=0;
+		if(o==null)return false;
+		for(i in o){
+			if(i!='id'){
+				m++;
+				break;
+			}
+		}
+		if(m==0)return false;
+		return true;
+	},
 	renyone_save: function(btn){
 		var ro = btn.up('renyone'),
 			f1 = ro.down('form[formId=renY1]'),
 			f2 = ro.down('form[formId=renY2]'),
+			zhaoPFld = f1.down('image'),
+			zhaoPRec = zhaoPFld._rec,
 			vs1 = f1.getValues(false,true),
 			vs2 = f2.getValues(false,false),
 			r1 = f1.getRecord(),
@@ -137,6 +243,8 @@ Ext.define('FV.controller.RenYs', {
 		r1.set(vs1);
 		r2.set(vs2);
 
+		//vs1 = zhaoPRec.getChanges();
+		
 		if(r1.get('id')==null){
 			r1.set({
 				danWId:this.curDanW.get("id")
@@ -144,23 +252,10 @@ Ext.define('FV.controller.RenYs', {
 			st.add(r1);
 			flag=true;
 		}else{
-			var i,m=0;
 			vs1 = r1.getChanges();
-			for(i in vs1){
-				if(i!='id'){
-					m++;
-					break;
-				}
-			}
-			if(m==0){
+			if(!this.hasProps(vs1)){
 				vs1 = r2.getChanges();
-				for(i in vs1){
-					if(i!='id'){
-						m++;
-						break;
-					}
-				}
-				if(m>0){
+				if(this.hasProps(vs1)){
 					r2.save({
 						success: function(){
 							Ext.Msg.alert('成功','数据保存成功！');
@@ -182,19 +277,14 @@ Ext.define('FV.controller.RenYs', {
 					if(obj.ok){
 						if(obj.data){
 							if(flag){
+								ro.setTitle('编辑-'+obj.data['姓名']);
 								r1.set(obj.data);
 								st.sync();// 只更改了id
-								r2.set({id:obj.id});
+								r2.set({id:obj.data.id});
 							}
 						}
 						o = r2.getChanges();
-						for(i in o){
-							if(i!='id'){
-								m++;
-								break;
-							}
-						}
-						if(m>0){
+						if(this.hasProps(o)){
 							r2.save({
 								success: function(){
 									Ext.Msg.alert('成功','数据保存成功！');
@@ -272,7 +362,9 @@ Ext.define('FV.controller.RenYs', {
     },
 	loadRenYInfo: function(tab,reny){
 		var f1 = tab.down('form[formId=renY1]'),
-			f2 = tab.down('form[formId=renY2]');
+			f2 = tab.down('form[formId=renY2]'),
+			zhaoPFld = f1.down('image'),
+			zhaoPId;
 		if(reny==null){
 			reny = this.getRenYModel().create({});
 			f2.loadRecord(this.getRenY2Model().create({}));
@@ -283,7 +375,20 @@ Ext.define('FV.controller.RenYs', {
 					console.log('load RenY2 Info ERR.');
 				},
 				success: function(record, operation) {
+					if(record==null){
+						record = this.getRenY2Model().create({rid:reny.get('id')});
+					}
 					f2.loadRecord(record);
+					zhaoPId = record.get('照片id');
+					if(zhaoPId&&zhaoPId>0){
+						FV.model.Img.load(zhaoPId,{
+							scope: this,
+							success: function(rec,ope){
+								zhaoPFld.setSrc(rec.get('img'));
+								zhaoPFld._rec = rec;
+							}
+						});
+					}
 				}
 			});
 		}
@@ -501,7 +606,8 @@ Ext.define('FV.controller.RenYs', {
 	
     chgCurDanW: function(selModel, selected) {
 		this.curDanW = selected[0];
-		var mw = this.getRenYMain();
+		var tabs = this.getCenterTab(),
+			mw = this.getRenYMain();
 		mw.setTitle(this.curDanW.get('text'));
 		this.getRenYsStore().load({
 			params: {
@@ -513,6 +619,7 @@ Ext.define('FV.controller.RenYs', {
 				danWId: this.curDanW.get("id")
 			}
 		});
+		tabs.setActiveTab(mw);
     },
 	
 	moveRenY: function(node, data, overModel, dropPosition, eOpts){
