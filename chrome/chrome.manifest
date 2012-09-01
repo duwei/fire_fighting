@@ -1,2 +1,4 @@
-content myapp content/
-locale  branding branding/
+content myapp            content/
+locale  branding  en-US  branding/
+
+override chrome://navigator/content/navigator.xul   chrome://myapp/content/window.xul
