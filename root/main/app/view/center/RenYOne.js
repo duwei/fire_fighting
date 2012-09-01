@@ -41,11 +41,13 @@ Ext.define('FV.view.center.RenYOne', {
 					layout: 'hbox',
 					items: [{
 						xtype: 'image',
-						itemId: 'imgCt',
 						src: Ext.BLANK_IMAGE_URL,
 						margin: '0 2 0 0',
-						width : 150,
-						height: 208
+						style:{
+							cursor: 'pointer'
+						},
+						height: 225,
+						width : 150
 					},{
 						xtype: 'container',
 						layout: 'anchor',
@@ -217,6 +219,9 @@ Ext.define('FV.view.center.RenYOne', {
 					xtype: 'fieldset',
 					title: '干部常用信息',
 					collapsed: true
+				},{
+					xtype: 'hiddenfield',
+					name: '照片id'
 				},{
 					xtype: 'checkbox',
 					name: '是否文职干部',
