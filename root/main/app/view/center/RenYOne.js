@@ -46,7 +46,7 @@ Ext.define('FV.view.center.RenYOne', {
 						style:{
 							cursor: 'pointer'
 						},
-						height: 225,
+						//height: 225,
 						width : 150
 					},{
 						xtype: 'container',
