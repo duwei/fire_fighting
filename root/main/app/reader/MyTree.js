@@ -32,6 +32,7 @@ Ext.define('FV.reader.MyTree', {
 					else
 						fds.push({ "name": fs[i][0], "type": this.getType(fs[i][1]), "mapping": fs[i][0] });
 				}
+				fds.push({name: 'index',type: 'int',defaultValue: null, persist: true});
 				md.fields = fds;
 				this.onMetaChange(md);
 				mod = this.model;
