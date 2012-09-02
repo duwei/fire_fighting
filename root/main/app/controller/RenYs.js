@@ -270,6 +270,7 @@ Ext.define('FV.controller.RenYs', {
 									ro.setTitle('编辑-'+obj.data['姓名']);
 									r1.set('id',obj.data.id);
 									delete r1.modified.id;
+									r1.dirty = false;
 								}
 							}
 							if(r3)r3.set('id',r1.get('id'));

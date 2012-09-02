@@ -28,7 +28,8 @@ Ext.define('FV.controller.DanWs', {
                 selectionchange: this.chgCurDanW
             },
             'danwtree treeview': {
-				beforedrop: this.beforedrop
+				beforedrop: this.beforedrop,
+				drop: this.dropDanW
             },
             'danwtree button[action=add]': {
 				click: this.addDanW
@@ -139,13 +140,14 @@ Ext.define('FV.controller.DanWs', {
 		console.log('saveDanW:'+record.get('text'));
 		st.sync({
 			success: function(batch,opt){
-				console.log("success: "+batch.operations[0].response.responseText);
 				try{
 					var obj = Ext.decode(batch.operations[0].response.responseText);
 					if(obj.ok){
 						if(obj.data){
-							record.set(obj.data);
-							st.sync();// 只更改了id
+							record.set('id',obj.data.id);
+							// 只更改了id
+							delete record.modified.id;
+							record.dirty = false;
 						}
 					}else{
 						console.log(obj.msg);
@@ -164,12 +166,16 @@ Ext.define('FV.controller.DanWs', {
 	beforedrop: function(node, data, overModel, dropPosition, eOpts){
 		var rec = data.records[0];
 		if(rec.self.getName()=='FV.model.DanW'){
-			if(confirm('确定要调整单位['+rec.get('text')+']到单位['+overModel.get('text')+']'+(dropPosition=='before'?'之前':dropPosition=='after'?'之后':'之中')+'么?')==true){
-				var st = this.getDanWsStore();
-				st.sync();
-			}else{
+			if(confirm('确定要调整单位['+rec.get('text')+']到单位['+overModel.get('text')+']'+(dropPosition=='before'?'之前':dropPosition=='after'?'之后':'之中')+'么?')!=true){
 				return false;
 			}
+		}
+	},
+	dropDanW: function(node, data, overModel, dropPosition, eOpts){
+		var rec = data.records[0];
+		if(rec instanceof FV.model.DanW){
+			var st = this.getDanWsStore();
+			st.sync();
 		}
 	},
     chgCurDanW: function(selModel, selected) {
