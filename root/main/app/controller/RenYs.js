@@ -190,6 +190,25 @@ Ext.define('FV.controller.RenYs', {
 	handleFiles: function(img,inputObj) {
 		this.readIt(inputObj.files[0],img);
 	},
+	delZhaoP: function(img){
+		var rec = img._rec;
+		if(!rec || rec.phantom)return;
+		
+		Ext.Msg.confirm('警告!','确定要删除此照片么?',function(kid){
+			if(kid=='yes'){
+				rec.destroy({
+					success: function(response){
+						img.setSrc(Ext.BLANK_IMAGE_URL);
+						delete img._rec;
+					},
+					failure: function(batch,opt){
+						console.log("failure..delZhaoP");
+					},
+					scope: this
+				});
+			}
+		},this);
+	},
 	addImageMenu: function(ths){
 		ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
 			'<input type="file" accept="image/*" style="display:none"/>',true);
@@ -202,9 +221,7 @@ Ext.define('FV.controller.RenYs', {
 				}
 			},{
 				text: '删除照片',
-				handler: function(){
-					console.log(this);
-				},
+				handler: Ext.Function.bind(this.delZhaoP,this,[ths]),
 				scope: this
 			}]
 		});
@@ -298,8 +315,7 @@ Ext.define('FV.controller.RenYs', {
 						}
 					}catch(e){
 						Ext.Msg.alert('异常','捕获异常');
-						console.error('捕获异常:');
-						console.dir(e);
+						console.error(e);
 					}
 				},
 				failure: function(batch,opt){
@@ -411,7 +427,11 @@ Ext.define('FV.controller.RenYs', {
 						FV.model.Img.load(zhaoPId,{
 							scope: this,
 							success: function(rec,ope){
-								zhaoPFld.setSrc(rec.get('img'));
+								if(rec){
+									zhaoPFld.setSrc(rec.get('img'));
+								}else {
+									zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
+								}
 								zhaoPFld._rec = rec;
 							}
 						});

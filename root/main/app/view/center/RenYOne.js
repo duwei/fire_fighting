@@ -220,9 +220,6 @@ Ext.define('FV.view.center.RenYOne', {
 					title: '干部常用信息',
 					collapsed: true
 				},{
-					xtype: 'hiddenfield',
-					name: '照片id'
-				},{
 					xtype: 'checkbox',
 					name: '是否文职干部',
 					boxLabel: '文职干部',
@@ -231,6 +228,9 @@ Ext.define('FV.view.center.RenYOne', {
 					inputValue: 1,
 					uncheckedValue: 0,
 					style: 'margin-bottom:10px'
+				},{
+					xtype: 'hiddenfield',
+					name: '照片id'
 				},{
 					xtype: 'fieldset',
 					title: '行政干部',
@@ -520,7 +520,7 @@ Ext.define('FV.view.center.RenYOne', {
 					text: '保存',
 					action: 'save'
 				}, {
-					text: '取消',
+					text: '关闭',
 					scope: this,
 					handler: this.close
 				}]
