@@ -176,8 +176,7 @@ Ext.define('FV.controller.RenYs', {
 				img.setSrc(reader.result);
 				if(!rec){
 					rec = this.getImgModel().create({
-						id:0,
-						rid:0,
+						tp:0,
 						img:reader.result
 					});
 				}else{
@@ -228,6 +227,84 @@ Ext.define('FV.controller.RenYs', {
 		if(m==0)return false;
 		return true;
 	},
+	saveRec: function(step,rid,r1,r2,r3,st){
+		if(r1 == null || !this.hasProps(r1.getChanges()) && r1.get('id')>0){
+			if(step<2){
+				this.saveRec(step+1,rid,r2,r3);
+			}else{
+				Ext.Msg.alert('成功','数据保存成功！');
+			}
+			return;
+		}
+		if(step==0){
+			if(rid==null){
+				r1.set({
+					danWId:this.curDanW.get("id")
+				});
+				st.add(r1);
+			}
+			st.sync({
+				success: function(batch,opt){
+					try{
+						var obj = Ext.decode(batch.operations[0].response.responseText);
+						if(obj.ok){
+							if(obj.data){
+								if(rid==null){
+									ro.setTitle('编辑-'+obj.data['姓名']);
+									r1.set(obj.data);
+									st.sync();// 只更改了id
+								}
+							}
+							this.saveRec(step+1,r1.get('id'),r2,r3);
+						}else{
+							Ext.Msg.alert('失败','Msg:'+obj.msg);
+						}
+					}catch(e){
+						Ext.Msg.alert('异常','捕获异常');
+						console.error('捕获异常:');
+						console.dir(e);
+					}
+				},
+				failure: function(batch,opt){
+					Ext.Msg.alert('失败','数据保存不成功！');
+					console.log("renyone_save failure");
+				},
+				scope: this
+			});
+		}else{
+			if(r1.get('rid')==null || r1.get('rid')==0){
+				r1.set('rid',rid);
+			}
+			r1.save({
+				success: function(rec,opt){
+					try{
+						var obj = Ext.decode(opt.response.responseText);
+						if(obj.ok){
+							if(obj.data&&obj.data.id>0){
+								rec.set('id',obj.data.id);
+							}
+							if(step==1){
+								if(r2)r2.set('照片id',rec.get('id'));
+								this.saveRec(2,rid,r2);
+							}else{
+								Ext.Msg.alert('成功','数据保存成功！');
+							}
+						}else{
+							Ext.Msg.alert('失败','Msg:'+obj.msg);
+						}
+					}catch(e){
+						Ext.Msg.alert('异常','捕获异常');
+						console.error('捕获异常:');
+						console.dir(e);
+					}
+				},
+				failure: function(batch,opt){
+					Ext.Msg.alert('失败','数据保存不成功！');
+				},
+				scope: this
+			});
+		}
+	},
 	renyone_save: function(btn){
 		var ro = btn.up('renyone'),
 			f1 = ro.down('form[formId=renY1]'),
@@ -244,7 +321,8 @@ Ext.define('FV.controller.RenYs', {
 		r2.set(vs2);
 
 		//vs1 = zhaoPRec.getChanges();
-		
+		this.saveRec(0,r1.get('id'),r1,zhaoPRec,r2,st);
+		return;
 		if(r1.get('id')==null){
 			r1.set({
 				danWId:this.curDanW.get("id")
@@ -254,18 +332,21 @@ Ext.define('FV.controller.RenYs', {
 		}else{
 			vs1 = r1.getChanges();
 			if(!this.hasProps(vs1)){
-				vs1 = r2.getChanges();
-				if(this.hasProps(vs1)){
-					r2.save({
-						success: function(){
-							Ext.Msg.alert('成功','数据保存成功！');
-						},
-						failure: function(batch,opt){
-							Ext.Msg.alert('失败','数据保存不成功！');
-						}
-					});
+				if(zhaoPRec&&this.hasProps(zhaoPRec.getChanges())){
+				}else{
+					vs1 = r2.getChanges();
+					if(this.hasProps(vs1)){
+						r2.save({
+							success: function(){
+								Ext.Msg.alert('成功','数据保存成功！');
+							},
+							failure: function(batch,opt){
+								Ext.Msg.alert('失败','数据保存不成功！');
+							}
+						});
+					}
+					return;
 				}
-				return;
 			}
 		}
 		st.sync({

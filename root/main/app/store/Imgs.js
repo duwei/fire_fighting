@@ -8,10 +8,10 @@ Ext.define('FV.store.Imgs', {
 	proxy: {
 		type: 'ajax',
 		api: {
-			create: 'data/new_img.app',
-			read: 'data/get_imgs.app',
-			update: 'data/updt_img.app',
-			destroy: 'data/del_img.app'
+			create: '/data/new_img.app',
+			read: '/data/get_imgs.app',
+			update: '/data/updt_img.app',
+			destroy: '/data/del_img.app'
 		},
 		reader: {
 			type: 'myjson'
