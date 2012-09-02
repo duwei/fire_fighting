@@ -347,7 +347,7 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
 			rec = data.records[0];
-		if(rec.self.getName()=='FV.model.RenY'){// 拖动人员
+		if(overModel&&rec.self.getName()=='FV.model.RenY'){// 拖动人员
 			var bz  = this.getZhanBModel().create({
 				'编制职务': overModel.get('编制职务'),
 				'占编人员': rec.get('姓名'),
