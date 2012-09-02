@@ -8,6 +8,7 @@ Ext.define('FV.view.center.RenYXX', {
 	],
     
     border: 0,
+	sortableColumns: false,
 	
 	viewConfig: {
 		plugins: {

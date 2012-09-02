@@ -118,7 +118,8 @@ Ext.define('FV.controller.RenYs', {
                 selectionchange: this.chgCurBianZh
             },
             'bianzhxx gridview': {
-				beforedrop: this.zhanB
+				beforedrop: this.zhanB,
+				drop: this.bianZhIndex
             },
             'bianzhxx button[action=refresh]': {
                 click: this.refreshBianZh
@@ -164,6 +165,23 @@ Ext.define('FV.controller.RenYs', {
     onLaunch: function() {
 		console.log("onLaunch");
     },
+	bianZhIndex: function(node, data, overModel, dropPosition, eOpts){
+		var rec = data.records[0],st = rec.store,n=st.getCount(),i=0,j=0,a,b,id;
+		if(rec instanceof FV.model.BianZh){
+			for(;i<n;i++){
+				a = st.getAt(i);
+				a.set('ind',i-j);
+				b = a.get('id')%10000;
+				if(b==id){
+					j++;
+				}else{
+					j = 0;
+					id = b;
+				}
+			}
+			st.sync();
+		}
+	},
 	readIt: function(file,img){
 		var reader = new FileReader(),
 			ths = this,
@@ -344,12 +362,34 @@ Ext.define('FV.controller.RenYs', {
 		this.saveRec(0,r1.get('id'),r1,zhaoPRec,r2,st,ro);
 		return;
 	},
-    zhanB: function(node, data, overModel, dropPosition, eOpts) {
+	getRang: function(ind2,st,recs,id){
+		var i,a,bz,l=st.getCount();
+		for(i=ind2-1;i>=0;i--){
+			bz = st.getAt(i);
+			if(bz.get('id')%10000==id){
+				if(recs)Ext.Array.insert(recs,0,[bz]);
+			}else{
+				break;
+			}
+		}
+		for(a=ind2+1;a<l;a++){
+			bz = st.getAt(a);
+			if(bz.get('id')%10000==id){
+				if(recs)Ext.Array.insert(recs,0,[bz]);
+			}else{
+				break;
+			}
+		}
+		return [i+1,a-1];
+	},
+    zhanB: function(node, data, overModel, dropPosition, dropHandlers,eOpts) {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
-			rec = data.records[0];
-		if(overModel&&rec.self.getName()=='FV.model.RenY'){// 拖动人员
-			var bz  = this.getZhanBModel().create({
+			rec = data.records[0],
+			st = rec.store,
+			ind,ind2,bz,a;
+		if(overModel&&rec instanceof FV.model.RenY){// 拖动人员
+			bz  = this.getZhanBModel().create({
 				'编制职务': overModel.get('编制职务'),
 				'占编人员': rec.get('姓名'),
 				'占编时间': null,
@@ -358,7 +398,7 @@ Ext.define('FV.controller.RenYs', {
 			});
 			form.loadRecord(bz);
 
-			var a = overModel.get('id');
+			a = overModel.get('id');
 			if(overModel.get('配备情况')>1){
 				a %= 10000;
 			}
@@ -369,6 +409,25 @@ Ext.define('FV.controller.RenYs', {
 				danWId:this.curDanW.get('id')
 			};
 			win.show();
+		}else if(rec instanceof FV.model.BianZh){
+			ind = st.indexOf(overModel);
+			ind2 = st.indexOf(rec);
+
+			ind = this.getRang(ind,st,null,overModel.get('id')%10000);
+			ind2 = this.getRang(ind2,st,data.records,rec.get('id')%10000);
+
+			if(dropPosition!=='before'){
+				ind = ind[1];
+			}else{
+				ind = ind[0];
+			}
+			
+			if(ind>=ind2[0]&&ind<=ind2[1]+1){
+				return false;
+			}
+			
+			data.view.getPlugin('bianZhXXPlugin').dropZone.overRecord = st.getAt(ind);
+			return;
 		}
 		return false;
     },

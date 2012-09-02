@@ -5,12 +5,15 @@ Ext.define('FV.view.center.BianZhXX', {
     requires: ['Ext.toolbar.Toolbar'],
     
     border: 0,
-    
+	sortableColumns: false,
+	//multiSelect: true,
+
 	viewConfig: {
 		plugins: {
-			dropGroup: 'people-group',
+			pluginId: 'bianZhXXPlugin',
+			ddGroup: 'people-group',
 			ptype: 'gridviewdragdrop',
-			enableDrag: false
+			enableDrag: true
 		}
 	},
 
