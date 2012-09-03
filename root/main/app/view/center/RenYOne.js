@@ -33,8 +33,6 @@ Ext.define('FV.view.center.RenYOne', {
     initComponent: function() {
         Ext.apply(this, {
 			items: [{
-				//disabled: true,
-				//disabledCls: 'my-disabledCls',
 				formId: 'renY1',
 				items: [{
 					xtype: 'container',
@@ -49,6 +47,9 @@ Ext.define('FV.view.center.RenYOne', {
 						//height: 225,
 						width : 150
 					},{
+						disabled: true,
+						disabledCls: 'my-disabledCls',
+						cid: 'jbxx',
 						xtype: 'container',
 						layout: 'anchor',
 						defaults: {

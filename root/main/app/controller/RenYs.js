@@ -39,6 +39,7 @@ Ext.define('FV.controller.RenYs', {
 		'FV.store.ZhiWDJs',
 		'FV.store.ZhuanYDLs',
 		'FV.store.ZhuLBMs',
+		'FV.lib.UsInf',
 		'FV.lib.KeyMapMng'
 	],
 	
@@ -52,6 +53,7 @@ Ext.define('FV.controller.RenYs', {
 	],
     
     refs: [
+		{ref: 'danWTree', selector: 'danwtree'},
 		{ref: 'xuanDRY', selector: 'xuandry'},
 		{ref: 'renYXX', selector: 'renyxx'},
 		{ref: 'bianZhXX', selector: 'bianzhxx'},
@@ -163,8 +165,24 @@ Ext.define('FV.controller.RenYs', {
         });
     },
     onLaunch: function() {
-		console.log("onLaunch");
+		if(!FV.lib.UsInf.hasPm('p1')){
+			this.hideBtn();
+		}
     },
+	hideBtn: function(){
+		var dw = this.getDanWTree(),
+			ry = this.getRenYXX(),
+			bz = this.getBianZhXX();
+		dw.down('button[action=add]').destroy();
+		dw.down('button[action=remove]').hide();
+		dw.down('button[action=edit]').hide();
+		ry.down('button[action=add]').destroy();
+		//ry.down('button[action=edit]').hide();
+		ry.down('button[action=del]').hide();
+		bz.down('button[action=add]').destroy();
+		bz.down('button[action=edit]').hide();
+		bz.down('button[action=del]').hide();
+	},
 	bianZhIndex: function(node, data, overModel, dropPosition, eOpts){
 		var rec = data.records[0],st = rec.store,n=st.getCount(),i=0,j=0,a,b,id;
 		if(rec instanceof FV.model.BianZh){
@@ -458,6 +476,9 @@ Ext.define('FV.controller.RenYs', {
 			f2 = tab.down('form[formId=renY2]'),
 			zhaoPFld = f1.down('image'),
 			zhaoPId,m;
+		if(FV.lib.UsInf.hasPm('p1')){
+			f1.down('container[cid=jbxx]').enable();
+		}
 		if(reny==null){
 			reny = this.getRenYModel().create({});
 			m = this.getRenY2Model();
@@ -589,12 +610,15 @@ Ext.define('FV.controller.RenYs', {
 		win.show();
 	},
 	editBianZh:function(){
-		var win = this.getBianZhWindow(),
-			form = this.getBianZhForm(),
-			bz  = this.curBianZh;
-		form.loadRecord(bz);
-		win.setTitle('编制维护');
-		win.show();
+		if(!FV.lib.UsInf.hasPm('p1'))return false;
+		else{
+			var win = this.getBianZhWindow(),
+				form = this.getBianZhForm(),
+				bz  = this.curBianZh;
+			form.loadRecord(bz);
+			win.setTitle('编制维护');
+			win.show();
+		}
 	},
 	refreshBianZh:function(){
 		this.getBianZhsStore().load({
@@ -731,6 +755,8 @@ Ext.define('FV.controller.RenYs', {
 	
 	moveRenY: function(node, data, overModel, dropPosition, eOpts){
 		var rec = data.records[0];
+		if(!FV.lib.UsInf.hasPm('p1'))return false;
+
 		if(rec.self.getName()=='FV.model.RenY'){// 拖动人员
 			var p = overModel,tdid,odid=rec.get('danWId');
 			if(dropPosition!='append'){
