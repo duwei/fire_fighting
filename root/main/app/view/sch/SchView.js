@@ -57,8 +57,8 @@ Ext.define('FV.view.sch.SchView', {
 						itemId: 'imgCt',
 						src: Ext.BLANK_IMAGE_URL,
 						margin: '0 2 0 0',
-						width : 150,
-						height: 208
+						//height: 208,
+						width : 150
 					},{
 						xtype: 'container',
 						layout: 'anchor',

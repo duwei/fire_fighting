@@ -4,7 +4,7 @@ Ext.define('FV.controller.Sch', {
 	requires: ['FV.store.DanWLists'],
 
     stores: ['Schs'],
-    models: ['Sch'],
+    models: ['Sch','Img'],
     views: [
 		'sch.Search',
 		'sch.List',
@@ -92,12 +92,30 @@ Ext.define('FV.controller.Sch', {
 	showIt: function(v,rec){
 		var win = this.getSchView(),
 			form = this.getViewForm(),
-			xlind = rec.get('xlind');
+			zhaoPFld = form.down('image'),
+			xlind = rec.get('xlind'),
+			zhaoPId = rec.get('照片id');
 		if(xlind>0){
 			rec.set('学历1',rec.get('学历2'));
 			rec.set('专业1',rec.get('专业2'));
 		}
 		form.loadRecord(rec);
+
+		if(rec.img_){
+			zhaoPFld.setSrc(rec.img_);
+		}else if(zhaoPId&&zhaoPId>0){
+			FV.model.Img.load(zhaoPId,{
+				scope: this,
+				success: function(rc,ope){
+					if(rc){
+						zhaoPFld.setSrc(rc.get('img'));
+						rec.img_ = rc.get('img');
+					}else {
+						zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
+					}
+				}
+			});
+		}
 		win.show();
 	},
 	removeNext: function(form,pid){
