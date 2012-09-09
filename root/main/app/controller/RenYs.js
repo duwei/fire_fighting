@@ -147,6 +147,10 @@ Ext.define('FV.controller.RenYs', {
             'zhanbwindow checkbox[name=chaoB]': {
                 change: this.chgChaoB
             },
+            'xuandry': {
+                itemdblclick: this.editXDRenYs,
+                selectionchange: this.chgXDRenY
+            },
             'xuandry button[action=openall]': {
                 click: this.xd_openall
             },
@@ -552,22 +556,31 @@ Ext.define('FV.controller.RenYs', {
 		}
 		f1.loadRecord(reny);
 	},
+	edRenY: function(viewer,reny,b,toAdd){
+		var id = reny.get('id'),
+			tab = viewer.down('[renYId=' + id + ']');
+		if (!tab) {
+			tab = this.getRenYOne();
+			tab.setTitle('编辑-'+reny.get('姓名'));
+			tab.renYId = id;
+			this.loadRenYInfo(tab,reny);
+			if(toAdd) toAdd.push(tab);
+			if(b) viewer.add(tab);
+		}
+		if(b)viewer.setActiveTab(tab);            
+	},
 	loadAll: function(recs){
         var viewer = this.getCenterTab(),
-            toAdd = [],
-            id;
+            toAdd = [];
 			
         Ext.Array.forEach(recs, function(reny){
-            id = reny.get('id');
-            if (!viewer.down('[renYId=' + id + ']')) {
-                tab = this.getRenYOne();
-                tab.setTitle('编辑-'+reny.get('姓名'));
-                tab.renYId = id;
-				this.loadRenYInfo(tab,reny);
-                toAdd.push(tab);
-            }
+			this.edRenY(viewer,reny,false,toAdd);
         }, this);
         viewer.add(toAdd);
+	},
+	editXDRenYs: function(v,rec){
+        var viewer = this.getCenterTab();
+		this.edRenY(viewer,rec,true);
 	},
 	xd_openall: function(){
 		this.loadAll(this.getRenYslctStore().getRange());
@@ -718,18 +731,8 @@ Ext.define('FV.controller.RenYs', {
 	editRenYs: function(){
 		if(this.curRenY){
 			var reny = this.curRenY,
-				tabs = this.getCenterTab(),
-				title = '编辑-'+reny.get('姓名'),
-				rid = reny.get('id'),
-				tab = tabs.down('[renYId='+rid+']');
-			if(!tab){
-				tab = this.getRenYOne();
-				tab.renYId = rid;
-				tab.setTitle(title);
-				this.loadRenYInfo(tab,reny);
-				tabs.add(tab);
-			}
-			tabs.setActiveTab(tab);            
+				tabs = this.getCenterTab();
+			this.edRenY(tabs,reny,true);
 		}else{
 			alert('请先选择人员');
 		}
@@ -816,16 +819,12 @@ Ext.define('FV.controller.RenYs', {
 			return false;
 		}
 	},
-	
-    chgCurRenY: function(selModel, selected) {
-		this.curRenY = selected[0];
-		var xx = this.getRenYXX(),
-			button1 = xx.down('button[action=del]'),
-			button2 = xx.down('button[action=edit]');
-			button3 = xx.down('button[action=slct]');
-		if(this.curRenY){
-			var w = this.getChangYXX();
-			var o = Ext.apply({},this.curRenY.data);
+	renYInfo: function(rec){
+		var w = this.getChangYXX(),o;
+		if(rec==null){
+			o = {};
+		}else{
+			o = Ext.apply({},rec.data);
 			delete o.danWId;
 			this.formatIt(o,'性别',this.keyHlp.getGridRenderer('XingBs'));
 			this.formatIt(o,'职务',this.keyHlp.getGridRenderer('BianZhZhWs'));
@@ -840,12 +839,26 @@ Ext.define('FV.controller.RenYs', {
 			this.formatIt(o,'入学时间',this.keyHlp.formatDate);
 			this.formatIt(o,'毕业时间',this.keyHlp.formatDate);
 			this.formatIt(o,'专业大类',this.keyHlp.getGridRenderer('ZhuanYDLs'));
-			w.setSource(o);
-			w.setTitle('人员信息');
+		}
+		w.setSource(o);
+		w.setTitle('人员信息');
+	},
+    chgXDRenY: function(selModel, selected) {
+		this.renYInfo(selected[0]);
+	},
+    chgCurRenY: function(selModel, selected) {
+		this.curRenY = selected[0];
+		var xx = this.getRenYXX(),
+			button1 = xx.down('button[action=del]'),
+			button2 = xx.down('button[action=edit]');
+			button3 = xx.down('button[action=slct]');
+		if(this.curRenY){
+			this.renYInfo(this.curRenY);
 			button1.enable();
 			button2.enable();
 			button3.enable();
 		}else{
+			this.renYInfo();
 			button1.disable();
 			button2.disable();
 			button3.disable();
@@ -881,6 +894,7 @@ Ext.define('FV.controller.RenYs', {
 			delete o.rid;
 			w.setSource(o);
 		}else{
+			this.renYInfo();
 			button1.disable();
 			button2.disable();
 			button3.disable();

@@ -5,7 +5,7 @@ Ext.define('FV.view.center.RenYMain', {
     requires: [
 		'FV.view.center.RenYXX',
 		'FV.view.center.XuanDRY',
-		'FV.view.center.CaoZRZh',
+//		'FV.view.center.CaoZRZh',
 		'FV.view.center.BianZhXX',
 		'FV.view.center.ChangYXX',
 		'Ext.toolbar.Toolbar'
@@ -25,17 +25,17 @@ Ext.define('FV.view.center.RenYMain', {
             }, {
 				region: 'south',
 				height: 200,
-				split: false,
+				split: true,
 				weight: -100,
 				title: '选定人员',
 				xtype: 'xuandry'
-			}, {
+/*			}, {
 				region: 'south',
 				height: 140,
 				split: true,
 				weight: -100,
 				title: '操作日志',
-				xtype: 'caozrzh'
+				xtype: 'caozrzh'*/
 			}, {
 				region: 'east',
 				width: 300,

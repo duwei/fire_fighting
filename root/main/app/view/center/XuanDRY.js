@@ -33,10 +33,10 @@ Ext.define('FV.view.center.XuanDRY', {
                     iconCls: 'open-all',
                     text: '编辑全部',
                     action: 'openall'
-                },{
+/*                },{
                     iconCls: 'open-all',
                     text: '批量修改',
-                    action: 'editall'
+                    action: 'editall'*/
                 },'->',{
                     iconCls: 'open-all',
                     text: '清除',
