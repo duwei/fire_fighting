@@ -90,7 +90,7 @@ Ext.define('FV.lib.KeyMapMng', {
 			store: this.getStore(st),
 			valueField: 'value',
 			displayField: 'label',
-			//queryMode: 'local',
+			queryMode: 'local',
 			editable: false,
 			allowBlank:required?false:true,
 			emptyText: '请选择...'

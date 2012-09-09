@@ -7,7 +7,7 @@ Ext.define('FV.view.center.ZhanBWindow', {
 		'Ext.form.Panel'
 	],
 
-    height: 215,
+    height: 160,
     width: 400,
 	modal: true,
     title: '占编',
@@ -36,36 +36,66 @@ Ext.define('FV.view.center.ZhanBWindow', {
                 bodyStyle: 'padding: 10px;',
 				layout: 'anchor',
 				fieldDefaults: {
+					labelAlign: 'right',
+					labelWidth: 65,
 					msgTarget: 'side',
 					anchor: '100%',
-					labelWidth: 75,
 					hideEmptyLabel: false
 				},
                 items: [{
-                    xtype: 'displayfield',
-					name: '编制职务',
-                    fieldLabel: '编制职务'
+					xtype: 'container',
+					layout: 'hbox',
+					defaults: {
+						margin:'0 0 5 0'
+					},
+					items: [{
+						flex: 2,
+						xtype: 'displayfield',
+						name: '职务等级s',
+						fieldLabel: '职务等级'
+					},
+						FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',false,0,{readOnly: true,flex:3})
+					]
 				},{
-                    xtype: 'displayfield',
-					name: '占编人员',
-                    fieldLabel: '占编人员'
+					xtype: 'container',
+					layout: 'hbox',
+					defaults: {
+						margin:'0 0 5 0'
+					},
+					items: [{
+						flex: 2,
+						xtype: 'displayfield',
+						name: '占编人员',
+						fieldLabel: '占编人员'
+					},{
+						flex: 3,
+						xtype: 'datefield',
+						format: 'Y-m-d',
+						submitFormat : 'Ymd',
+						name: '占编时间',
+						fieldLabel: '占编时间'
+					}]
 				},{
-                    xtype: 'datefield',
-					format: 'Y-m-d',
-					submitFormat : 'Ymd',
-					name: '占编时间',
-                    fieldLabel: '占编时间'
-				},{
-                    xtype: 'checkbox',
-					boxLabel: '超编',
-					name: 'chaoB',
-					inputValue: '2'
-				},{
-                    xtype: 'checkbox',
-					boxLabel: '记入入伍后简历',
-					name: 'log',
-					inputValue: '1'
-                }]
+					xtype: 'container',
+					layout: 'hbox',
+					defaults: {
+						margin:'0 0 5 0'
+					},
+					items: [{
+						flex: 2,
+						readOnly: true,
+						xtype: 'checkbox',
+						boxLabel: '超编',
+						name: 'chaoB',
+						inputValue: '2'
+					},{
+						flex: 3,
+						xtype: 'checkbox',
+						boxLabel: '记入入伍后简历',
+						name: 'log',
+						inputValue: '1'
+					}]
+				}]
             }]
         });
 

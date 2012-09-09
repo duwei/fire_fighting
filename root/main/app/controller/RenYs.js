@@ -144,6 +144,9 @@ Ext.define('FV.controller.RenYs', {
             'zhanbwindow button[action=save]': {
                 click: this.zhanBsave
             },
+            'zhanbwindow checkbox[name=chaoB]': {
+                change: this.chgChaoB
+            },
             'xuandry button[action=openall]': {
                 click: this.xd_openall
             },
@@ -403,18 +406,28 @@ Ext.define('FV.controller.RenYs', {
     zhanB: function(node, data, overModel, dropPosition, dropHandlers,eOpts) {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
+			zw = form.down('combobox'),
 			rec = data.records[0],
 			st = rec.store,
 			ind,ind2,bz,a;
 		if(overModel&&rec instanceof FV.model.RenY){// 拖动人员
+			if(rec.get('职务')){
+				Ext.Msg.alert('警告','不能重复占编！');
+				return false;
+			}
+			a = overModel.get('编制职务等级');
+			ind = (overModel.get('配备情况')>0);
 			bz  = this.getZhanBModel().create({
+				'职务等级': a,
+				'职务等级s': this.keyHlp.getGridRenderer('ZhiWDJ3s')(a),
 				'编制职务': overModel.get('编制职务'),
 				'占编人员': rec.get('姓名'),
 				'占编时间': null,
-				chaoB: false,
-				log: false
+				chaoB: ind?2:0,
+				log: 0
 			});
 			form.loadRecord(bz);
+			zw.setReadOnly(a!=0 && !ind);
 
 			a = overModel.get('id');
 			if(overModel.get('配备情况')>1){
@@ -449,18 +462,35 @@ Ext.define('FV.controller.RenYs', {
 		}
 		return false;
     },
+	chgChaoB: function(fld,newVl,oldVl){
+		var fm = fld.up('form'),
+			rec = fm.getRecord(),
+			zw;
+		if(!rec || rec.get('职务等级')==0)return;
+		zw = fm.down('combobox');
+		zw.setReadOnly(!newVl);
+		if(!newVl){
+			zw.setValue(rec.get('编制职务'));
+		}
+	},
     zhanBsave: function(){
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
+			rec = form.getRecord(),
 			values = form.getValues();
-		this.zhanBInfo.flag = values['chaoB']||'1';
-		this.zhanBInfo.log =  values['log'];
+		this.zhanBInfo.flag = values['chaoB']||1;
+		this.zhanBInfo.log =  values['log']||0;
 		this.zhanBInfo['占编时间'] =  values['占编时间'];
+		if(rec.get('编制职务')!=values['编制职务']){
+			this.zhanBInfo['bianZhZhW'] =  values['编制职务'];
+			//this.zhanBInfo['bid'] =  0;
+		}
 		{
 			Ext.Ajax.request({
 				url: '/data/zhanb_bianzh.app',
 				params: this.zhanBInfo,
 				success: function(response){
+					this.refreshRenYs();
 					this.refreshBianZh();
 					win.close();
 				},
@@ -628,7 +658,7 @@ Ext.define('FV.controller.RenYs', {
 		});
 	},
 	slctBianZh:function(){
-		Ext.Msg.confirm('警告!','确定要清除占编: '+this.curBianZh.get('编制职务')+' 么? ',function(kid){
+		Ext.Msg.confirm('警告!','确定要清除占编: '+this.keyHlp.getGridRenderer('BianZhZhWs')(this.curBianZh.get('编制职务'))+' 么? ',function(kid){
 			if(kid=='yes'){
 				Ext.Ajax.request({
 					url: '/data/qingch_bianzh.app',
@@ -636,11 +666,8 @@ Ext.define('FV.controller.RenYs', {
 						'rid': this.curBianZh.get('rid')
 					},
 					success: function(response){
-						this.getBianZhsStore().load({
-							params: {
-								danWId: this.curDanW.get("id")
-							}
-						});
+						this.refreshRenYs();
+						this.refreshBianZh();
 					},
 					failure: function(batch,opt){
 						console.log("failure   bianzh");
@@ -651,7 +678,7 @@ Ext.define('FV.controller.RenYs', {
 		},this);
 	},
 	delBianZh:function(){
-		Ext.Msg.confirm('警告!','确定要删除编制: '+this.curBianZh.get('编制职务')+' 么? ',function(kid){
+		Ext.Msg.confirm('警告!','确定要删除编制: '+this.keyHlp.getGridRenderer('BianZhZhWs')(this.curBianZh.get('编制职务'))+' 么? ',function(kid){
 			if(kid=='yes'){
 				var st = this.getBianZhsStore();
 				st.remove(this.curBianZh);
