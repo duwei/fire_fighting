@@ -43,9 +43,15 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.KeyMapMng'
 	],
 	
-    stores: ['RenYs','BianZhs','RenYslct'],
-    models: ['RenY','RenY2','BianZh','ZhanB','Img'],
+    stores: ['RenYs','BianZhs','RenYslct','JiangLs','RuWQJLs','RuWHJLs'],
+    models: ['RenY','RenY2','BianZh','ZhanB','Img','JiangL','RuWQJL','RuWHJL'],
     views: [
+		'sub.JiangLLst',
+		'sub.JiangLEd',
+		'sub.RuWQJLLst',
+		'sub.RuWQJLEd',
+		'sub.RuWHJLLst',
+		'sub.RuWHJLEd',
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
 		'center.RenYMain',
@@ -80,7 +86,52 @@ Ext.define('FV.controller.RenYs', {
             selector: 'zhanbwindow', 
             autoCreate: true,
             xtype: 'zhanbwindow'
-        }
+        },
+		{
+			ref: 'jiangLLst',
+			xtype: 'jiangllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'jiangllst'
+        },
+		{
+			ref: 'jiangLEd',
+			xtype: 'jiangled',
+			closable: true,
+            autoCreate: true,
+			selector: 'jiangled'
+        },
+        {ref: 'jiangLForm', selector: 'jiangled form'},
+		{
+			ref: 'ruWQJLLst',
+			xtype: 'ruwqjllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwqjllst'
+        },
+		{
+			ref: 'ruWQJLEd',
+			xtype: 'ruwqjled',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwqjled'
+        },
+        {ref: 'ruWQJLForm', selector: 'ruwqjled form'},
+		{
+			ref: 'ruWHJLLst',
+			xtype: 'ruwhjllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwhjllst'
+        },
+		{
+			ref: 'ruWHJLEd',
+			xtype: 'ruwhjled',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwhjled'
+        },
+        {ref: 'ruWHJLForm', selector: 'ruwhjled form'}
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -166,8 +217,53 @@ Ext.define('FV.controller.RenYs', {
 			'renyone image': {
 				afterrender: this.addImageMenu
             },
+			'renyone button[action=jiangL]': {
+				click: this.jiangL_lst
+            },
+			'renyone button[action=ruWQJL]': {
+				click: this.ruWQJL_lst
+            },
+			'renyone button[action=ruWHJL]': {
+				click: this.ruWHJL_lst
+            },
 			'renyone button[action=save]': {
 				click: this.renyone_save
+            },
+			'jiangllst grid': {
+                itemdblclick: this.jiangL_ed
+            },
+			'jiangllst button[action=add]': {
+				click: this.jiangL_add
+            },
+			'jiangled button[action=save]': {
+				click: this.jiangL_save
+            },
+			'jiangled button[action=del]': {
+				click: this.jiangL_del
+            },
+			'ruwqjllst grid': {
+                itemdblclick: this.ruWQJL_ed
+            },
+			'ruwqjllst button[action=add]': {
+				click: this.ruWQJL_add
+            },
+			'ruwqjled button[action=save]': {
+				click: this.ruWQJL_save
+            },
+			'ruwqjled button[action=del]': {
+				click: this.ruWQJL_del
+            },
+			'ruwhjllst grid': {
+                itemdblclick: this.ruWHJL_ed
+            },
+			'ruwhjllst button[action=add]': {
+				click: this.ruWHJL_add
+            },
+			'ruwhjled button[action=save]': {
+				click: this.ruWHJL_save
+            },
+			'ruwhjled button[action=del]': {
+				click: this.ruWHJL_del
 			}
         });
     },
@@ -176,6 +272,144 @@ Ext.define('FV.controller.RenYs', {
 			this.hideBtn();
 		}
     },
+	show_ed: function(rec,win,form){
+		var bt = win.down('button[action=del]'),
+			id = rec.getId();
+		if(id==null||id==0){
+			bt.hide();
+		}else{
+			bt.show();
+		}
+		form.loadRecord(rec);
+		win.show();
+	},
+	jiangL_ed: function(v,rec){
+		this.show_ed(rec,this.getJiangLEd(),this.getJiangLForm());
+	},
+	ruWQJL_ed: function(v,rec){
+		this.show_ed(rec,this.getRuWQJLEd(),this.getRuWQJLForm());
+	},
+	ruWHJL_ed: function(v,rec){
+		this.show_ed(rec,this.getRuWHJLEd(),this.getRuWHJLForm());
+	},
+	jiangL_add: function(btn){
+		var lstw = this.getJiangLLst();
+		this.show_ed(this.getJiangLModel().create({
+				rid: lstw._rid
+			}),this.getJiangLEd(),this.getJiangLForm());
+	},
+	ruWQJL_add: function(btn){
+		var lstw = this.getRuWQJLLst();
+		this.show_ed(this.getRuWQJLModel().create({
+				rid: lstw._rid
+			}),this.getRuWQJLEd(),this.getRuWQJLForm());
+	},
+	ruWHJL_add: function(btn){
+		var lstw = this.getRuWHJLLst();
+		this.show_ed(this.getRuWHJLModel().create({
+				rid: lstw._rid
+			}),this.getRuWHJLEd(),this.getRuWHJLForm());
+	},
+	save_ed: function(win,fm,st){
+		var vl = fm.getValues(),
+			rec = fm.getRecord(),
+			id = rec.getId();
+		rec.set(vl);
+		if(!rec.dirty){
+			win.close();
+			return;
+		}
+		if(id==0 || id==null){
+			st.add(rec);
+		}
+		st.sync({
+			success: function(batch,opt){
+				try{
+					var obj = Ext.decode(batch.operations[0].response.responseText);
+					if(obj.ok){
+						if(obj.data){
+							rec.set('id',obj.data.id);
+							delete rec.modified.id;
+							rec.dirty = false;
+						}
+					}else{
+						console.log(obj.msg);
+					}
+				}catch(e){
+					console.dir(e);
+				}
+				win.close();
+			},
+			failure: function(batch,opt){
+				console.log("failure");
+			},
+			scope: this
+		});
+	},
+	jiangL_save: function(btn){
+		this.save_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore());
+	},
+	ruWQJL_save: function(btn){
+		this.save_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
+	},
+	ruWHJL_save: function(btn){
+		this.save_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
+	},
+	del_ed: function(win,fm,st){
+		var rec = fm.getRecord(),
+			id = rec.getId();
+		if(id==null || id==0){
+			return;
+		}
+		Ext.Msg.confirm('警告!','确定要删除此数据么? ',function(kid){
+			if(kid=='yes'){
+				st.remove(rec);
+				st.sync({
+					success: function(batch,opt){
+						win.close();
+					},
+					scope: this
+				});
+			}
+		},this);
+	},
+	jiangL_del: function(btn){
+		this.del_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore());
+	},
+	ruWQJL_del: function(btn){
+		this.del_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
+	},
+	ruWHJL_del: function(btn){
+		this.del_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
+	},
+	show_lst: function(btn,win,st){
+		var ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			r1 = f1.getRecord(),
+			rid = r1.get('id'),
+			grid;
+		if(rid == 0 || rid==null){
+			Ext.Msg.alert("注意！",'请先保存人员信息。');
+			return;
+		}
+		grid = win.down('grid');
+		st.load({
+			params: {
+				rid: rid
+			}
+		});
+		win._rid = rid;
+		win.show();
+	},
+	jiangL_lst: function(btn){
+		this.show_lst(btn,this.getJiangLLst(),this.getJiangLsStore());
+	},
+	ruWQJL_lst: function(btn){
+		this.show_lst(btn,this.getRuWQJLLst(),this.getRuWQJLsStore());
+	},
+	ruWHJL_lst: function(btn){
+		this.show_lst(btn,this.getRuWHJLLst(),this.getRuWHJLsStore());
+	},
 	hideBtn: function(){
 		var dw = this.getDanWTree(),
 			ry = this.getRenYXX(),
@@ -616,13 +850,13 @@ Ext.define('FV.controller.RenYs', {
 		}
 		st.sync({
 			success: function(batch,opt){
-				console.log("success: "+batch.operations[0].response.responseText);
 				try{
 					var obj = Ext.decode(batch.operations[0].response.responseText);
 					if(obj.ok){
 						if(obj.data){
-							record.set(obj.data);
-							st.sync();// 只更改了id
+							record.set('id',obj.data.id);
+							delete record.modified.id;
+							record.dirty = false;
 						}
 					}else{
 						console.log(obj.msg);

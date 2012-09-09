@@ -506,6 +506,15 @@ Ext.define('FV.view.center.RenYOne', {
 			},{
 				xtype: 'panel',
 				buttons: [{
+					text: '奖励情况',
+					action: 'jiangL'
+				}, {
+					text: '入伍前简历',
+					action: 'ruWQJL'
+				}, {
+					text: '入伍后简历',
+					action: 'ruWHJL'
+				}, {
 					text: '保存',
 					action: 'save'
 				}, {
