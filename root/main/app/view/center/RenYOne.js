@@ -337,18 +337,6 @@ Ext.define('FV.view.center.RenYOne', {
 				},{
 					xtype: 'container',
 					layout: 'hbox',
-					defaults: {
-						labelWidth: 60,
-						flex: 1,
-						margin:'0 0 5 0'
-					},
-					items: [
-						FV.lib.KeyMapMng.getCombField('工资档次','工资档次','GongZDCs',false,1,{queryMode: 'local'}), 
-						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJs',false,1,{queryMode: 'local'})
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
 					defaultType: 'datefield',
 					defaults: {
 						labelWidth: 60,
@@ -356,7 +344,7 @@ Ext.define('FV.view.center.RenYOne', {
 						margin:'0 0 5 0'
 					},
 					items: [
-						FV.lib.KeyMapMng.getCombField('衔级档次','衔级档次','XianJDCs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJs',false,1,{queryMode: 'local'}),
 						{
 							format: 'Y-m-d',
 							altFormats: 'Ymd',
