@@ -515,6 +515,9 @@ Ext.define('FV.view.center.RenYOne', {
 					text: '入伍后简历',
 					action: 'ruWHJL'
 				}, {
+					text: '岗位资格等级',
+					action: 'gangWZGDJ'
+				}, {
 					text: '保存',
 					action: 'save'
 				}, {

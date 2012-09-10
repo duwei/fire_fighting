@@ -43,8 +43,8 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.KeyMapMng'
 	],
 	
-    stores: ['RenYs','BianZhs','RenYslct','JiangLs','RuWQJLs','RuWHJLs'],
-    models: ['RenY','RenY2','BianZh','ZhanB','Img','JiangL','RuWQJL','RuWHJL'],
+    stores: ['RenYs','BianZhs','RenYslct','JiangLs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
+    models: ['RenY','RenY2','BianZh','ZhanB','Img','JiangL','RuWQJL','RuWHJL','GangWZGDJLSh'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
@@ -52,6 +52,8 @@ Ext.define('FV.controller.RenYs', {
 		'sub.RuWQJLEd',
 		'sub.RuWHJLLst',
 		'sub.RuWHJLEd',
+		'sub.GangWZGDJLst',
+		'sub.GangWZGDJEd',
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
 		'center.RenYMain',
@@ -131,7 +133,22 @@ Ext.define('FV.controller.RenYs', {
             autoCreate: true,
 			selector: 'ruwhjled'
         },
-        {ref: 'ruWHJLForm', selector: 'ruwhjled form'}
+        {ref: 'ruWHJLForm', selector: 'ruwqjled form'},
+		{
+			ref: 'gangWZGDJLst',
+			xtype: 'gangwzgdjlst',
+			closable: true,
+            autoCreate: true,
+			selector: 'gangwzgdjlst'
+        },
+		{
+			ref: 'gangWZGDJEd',
+			xtype: 'gangwzgdjed',
+			closable: true,
+            autoCreate: true,
+			selector: 'gangwzgdjed'
+        },
+        {ref: 'gangWZGDJForm', selector: 'gangwzgdjed form'}
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -226,6 +243,9 @@ Ext.define('FV.controller.RenYs', {
 			'renyone button[action=ruWHJL]': {
 				click: this.ruWHJL_lst
             },
+			'renyone button[action=gangWZGDJ]': {
+				click: this.gangWZGDJ_lst
+            },
 			'renyone button[action=save]': {
 				click: this.renyone_save
             },
@@ -264,6 +284,18 @@ Ext.define('FV.controller.RenYs', {
             },
 			'ruwhjled button[action=del]': {
 				click: this.ruWHJL_del
+            },
+			'gangwzgdjlst grid': {
+                itemdblclick: this.gangWZGDJ_ed
+            },
+			'gangwzgdjlst button[action=add]': {
+				click: this.gangWZGDJ_add
+            },
+			'gangwzgdjed button[action=save]': {
+				click: this.gangWZGDJ_save
+            },
+			'gangwzgdjed button[action=del]': {
+				click: this.gangWZGDJ_del
 			}
         });
     },
@@ -292,6 +324,9 @@ Ext.define('FV.controller.RenYs', {
 	ruWHJL_ed: function(v,rec){
 		this.show_ed(rec,this.getRuWHJLEd(),this.getRuWHJLForm());
 	},
+	gangWZGDJ_ed: function(v,rec){
+		this.show_ed(rec,this.getGangWZGDJEd(),this.getGangWZGDJForm());
+	},
 	jiangL_add: function(btn){
 		var lstw = this.getJiangLLst();
 		this.show_ed(this.getJiangLModel().create({
@@ -309,6 +344,12 @@ Ext.define('FV.controller.RenYs', {
 		this.show_ed(this.getRuWHJLModel().create({
 				rid: lstw._rid
 			}),this.getRuWHJLEd(),this.getRuWHJLForm());
+	},
+	gangWZGDJ_add: function(btn){
+		var lstw = this.getGangWZGDJLst();
+		this.show_ed(this.getGangWZGDJLShModel().create({
+				rid: lstw._rid
+			}),this.getGangWZGDJEd(),this.getGangWZGDJForm());
 	},
 	save_ed: function(win,fm,st){
 		var vl = fm.getValues(),
@@ -355,6 +396,9 @@ Ext.define('FV.controller.RenYs', {
 	ruWHJL_save: function(btn){
 		this.save_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
 	},
+	gangWZGDJ_save: function(btn){
+		this.save_ed(this.getGangWZGDJEd(),this.getGangWZGDJForm(),this.getGangWZGDJLShsStore());
+	},
 	del_ed: function(win,fm,st){
 		var rec = fm.getRecord(),
 			id = rec.getId();
@@ -381,6 +425,9 @@ Ext.define('FV.controller.RenYs', {
 	},
 	ruWHJL_del: function(btn){
 		this.del_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
+	},
+	gangWZGDJ_del: function(btn){
+		this.del_ed(this.getGangWZGDJEd(),this.getGangWZGDJForm(),this.getGangWZGDJLShsStore());
 	},
 	show_lst: function(btn,win,st){
 		var ro = btn.up('renyone'),
@@ -409,6 +456,9 @@ Ext.define('FV.controller.RenYs', {
 	},
 	ruWHJL_lst: function(btn){
 		this.show_lst(btn,this.getRuWHJLLst(),this.getRuWHJLsStore());
+	},
+	gangWZGDJ_lst: function(btn){
+		this.show_lst(btn,this.getGangWZGDJLst(),this.getGangWZGDJLShsStore());
 	},
 	hideBtn: function(){
 		var dw = this.getDanWTree(),
