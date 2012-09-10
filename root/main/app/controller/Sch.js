@@ -3,9 +3,13 @@ Ext.define('FV.controller.Sch', {
 
 	requires: ['FV.store.DanWLists'],
 
-    stores: ['Schs'],
+    stores: ['Schs','JiangLs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
     models: ['Sch','Img'],
     views: [
+		'sub.JiangLLst',
+		'sub.RuWQJLLst',
+		'sub.RuWHJLLst',
+		'sub.GangWZGDJLst',
 		'sch.Search',
 		'sch.List',
 		'sch.SchView',
@@ -28,6 +32,34 @@ Ext.define('FV.controller.Sch', {
             selector: 'schview', 
             autoCreate: true,
             xtype: 'schview'
+        },
+		{
+			ref: 'jiangLLst',
+			xtype: 'jiangllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'jiangllst'
+        },
+		{
+			ref: 'ruWQJLLst',
+			xtype: 'ruwqjllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwqjllst'
+        },
+		{
+			ref: 'ruWHJLLst',
+			xtype: 'ruwhjllst',
+			closable: true,
+            autoCreate: true,
+			selector: 'ruwhjllst'
+        },
+		{
+			ref: 'gangWZGDJLst',
+			xtype: 'gangwzgdjlst',
+			closable: true,
+            autoCreate: true,
+			selector: 'gangwzgdjlst'
         }
     ],
     
@@ -49,6 +81,18 @@ Ext.define('FV.controller.Sch', {
             },
            'schtiaoj button[action=save]': {
                 click: this.sch
+            },
+			'schview button[action=jiangL]': {
+				click: this.jiangL_lst
+            },
+			'schview button[action=ruWQJL]': {
+				click: this.ruWQJL_lst
+            },
+			'schview button[action=ruWHJL]': {
+				click: this.ruWHJL_lst
+            },
+			'schview button[action=gangWZGDJ]': {
+				click: this.gangWZGDJ_lst
             }
         });
 		this.curDanW = 0;
@@ -81,6 +125,33 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
+	},
+	show_lst: function(btn,win,st){
+		var f1 = this.getViewForm(),
+			r1 = f1.getRecord(),
+			rid = r1.get('id');
+		st.load({
+			params: {
+				rid: rid
+			}
+		});
+		if(!win._inited){
+			win._inited = true;
+			win.down('button[action=add]').destroy();
+		}
+		win.show();
+	},
+	jiangL_lst: function(btn){
+		this.show_lst(btn,this.getJiangLLst(),this.getJiangLsStore());
+	},
+	ruWQJL_lst: function(btn){
+		this.show_lst(btn,this.getRuWQJLLst(),this.getRuWQJLsStore());
+	},
+	ruWHJL_lst: function(btn){
+		this.show_lst(btn,this.getRuWHJLLst(),this.getRuWHJLsStore());
+	},
+	gangWZGDJ_lst: function(btn){
+		this.show_lst(btn,this.getGangWZGDJLst(),this.getGangWZGDJLShsStore());
 	},
 	kongbian: function(btn,pressed){
 		this.showKb = pressed?1:0;

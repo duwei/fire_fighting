@@ -16,22 +16,22 @@ Ext.define('FV.view.sch.SchView', {
     closeAction: 'hide',
     iconCls: 'slct-bianzh',
     layout: 'fit',
-// 1寸照片： 295＊413px 390*260
+
     initComponent: function() {
         Ext.apply(this, {
 			buttons: [{
-                text: '奖励信息',
-                scope: this,
-                handler: this.showw
-            },{
-                text: '入伍前简历',
-                scope: this,
-                handler: this.showw
-            },{
-                text: '入伍后简历',
-                scope: this,
-                handler: this.showw
-            },{
+				text: '奖励情况',
+				action: 'jiangL'
+			}, {
+				text: '入伍前简历',
+				action: 'ruWQJL'
+			}, {
+				text: '入伍后简历',
+				action: 'ruWHJL'
+			}, {
+				text: '岗位资格等级',
+				action: 'gangWZGDJ'
+			},{
                 text: '关闭',
                 scope: this,
                 handler: this.close
@@ -261,9 +261,5 @@ Ext.define('FV.view.sch.SchView', {
     },
 	rdDate: function(vl){
 		return FV.lib.KeyMapMng.formatDate(vl);
-	},
-	showw: function(btn){
-		Ext.Msg.alert(btn.text);
 	}
-
 });

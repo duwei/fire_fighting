@@ -36,7 +36,7 @@ Ext.define('FV.view.sub.JiangLLst', {
 				columns: [
 					{xtype: 'rownumberer'},
 					{text: '奖励时间',	dataIndex:'奖励时间', sortable: true,  width:100, renderer: FV.lib.KeyMapMng.formatDate},
-					{text: '奖励等级',	dataIndex:'奖励等级', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('JiangLDJs')},
+					{text: '奖励等级',	dataIndex:'奖励等级', sortable: false, width:180, renderer: FV.lib.KeyMapMng.getGridRenderer('JiangLDJs')},
 					{text: '奖励单位',	dataIndex:'奖励单位', sortable: false, flex:1 },
 					{text: '奖励原因',	dataIndex:'奖励原因', sortable: false, width:160 }
 				]
