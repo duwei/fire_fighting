@@ -115,6 +115,8 @@ Ext.define('FV.controller.Sch', {
 					}
 				}
 			});
+		}else{
+			zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
 		}
 		win.show();
 	},

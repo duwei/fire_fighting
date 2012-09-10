@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchView', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 480,
+    height: 500,
     width: 700,
 	//modal: true,
 	resizable: false,
@@ -47,11 +47,16 @@ Ext.define('FV.view.sch.SchView', {
 					labelAlign: 'right',
 					msgTarget: 'side',
 					anchor: '100%',
+					flex: 1,
 					labelWidth: 80
 				},
-                items: [{
+				defaults: {
 					xtype: 'container',
 					layout: 'hbox',
+					defaultType: 'displayfield',
+					margin:'0 0 3 0'
+				},
+                items: [{
 					items: [{
 						xtype: 'image',
 						itemId: 'imgCt',
@@ -64,15 +69,13 @@ Ext.define('FV.view.sch.SchView', {
 						layout: 'anchor',
 						width: 600,
 						height: 228,
-						items:[{
+						defaults: {
 							xtype: 'container',
-							layout: 'hbox',
 							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
+							layout: 'hbox',
+							margin:'0 0 3 0'
+						},
+						items:[{
 							items: [{
 								name: '单位',
 								fieldLabel: '单位'
@@ -81,14 +84,6 @@ Ext.define('FV.view.sch.SchView', {
 								fieldLabel: '职务'
 							}]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '姓名',
 								name: '姓名'
@@ -98,14 +93,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '身份号',
 								name: '身份号'
@@ -115,14 +102,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '民族',
 								name: '民族'
@@ -133,14 +112,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								renderer: this.rdDate,
 								fieldLabel: '工作时间',
@@ -152,14 +123,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								renderer: this.rdDate,
 								fieldLabel: '家庭出身',
@@ -171,14 +134,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '政治面貌',
 								name: '政治面貌'
@@ -189,14 +144,6 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '籍贯',
 								name: '籍贯'
@@ -207,31 +154,23 @@ Ext.define('FV.view.sch.SchView', {
 							}
 							]
 						},{
-							xtype: 'container',
-							layout: 'hbox',
-							defaultType: 'displayfield',
-							defaults: {
-								labelWidth: 80,
-								flex: 1,
-								margin:'0 10 5 0'
-							},
 							items: [{
 								fieldLabel: '入伍地',
 								name: '入伍地'
 							}
 							]
+						},{
+							items: [{
+								fieldLabel: '警官证号码',
+								name: '警官证号码'
+							},{
+								fieldLabel: '警官文职',
+								name: '是否文职干部'
+							}]
 						}
 						]
 					}]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '第一学历',
 						name: '学历'
@@ -241,14 +180,6 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '第二学历',
 						name: '学历1'
@@ -258,14 +189,6 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '行政职务等级',
 						name: '行政职务等级'
@@ -276,14 +199,6 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '警衔文级',
 						name: '警衔文级'
@@ -294,14 +209,6 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '技术职务',
 						name: '技术职务'
@@ -312,14 +219,6 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						fieldLabel: '技术等级',
 						name: '技术等级'
@@ -330,21 +229,30 @@ Ext.define('FV.view.sch.SchView', {
 					}
 					]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'displayfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
-						fieldLabel: '警官证号码',
-						name: '警官证号码'
+						labelWidth: 90,
+						fieldLabel: '上次评审未通过',
+						name: '上次评审未通过'
 					},{
-						fieldLabel: '警官文职',
-						name: '是否文职干部'
-					}]
+						renderer: this.rdDate,
+						fieldLabel: '上次评审时间',
+						name: '上次评审时间'
+					}
+					]
+				},{
+					items: [{
+						fieldLabel: '是否随军',
+						name: '是否随军'
+					},{
+						fieldLabel: '随军人员',
+						name: '随军人员'
+					},{
+						renderer: this.rdDate,
+						flex: 2,
+						fieldLabel: '随军时间',
+						name: '随军时间'
+					}
+					]
 				}]
             }]
         });
