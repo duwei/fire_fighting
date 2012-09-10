@@ -95,9 +95,9 @@ Ext.define('FV.lib.KeyMapMng', {
 			allowBlank:required?false:true,
 			emptyText: '请选择...'
 		};
-		if(width>0&&width<=1){
+		if(width>0&&width<=10){
 			rt.flex = width;
-		}else if(width>1){
+		}else if(width>10){
 			rt.width = width;
 		}
 		if(Ext.isObject(conf)){
