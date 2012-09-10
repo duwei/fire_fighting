@@ -190,7 +190,7 @@ Ext.define('FV.controller.Sch', {
 	sch: function() {
 		var win = this.getSchTiaoJ(),
 			form = this.getTiaoJForm(),
-			vl = form.getValues();
+			vl = form.getValues(false,true);
 		this.getStatusBar().showBusy();
 		vl.danWId = this.curDanW;
 		vl.showKb = this.showKb;

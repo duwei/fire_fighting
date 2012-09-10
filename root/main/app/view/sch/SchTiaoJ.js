@@ -36,7 +36,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
             items: [{
                 xtype: 'form',
 				frame: true,
-				bodder: 0,
+				bodder: false,
                 bodyStyle: 'padding: 10px;',
 				layout: 'anchor',
 				fieldDefaults: {
@@ -45,264 +45,234 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					anchor: '100%',
 					labelWidth: 80
 				},
-                items: [{
+				defaults: {
 					xtype: 'container',
 					layout: 'hbox',
+					margin:'0 0 5 0'
+				},
+                items: [{
 					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
 					items: [{
 						name: '单位',
+						flex: 0.6,
 						fieldLabel: '单位'
 					},
-						FV.lib.KeyMapMng.getCombField('职务','职务','BianZhZhWs',false,1,{}),
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
-					items: [{
+						FV.lib.KeyMapMng.getCombField('职务','职务','BianZhZhWs',false,0.4,{queryMode: 'remote',labelWidth: 30}),
+					{
 						fieldLabel: '姓名',
+						flex: 0.5,
 						name: '姓名'
 					},
-						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,1,{queryMode: 'local'}),
+						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,0.5,{labelWidth: 70})
 					]
 				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '出生时间',
-					layout: 'hbox',
 					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
+						xtype: 'fieldcontainer',
+						layout: 'hbox',
+						flex: 1
 					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '出生时间1'
+					items: [{
+						fieldLabel: '出生时间',
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
 						},
-						{
-							xtype     : 'datefield',
-							name      : '出生时间2'
-						}
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '出生时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '出生时间2'
+							}
+						]
+					},{
+						fieldLabel: '入伍时间',
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '入伍时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '入伍时间2'
+							}
+						]
+					}]
+				},{
+					items: [{
+						xtype: 'fieldcontainer',
+						fieldLabel: '入党时间',
+						layout: 'hbox',
+						flex: 2,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '入党时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '入党时间2'
+							}
+						]
+					},
+						FV.lib.KeyMapMng.getCombField('学历','学历','XueLs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('专业','专业','ZhuanYDLs',false,1,{labelWidth: 42})
 					]
 				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '入伍时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
 					items: [
-						{
-							xtype     : 'datefield',
-							name      : '入伍时间1'
+						FV.lib.KeyMapMng.getCombField('培训形式','培训形式','PeiXXShs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJ3s',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '职务等级时间',
+						layout: 'hbox',
+						flex: 2,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
 						},
-						{
-							xtype     : 'datefield',
-							name      : '入伍时间2'
-						}
-					]
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '职务等级时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '职务等级时间2'
+							}
+						]
+					}]
 				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '入党时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
 					items: [
-						{
-							xtype     : 'datefield',
-							name      : '入党时间1'
+						FV.lib.KeyMapMng.getCombField('是否班组成员','是否班组成员','YesNos',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJ3s',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '衔级时间',
+						layout: 'hbox',
+						flex: 2,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
 						},
-						{
-							xtype     : 'datefield',
-							name      : '入党时间2'
-						}
-					]
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '衔级时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '衔级时间2'
+							}
+						]
+					}]
 				},{
-					xtype: 'container',
-					layout: 'hbox',
+					items: [
+						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '技术等级时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '技术等级时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '技术等级时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{}), 
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '技术职务时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '技术职务时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '技术职务时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('技术资格','技术资格','JiShZhWs',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '技术资格时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '技术资格时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '技术资格时间2'
+							}
+						]
+					}]
+				},{
 					defaultType: 'textfield',
 					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
-					items: [
-						FV.lib.KeyMapMng.getCombField('学历','学历','XueLs',false,1,{queryMode: 'local'}),
-						FV.lib.KeyMapMng.getCombField('培训形式','培训形式','PeiXXShs',false,1,{queryMode: 'local'})
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
-					items: [
-						FV.lib.KeyMapMng.getCombField('专业','专业','ZhuanYDLs',false,1,{queryMode: 'local'}),
-						FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJ3s',false,1,{queryMode: 'local'})
-					]
-				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '职务等级时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '职务等级时间1'
-						},
-						{
-							xtype     : 'datefield',
-							name      : '职务等级时间2'
-						}
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
-					items: [
-						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJ3s',false,1,{queryMode: 'local'}),
-						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{queryMode: 'local'})
-					]
-				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '衔级时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '衔级时间1'
-						},
-						{
-							xtype     : 'datefield',
-							name      : '衔级时间2'
-						}
-					]
-				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '技术等级时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '技术等级时间1'
-						},
-						{
-							xtype     : 'datefield',
-							name      : '技术等级时间2'
-						}
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
-					},
-					items: [
-						FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{queryMode: 'local'}), 
-						FV.lib.KeyMapMng.getCombField('技术资格','技术资格','JiShZhWs',false,1,{queryMode: 'local'})
-					]
-				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '技术职务时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '技术职务时间1'
-						},
-						{
-							xtype     : 'datefield',
-							name      : '技术职务时间2'
-						}
-					]
-				},{
-					xtype: 'fieldcontainer',
-					fieldLabel: '技术资格时间',
-					layout: 'hbox',
-					defaults: {
-						flex: 1,
-						hideLabel: true,
-						margin:'0 10 0 0',
-						submitFormat : 'Ymd',
-						format :'Y-m-d'
-					},
-					items: [
-						{
-							xtype     : 'datefield',
-							name      : '技术资格时间1'
-						},
-						{
-							xtype     : 'datefield',
-							name      : '技术资格时间2'
-						}
-					]
-				},{
-					xtype: 'container',
-					layout: 'hbox',
-					defaultType: 'textfield',
-					defaults: {
-						labelWidth: 80,
-						flex: 1,
-						margin:'0 10 5 0'
+						flex: 1
 					},
 					items: [{
 						name: '籍贯',
@@ -310,6 +280,115 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					},{
 						fieldLabel: '警官证号码',
 						name: '警官证号码'
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('奖励等级','奖励等级','JiangLDJs',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '奖励时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '奖励时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '奖励时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('岗位资格等级','岗位资格等级','GangWZGDJs',false,1,{}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '岗位资格时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '岗位资格时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '岗位资格时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('上次评审未通过','上次评审未通过','YesNos',false,1,{labelWidth: 87}),
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '上次评审时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '上次评审时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '上次评审时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('是否随军','是否随军','YesNos',false,1,{}),
+					{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '随军人员',
+						name: '随军人员'
+					},{
+						xtype: 'fieldcontainer',
+						fieldLabel: '随军时间',
+						layout: 'hbox',
+						flex: 2,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '随军时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '随军时间2'
+							}
+						]
 					}]
 				}]
             }]
