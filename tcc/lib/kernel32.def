@@ -288,6 +288,7 @@ GetModuleFileNameA
 GetModuleFileNameW
 GetModuleHandleA
 GetModuleHandleW
+GetModuleHandleExW
 GetNamedPipeHandleStateA
 GetNamedPipeHandleStateW
 GetNamedPipeInfo
@@ -606,6 +607,7 @@ SetCurrentDirectoryW
 SetDaylightFlag
 SetDefaultCommConfigA
 SetDefaultCommConfigW
+SetDllDirectoryW
 SetEndOfFile
 SetEnvironmentVariableA
 SetEnvironmentVariableW
