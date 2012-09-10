@@ -4,6 +4,7 @@ Ext.define('FV.store.ZhuanYDLs', {// 专业大类
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
 		{value: 0  ,   label: '无'},
 		{value: 1  ,   label: '文科类-哲学'},
 		{value: 2  ,   label: '文科类-政治学'},

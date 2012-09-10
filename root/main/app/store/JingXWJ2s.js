@@ -4,6 +4,7 @@ Ext.define('FV.store.JingXWJ2s', {// 警衔文级 文职干部
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 51,   label: '文职1级'},
         {value: 52,   label: '文职2级'},
         {value: 53,   label: '文职3级'},

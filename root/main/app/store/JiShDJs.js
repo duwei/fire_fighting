@@ -4,6 +4,7 @@ Ext.define('FV.store.JiShDJs', {// 技术等级
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
 	    {value: 1 ,   label: '技术一级'},
         {value: 2 ,   label: '技术二级'},
         {value: 3 ,   label: '技术三级'},

@@ -4,6 +4,7 @@ Ext.define('FV.store.XingBs', {// 性别
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 1,   label: '男'},
         {value: 2,   label: '女'},
 	]

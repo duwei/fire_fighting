@@ -4,6 +4,7 @@ Ext.define('FV.store.JiaTChShs', {// 家庭出身
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 1,   label: '工人'},
         {value: 2,   label: '农民'},
         {value: 3,   label: '干部'},

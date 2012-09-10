@@ -4,6 +4,7 @@ Ext.define('FV.store.BianZhLXs', {// 编制类型
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 1,   label: '总队机关'},
         {value: 2,   label: '支队机关'},
         {value: 3,   label: '大队'},

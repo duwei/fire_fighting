@@ -4,6 +4,7 @@ Ext.define('FV.store.ZhiWDJ3s', {// 行政职务等级 警官+文职干部
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         //{value: 1,   label: '军委领导'},
         //{value: 2,   label: '正大区职'},
         //{value: 3,   label: '副大区职'},

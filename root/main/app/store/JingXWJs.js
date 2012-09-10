@@ -4,6 +4,7 @@ Ext.define('FV.store.JingXWJs', {// 警衔文级 警官
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 14,   label: '少将'},
         {value: 21,   label: '大校'},
         {value: 22,   label: '上校'},

@@ -4,6 +4,7 @@ Ext.define('FV.store.PeiXXShs', {// 培训形式
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 1,   label: '全日制军队院校培训'},
         {value: 2,   label: '全日制地方院校培训'},
         {value: 3,   label: '高教自学考试'},

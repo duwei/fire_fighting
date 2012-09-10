@@ -4,6 +4,7 @@ Ext.define('FV.store.XianJDCs', {// 衔级档次
     model: 'FV.model.LabelValue',
 
     data: [
+        {value: null,   label: '请选择...'},
         {value: 1 ,   label: '一档'},
         {value: 2 ,   label: '二档'},
         {value: 3 ,   label: '三档'},
