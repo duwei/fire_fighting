@@ -299,6 +299,32 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '技术等级时间',
 							name: '技术等级时间'
 						}]
+					},{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'datefield',
+						defaults: {
+							labelWidth: 60,
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [{
+							xtype: 'checkbox',
+							name: '上次评审未通过',
+							boxLabel: '上次评审未通过',
+							hideLabel: true,
+							checked: false,
+							inputValue: 1,
+							uncheckedValue: 0,
+							style: 'margin-bottom:10px'
+						},{
+							labelWidth: 90,
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
+							fieldLabel: '上次评审时间',
+							name: '上次评审时间'
+						}]
 					}]
 				},{
 					xtype: 'fieldset',
@@ -500,6 +526,41 @@ Ext.define('FV.view.center.RenYOne', {
 							xtype: 'textfield',
 							fieldLabel: '专业细类',
 							name: '专业细类2'
+						}]
+					}]
+				},{
+					xtype: 'fieldset',
+					title: '随军',
+					checkboxName: '是否随军',
+					checkboxToggle:true,
+					inputValue: 1,
+					uncheckedValue: 0,
+					createCheckboxCmp: this.createCheckboxCmp,
+					defaultType: 'datefield',
+					collapsed: true,
+					layout: 'anchor',
+					defaults: {
+						anchor: '100%'
+					},
+					items: [{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'datefield',
+						defaults: {
+							labelWidth: 60,
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [{
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
+							fieldLabel: '随军时间',
+							name: '随军时间'
+						},{
+							xtype: 'textfield',
+							fieldLabel: '随军人员',
+							name: '随军人员'
 						}]
 					}]
 				}]
