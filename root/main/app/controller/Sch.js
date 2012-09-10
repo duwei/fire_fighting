@@ -75,8 +75,8 @@ Ext.define('FV.controller.Sch', {
 		this.getSchsStore().on({
 			load: function(ths,recs,succ){
 				this.getStatusBar().setStatus({
-					text:'搜索完毕，共'+recs.length+'条数据。',
-					iconCls: 'x-status-valid'
+					text:succ?'搜索完毕，共'+recs.length+'条数据。':'发生错误！',
+					iconCls: succ?'x-status-valid':'x-status-error'
 				});
 			},
 			scope: this
