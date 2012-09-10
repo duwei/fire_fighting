@@ -390,6 +390,16 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							}
 						]
 					}]
+				},{
+					defaultType: 'textfield',
+					margin    : '10 0 0 0',
+					defaults: {
+						flex: 1
+					},
+					items: [{
+						name: '智能查询',
+						fieldLabel: '智能查询'
+					}]
 				}]
             }]
         });
