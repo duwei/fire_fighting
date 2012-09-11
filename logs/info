@@ -1,5 +1,5 @@
 apr_json.c
 simple_map.c
-event_handler.c
+#event_handler.c
 #db_accessor.c
 db_manager.c
