@@ -17,6 +17,7 @@ Ext.define('FV.controller.Sch', {
 	],
     
     refs: [
+		{ref: 'dwBtn', selector: 'schlist button[action=download]'},
 		{ref: 'statusBar', selector: 'statusbar'},
 		{ref: 'schForm', selector: 'schform'},
         {ref: 'tiaoJForm', selector: 'schtiaoj form'},
@@ -76,6 +77,9 @@ Ext.define('FV.controller.Sch', {
             'schlist button[action=adv]': {
                 click: this.adv
             },
+            'schlist button[action=download]': {
+                click: this.downloadRst
+            },
             'schlist button[action=kongbian]': {
                 toggle: this.kongbian
             },
@@ -122,6 +126,37 @@ Ext.define('FV.controller.Sch', {
 					text:succ?'搜索完毕，共'+recs.length+'条数据。':'发生错误！',
 					iconCls: succ?'x-status-valid':'x-status-error'
 				});
+				if(succ)this.getDwBtn().show();
+			},
+			scope: this
+		});
+	},
+	downloadURL: function(url) {
+		var iframe = document.getElementById("hiddenDownloader");
+		if (iframe === null)
+		{
+			iframe = document.createElement('iframe');  
+			iframe.id = "hiddenDownloader";
+			iframe.style.display = 'none';
+			document.body.appendChild(iframe);
+		}
+		iframe.src = url;   
+	},
+	downloadRst: function(btn){
+		Ext.Ajax.request({
+			url: '/data/schdw.app',
+			jsonData: this.schParam,
+			success: function(response){
+				var m = response.responseText;
+				if(m!='ERR'){
+					//this.downloadURL('/data/dw.app?k='+m);
+					window.location.href = '/data/dw.app?k='+m;
+				}else{
+					Ext.Msg.alert('错误！','生成Excel文件出错！');
+				}
+			},
+			failure: function(response){
+				Ext.Msg.alert('错误！','信息：'+response.responseText);
 			},
 			scope: this
 		});
@@ -159,6 +194,7 @@ Ext.define('FV.controller.Sch', {
 			text: '请重新搜索。',
 			iconCls: 'x-status-error'
 		});
+		this.getDwBtn().hide();
 	},
 	showIt: function(v,rec){
 		var win = this.getSchView(),
@@ -220,6 +256,7 @@ Ext.define('FV.controller.Sch', {
 						text: '请重新搜索。',
 						iconCls: 'x-status-error'
 					});
+					this.getDwBtn().hide();
 					this.removeNext(form,ovl);
 					if(newvl==0){
 						this.curDanW = ths.pid;
@@ -253,11 +290,12 @@ Ext.define('FV.controller.Sch', {
 	},
 	schall: function() {
 		this.getStatusBar().showBusy();
+		this.schParam = {
+			showKb: this.showKb,
+			danWId:this.curDanW
+		};
 		this.getSchsStore().load({
-			params: {
-				showKb: this.showKb,
-				danWId:this.curDanW
-			}
+			params: this.schParam
 		});
 	},
 	sch: function() {
@@ -267,6 +305,7 @@ Ext.define('FV.controller.Sch', {
 		this.getStatusBar().showBusy();
 		vl.danWId = this.curDanW;
 		vl.showKb = this.showKb;
+		this.schParam = vl;
 		this.getSchsStore().load({
 			params: vl
 		});

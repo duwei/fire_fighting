@@ -53,10 +53,15 @@ Ext.define('FV.view.sch.List', {
                     iconCls: 'refresh',
                     text: '搜索',
                     action: 'sch'
-                },'->',{
+                },'-',{
                     iconCls: 'refresh',
-                    text: '高级',
+                    text: '高级搜索',
                     action: 'adv'
+                },'-',{
+                    iconCls: 'refresh',
+                    text: '结果下载',
+					hidden: true,
+                    action: 'download'
                 }]
             }],
 			bbar: Ext.create('Ext.ux.StatusBar', {
