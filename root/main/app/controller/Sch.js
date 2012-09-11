@@ -143,20 +143,24 @@ Ext.define('FV.controller.Sch', {
 		iframe.src = url;   
 	},
 	downloadRst: function(btn){
+		if(this.curDwKey){
+			this.downloadURL('/data/dw.app?k='+this.curDwKey);
+			return;
+		}
 		Ext.Ajax.request({
 			url: '/data/schdw.app',
 			jsonData: this.schParam,
 			success: function(response){
 				var m = response.responseText;
 				if(m!='ERR'){
-					//this.downloadURL('/data/dw.app?k='+m);
-					window.location.href = '/data/dw.app?k='+m;
+					this.downloadURL('/data/dw.app?k='+m);
+					this.curDwKey = m;
 				}else{
 					Ext.Msg.alert('错误！','生成Excel文件出错！');
 				}
 			},
 			failure: function(response){
-				Ext.Msg.alert('错误！','信息：'+response.responseText);
+				Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
 			},
 			scope: this
 		});
@@ -195,6 +199,7 @@ Ext.define('FV.controller.Sch', {
 			iconCls: 'x-status-error'
 		});
 		this.getDwBtn().hide();
+		this.curDwKey = null;
 	},
 	showIt: function(v,rec){
 		var win = this.getSchView(),
@@ -257,6 +262,7 @@ Ext.define('FV.controller.Sch', {
 						iconCls: 'x-status-error'
 					});
 					this.getDwBtn().hide();
+					this.curDwKey = null;
 					this.removeNext(form,ovl);
 					if(newvl==0){
 						this.curDanW = ths.pid;
@@ -294,6 +300,7 @@ Ext.define('FV.controller.Sch', {
 			showKb: this.showKb,
 			danWId:this.curDanW
 		};
+		this.curDwKey = null;
 		this.getSchsStore().load({
 			params: this.schParam
 		});
@@ -306,6 +313,7 @@ Ext.define('FV.controller.Sch', {
 		vl.danWId = this.curDanW;
 		vl.showKb = this.showKb;
 		this.schParam = vl;
+		this.curDwKey = null;
 		this.getSchsStore().load({
 			params: vl
 		});
