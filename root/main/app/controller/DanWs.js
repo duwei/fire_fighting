@@ -4,11 +4,13 @@ Ext.define('FV.controller.DanWs', {
     stores: ['DanWs'],
     models: ['DanW'],
     views: [
+		'util.IFrame',
 		'west.DanWTree',
 		'west.DanWWindow'
 	],
     
     refs: [
+		{ref: 'centerTab', selector: 'centertab'},
 		{ref: 'renYMain', selector: 'renymain'},
 		{ref: 'danWTree', selector: 'danwtree'},
         {ref: 'danWForm', selector: 'danwwindow form'},
@@ -17,6 +19,13 @@ Ext.define('FV.controller.DanWs', {
             selector: 'danwwindow', 
             autoCreate: true,
             xtype: 'danwwindow'
+        },
+        {
+            ref: 'myiFrame', 
+            selector: 'myiframe', 
+			closable: true,
+            forceCreate: true,
+            xtype: 'myiframe'
         }
     ],
     
@@ -24,6 +33,9 @@ Ext.define('FV.controller.DanWs', {
     // is executed on the Application
     init: function() {
         this.control({
+            'menutree': {
+                itemclick: this.menuClick
+            },
             'danwtree': {
                 selectionchange: this.chgCurDanW
             },
@@ -74,7 +86,25 @@ Ext.define('FV.controller.DanWs', {
 			}
 		}
 	},
-	
+	menuClick: function(v,rec,item,index,opt){
+		var cf = rec.raw,
+			tabs = this.getCenterTab(),
+			tab;
+		if(cf.iframe){
+			tab = tabs.down('myiframe[_ind='+index+']');
+			if(!tab){
+				tab = this.getMyiFrame();
+				tab._ind = index;
+				tab.setTitle(cf.text);
+				tab.down('uxiframe').src = cf.url;
+				tabs.add(tab);
+			}
+		}else{
+			console.log('menuClick ');
+			return;
+		}
+		tabs.setActiveTab(tab);
+	},
 	refreshDanW: function(){
 		this.getDanWsStore().load();
 	},
