@@ -4,7 +4,7 @@ Ext.define('FV.controller.Sch', {
 	requires: ['FV.store.DanWLists'],
 
     stores: ['Schs','JiangLs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
-    models: ['Sch','Img'],
+    models: ['Sch','Img','DanWList'],
     views: [
 		'sub.JiangLLst',
 		'sub.RuWQJLLst',
@@ -112,11 +112,16 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this,
 			callback: function(recs,op,succ){
-				if(succ&&recs.length>0){
-					rdw.setValue(recs[0].get('text'));
-					this.rootDanW = recs[0].get('id');
-					this.curDanW = this.rootDanW;
-					this.addNext(form,this.rootDanW,1);
+				if(succ){
+					if(recs.length==1){
+						rdw.setValue(recs[0].get('text'));
+						this.curDanW = recs[0].get('id');
+						this.addNext(form,this.curDanW);
+					}else if(recs.length>1){
+						rdw.setValue('');
+						this.curDanW = 0;
+						this.addNext(form,0,store);
+					}
 				}
 			}
 		});
@@ -233,6 +238,7 @@ Ext.define('FV.controller.Sch', {
 		win.show();
 	},
 	removeNext: function(form,pid){
+		if(pid==0)return;
 		var fd = form.down('combo[pid='+pid+']'),vl;
 		if(fd){
 			vl = fd.getValue();
@@ -242,14 +248,15 @@ Ext.define('FV.controller.Sch', {
 			fd.destroy();
 		}
 	},
-	addNext: function(form,danWId){
-		var st = Ext.create('FV.store.DanWLists'),
+	addNext: function(form,danWId,st0){
+		var st = st0,obj;
+		if(!st) st = Ext.create('FV.store.DanWLists');
 		obj = {
 			xtype: 'combo',
 			pid: danWId,
 			value: 0,
 			store: st,
-			width: 260,
+			width: 230,
 			displayField: 'text',
 			valueField: 'id',
 			queryMode: 'local',
@@ -274,20 +281,25 @@ Ext.define('FV.controller.Sch', {
 				scope: this
 			}
 		};
-		st.load({
-			params:{
-				node: danWId,
-				forSch: 1
-			},
-			callback: function(records, operation, success){
-				if(success){
-					if(records.length>1)
-						form.add(obj);
-					else
-						obj = null;
+		if(st0) {
+			st.insert(0,[this.getDanWListModel().create({id:0,parentId:0,text:'(请选择下级单位)'})]);
+			form.add(obj);
+		}else{
+			st.load({
+				params:{
+					node: danWId,
+					forSch: 1
+				},
+				callback: function(records, operation, success){
+					if(success){
+						if(records.length>1)
+							form.add(obj);
+						else
+							obj = null;
+					}
 				}
-			}
-		});
+			});
+		}
 	},
 	adv: function() {
 		var win = this.getSchTiaoJ(),
