@@ -469,7 +469,7 @@ Ext.define('FV.controller.RenYs', {
 		dw.down('button[action=edit]').hide();
 		ry.down('button[action=add]').destroy();
 		//ry.down('button[action=edit]').hide();
-		ry.down('button[action=del]').hide();
+		//ry.down('button[action=del]').hide();
 		bz.down('button[action=add]').destroy();
 		bz.down('button[action=edit]').hide();
 		bz.down('button[action=del]').hide();
