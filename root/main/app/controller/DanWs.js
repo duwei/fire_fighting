@@ -194,9 +194,9 @@ Ext.define('FV.controller.DanWs', {
 		});
 	},
 	beforedrop: function(node, data, overModel, dropPosition, eOpts){
-		if(!FV.lib.UsInf.hasPm('p1'))return false;
 		var rec = data.records[0];
-		if(rec.self.getName()=='FV.model.DanW'){
+		if(rec instanceof FV.model.DanW){
+			if(!FV.lib.UsInf.hasPm('p1'))return false;
 			if(confirm('确定要调整单位['+rec.get('text')+']到单位['+overModel.get('text')+']'+(dropPosition=='before'?'之前':dropPosition=='after'?'之后':'之中')+'么?')!=true){
 				return false;
 			}

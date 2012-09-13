@@ -1069,9 +1069,9 @@ Ext.define('FV.controller.RenYs', {
 	
 	moveRenY: function(node, data, overModel, dropPosition, eOpts){
 		var rec = data.records[0];
-		if(!FV.lib.UsInf.hasPm('p1'))return false;
 
-		if(rec.self.getName()=='FV.model.RenY'){// 拖动人员
+		if(rec instanceof FV.model.RenY){// 拖动人员
+			//if(!FV.lib.UsInf.hasPm('p1'))return false;
 			var p = overModel,tdid,odid=rec.get('danWId');
 			if(dropPosition!='append'){
 				p = overModel.parentNode;
