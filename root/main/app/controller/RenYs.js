@@ -249,6 +249,9 @@ Ext.define('FV.controller.RenYs', {
 			'renyone button[action=save]': {
 				click: this.renyone_save
             },
+			'renyone checkbox[boxLabel=文职干部]': {
+				change: this.wenZhGB_chg
+            },
 			'jiangllst grid': {
                 itemdblclick: this.jiangL_ed
             },
@@ -304,6 +307,23 @@ Ext.define('FV.controller.RenYs', {
 			this.hideBtn();
 		}
     },
+	wenZhGB_chg: function(fld,newVl,oldVl){
+		var fm = fld.up('form'),
+			zwdj = fm.down('combobox[fieldLabel=行政职务等级]'),
+			jxwj = fm.down('combobox[fieldLabel=警衔文级]'),
+			rec = fm.getRecord(),
+			zw = rec.get('行政职务等级'),
+			jx = rec.get('警衔文级');
+		if(newVl){
+			zwdj.bindStore(this.keyHlp.getStore('ZhiWDJ2s'));
+			jxwj.bindStore(this.keyHlp.getStore('JingXWJ2s'));
+		}else{
+			zwdj.bindStore(this.keyHlp.getStore('ZhiWDJs'));
+			jxwj.bindStore(this.keyHlp.getStore('JingXWJs'));
+		}
+		zwdj.setValue(zw);
+		jxwj.setValue(jx);
+	},
 	show_ed: function(rec,win,form){
 		var bt = win.down('button[action=del]'),
 			id = rec.getId();
