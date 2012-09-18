@@ -133,7 +133,7 @@ Ext.define('FV.controller.RenYs', {
             autoCreate: true,
 			selector: 'ruwhjled'
         },
-        {ref: 'ruWHJLForm', selector: 'ruwqjled form'},
+        {ref: 'ruWHJLForm', selector: 'ruwhjled form'},
 		{
 			ref: 'gangWZGDJLst',
 			xtype: 'gangwzgdjlst',
