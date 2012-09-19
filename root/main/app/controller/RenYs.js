@@ -384,7 +384,13 @@ Ext.define('FV.controller.RenYs', {
 	save_ed: function(win,fm,st){
 		var vl = fm.getValues(),
 			rec = fm.getRecord(),
-			id = rec.getId();
+			id = rec.getId(),
+			ff = fm.getForm();
+		ff.checkValidity();
+		if(!ff.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
 		rec.set(vl);
 		if(!rec.dirty){
 			win.close();
@@ -687,7 +693,15 @@ Ext.define('FV.controller.RenYs', {
 		var ro = btn.up('renyone'),
 			f1 = ro.down('form[formId=renY1]'),
 			f2 = ro.down('form[formId=renY2]'),
-			zhaoPFld = f1.down('image'),
+			f1f = f1.getForm(),
+			f2f = f2.getForm();
+		f1f.checkValidity();
+		f2f.checkValidity();
+		if(!f1f.isValid() || !f2f.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
+		var zhaoPFld = f1.down('image'),
 			zhaoPRec = zhaoPFld._rec,
 			vs1 = f1.getValues(false,true),
 			vs2 = f2.getValues(false,false),
@@ -795,7 +809,13 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getZhanBWindow(),
 			form = this.getZhanBForm(),
 			rec = form.getRecord(),
-			values = form.getValues();
+			values = form.getValues(),
+			ff = form.getForm();
+		ff.checkValidity();
+		if(!ff.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
 		this.zhanBInfo.flag = values['chaoB']||1;
 		this.zhanBInfo.log =  values['log']||0;
 		this.zhanBInfo['占编时间'] =  values['占编时间'];
@@ -968,7 +988,13 @@ Ext.define('FV.controller.RenYs', {
 			bz  = this.curBianZh,
 			record = form.getRecord(),
 			values = form.getValues(),
-			st = this.getBianZhsStore();
+			st = this.getBianZhsStore(),
+			ff = form.getForm();
+		ff.checkValidity();
+		if(!ff.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
 
 		record.set(values);
 		if(record.getId()==0){

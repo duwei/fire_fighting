@@ -157,7 +157,13 @@ Ext.define('FV.controller.DanWs', {
 			form = this.getDanWForm(),
 			record = form.getRecord(),
 			values = form.getValues(),
+			ff = form.getForm(),
 			st = this.getDanWsStore();
+		ff.checkValidity();
+		if(!ff.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
 
 		record.set(values);
 		if(record.getId()==0){
