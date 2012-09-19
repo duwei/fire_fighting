@@ -97,7 +97,7 @@ Ext.define('FV.view.sch.List', {
 	
 	xingM: function(vl,metaData,record,rowIndex,colIndex,store,view){
 		var zw0=record.get('zw0'),zw1=record.get('zw1');
-		if(zw1<=11&&zw1>0){// 副营职及以上  人高叫高配 zw1越小级别越高
+		if(zw1<=11&&zw1>0&&zw0>0){// 副营职及以上  人高叫高配 zw1越小级别越高
 			if(zw0<zw1){
 				return "<span style='color:green;'>"+vl+"</span>";// 低配
 			}else if(zw0>zw1){
