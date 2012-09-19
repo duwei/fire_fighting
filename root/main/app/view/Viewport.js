@@ -17,7 +17,7 @@ Ext.define('FV.view.Viewport', {
         xtype: 'centertab'
     }, {
         region: 'west',
-        width: 280,
+        width: 400,
 		minWidth: 140,
 		collapsible: true,
 		split: true,

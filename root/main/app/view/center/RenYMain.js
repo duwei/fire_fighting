@@ -38,7 +38,7 @@ Ext.define('FV.view.center.RenYMain', {
 				xtype: 'caozrzh'*/
 			}, {
 				region: 'east',
-				width: 300,
+				width: 240,
 				split: true,
 				weight: -110,
 				title: '编制信息',
