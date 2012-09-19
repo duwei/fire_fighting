@@ -244,9 +244,28 @@ Ext.define('FV.view.center.RenYOne', {
 					uncheckedValue: 0,
 					createCheckboxCmp: this.createCheckboxCmp,
 					defaults: {
-						anchor: '50%'
+						anchor: '100%'
 					},
-					items: [FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJs',false,1,{queryMode: 'local'})]
+					items: [{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'datefield',
+						defaults: {
+							labelWidth: 60,
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [
+							FV.lib.KeyMapMng.getCombField('行政职务等级','职务等级','ZhiWDJs',false,1,{queryMode: 'local'}), 
+							{
+							labelWidth: 90,
+							altFormats: 'Ymd',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
+							fieldLabel: '职级时间',
+							name: '职级时间'
+						}]
+					}]
 				},{
 					xtype: 'fieldset',
 					title: '技术干部',
