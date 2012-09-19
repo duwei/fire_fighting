@@ -14,16 +14,13 @@ Ext.define('FV.view.center.XuanDRY', {
                 text: '姓名',
                 dataIndex: '姓名',
                 width: 60
-                //renderer: this.formatTitle
             }, {
                 text: '部别职务',
                 dataIndex: '部别职务',
-                //renderer: this.formatBB,
                 flex: 1
             }, {
                 text: '身份号',
                 dataIndex: '身份号',
-                //renderer: this.formatBB,
                 flex: 1
             }, {
                 text: '状态',
@@ -69,13 +66,5 @@ Ext.define('FV.view.center.XuanDRY', {
         });
 
         this.callParent(arguments);
-    },
-
-    /**
-     * Title renderer
-     * @private
-     */
-    formatBB: function(value, p, record) {
-        return Ext.String.format('<div class="topic"><b>{0}</b><span class="author">{1}</span></div>', value, record.get('author') || "Unknown");
     }
 });
