@@ -37,6 +37,11 @@ Ext.define('FV.view.center.RenYXX', {
                 dataIndex: '性别',
                 renderer: FV.lib.KeyMapMng.getGridRenderer('XingBs'),
                 width: 40
+            }, {
+                text: '状态',
+                dataIndex: '状态',
+                renderer: FV.lib.KeyMapMng.getGridRenderer('ZhuangTs'),
+                width: 80
             }],
             dockedItems:[{
                 xtype: 'toolbar',

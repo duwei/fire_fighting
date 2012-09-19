@@ -25,6 +25,11 @@ Ext.define('FV.view.center.XuanDRY', {
                 dataIndex: '身份号',
                 //renderer: this.formatBB,
                 flex: 1
+            }, {
+                text: '状态',
+                dataIndex: '状态',
+                renderer: FV.lib.KeyMapMng.getGridRenderer('ZhuangTs'),
+                width: 80
             }],
             dockedItems:[{
                 xtype: 'toolbar',
@@ -33,11 +38,25 @@ Ext.define('FV.view.center.XuanDRY', {
                     iconCls: 'open-all',
                     text: '编辑全部',
                     action: 'openall'
-/*                },{
+                },{
                     iconCls: 'open-all',
-                    text: '批量修改',
-                    action: 'editall'*/
+                    text: '数据导出',
+                    action: 'export'
+                },{
+                    iconCls: 'open-all',
+                    text: '数据导入',
+					tip: '上传，解释，如果p1，如果需要审核，装入此列表中',
+                    action: 'import'
+                },{
+                    iconCls: 'open-all',
+                    text: '导入数据保存',
+					tip: '上传，解释，如果p1，如果需要审核，装入此列表中',
+                    action: 'import_sv'
                 },'->',{
+                    iconCls: 'open-all',
+                    text: '所有已修改',
+                    action: 'slct_chged'
+                },'-',{
                     iconCls: 'open-all',
                     text: '清除',
                     action: 'clean'

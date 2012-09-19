@@ -1,7 +1,7 @@
 Ext.define('FV.controller.Sch', {
     extend: 'Ext.app.Controller',
 
-	requires: ['FV.store.DanWLists'],
+	requires: ['FV.store.DanWLists','FV.lib.Utils'],
 
     stores: ['Schs','JiangLs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
     models: ['Sch','Img','DanWList'],
@@ -136,20 +136,9 @@ Ext.define('FV.controller.Sch', {
 			scope: this
 		});
 	},
-	downloadURL: function(url) {
-		var iframe = document.getElementById("hiddenDownloader");
-		if (iframe === null)
-		{
-			iframe = document.createElement('iframe');  
-			iframe.id = "hiddenDownloader";
-			iframe.style.display = 'none';
-			document.body.appendChild(iframe);
-		}
-		iframe.src = url;   
-	},
 	downloadRst: function(btn){
 		if(this.curDwKey){
-			this.downloadURL('/data/dw.app?k='+this.curDwKey);
+			FV.lib.Utils.downloadURL('/data/dw.app?k='+this.curDwKey);
 			return;
 		}
 		Ext.Ajax.request({
@@ -158,7 +147,7 @@ Ext.define('FV.controller.Sch', {
 			success: function(response){
 				var m = response.responseText;
 				if(m!='ERR'){
-					this.downloadURL('/data/dw.app?k='+m);
+					FV.lib.Utils.downloadURL('/data/dw.app?k='+m);
 					this.curDwKey = m;
 				}else{
 					Ext.Msg.alert('错误！','生成Excel文件出错！');

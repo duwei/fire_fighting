@@ -40,6 +40,7 @@ Ext.define('FV.controller.RenYs', {
 		'FV.store.ZhuanYDLs',
 		'FV.store.ZhuLBMs',
 		'FV.lib.UsInf',
+		'FV.lib.Utils',
 		'FV.lib.KeyMapMng'
 	],
 	
@@ -230,6 +231,15 @@ Ext.define('FV.controller.RenYs', {
             },
             'xuandry button[action=cleanall]': {
                 click: this.xd_cleanall
+            },
+            'xuandry button[action=export]': {
+                click: this.xd_export
+            },
+            'xuandry button[action=import]': {
+                click: this.xd_import
+            },
+            'xuandry button[action=import_sv]': {
+                click: this.xd_import_sv
             },
 			'renyone image': {
 				afterrender: this.addImageMenu
@@ -906,6 +916,52 @@ Ext.define('FV.controller.RenYs', {
 		this.getRenYslctStore().removeAll();
 		this.xuanDMap = null;
 	},
+	xd_export: function(){
+		var recs = this.getRenYslctStore().getRange(),
+			dwids = {},nodt = true,ids=[],k;
+        Ext.Array.forEach(recs, function(reny){
+			var o = dwids[reny.get('danWId')];
+			if(o==null)o=[];
+			o.push(reny.get('id'));
+			ids.push(reny.get('id'));
+			dwids[reny.get('danWId')] = o;
+			nodt = false;
+        }, this);
+		if(nodt){
+			Ext.Msg.alert("注意！",'请先选择人员。');
+			return;
+		}
+		
+		dwids.ids = ids;
+		for(k in dwids){
+			dwids[k] = dwids[k].join(',');
+		}
+		console.dir(dwids);
+		
+		Ext.Ajax.request({
+			url: '/data/export.app',
+			jsonData: dwids,
+			success: function(response){
+				var m = response.responseText;
+				if(m!='ERR'){
+					FV.lib.Utils.downloadURL('/data/exportdl.app?k='+m);
+					this.curDwKey = m;
+				}else{
+					Ext.Msg.alert('错误！','生成Excel文件出错！');
+				}
+			},
+			failure: function(response){
+				Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+			},
+			scope: this
+		});
+	},
+	xd_import: function(){
+		console.log('xd_import');
+	},
+	xd_import_sv: function(){
+		console.log('xd_import_sv');
+	},
 	saveBianZh: function(){
 		var win = this.getBianZhWindow(),
 			form = this.getBianZhForm(),
@@ -1143,6 +1199,7 @@ Ext.define('FV.controller.RenYs', {
 			this.formatIt(o,'入学时间',this.keyHlp.formatDate);
 			this.formatIt(o,'毕业时间',this.keyHlp.formatDate);
 			this.formatIt(o,'专业大类',this.keyHlp.getGridRenderer('ZhuanYDLs'));
+			this.formatIt(o,'状态',this.keyHlp.getGridRenderer('ZhuangTs'));
 		}
 		w.setSource(o);
 		w.setTitle('人员信息');
