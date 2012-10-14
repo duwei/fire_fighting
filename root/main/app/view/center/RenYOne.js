@@ -156,12 +156,12 @@ Ext.define('FV.view.center.RenYOne', {
 							xtype: 'container',
 							layout: 'hbox',
 							defaults: {
-								labelWidth: 60,
+								labelWidth: 70,
 								flex: 1,
 								margin:'0 0 5 0'
 							},
 							items: [
-								FV.lib.KeyMapMng.getCombField('文化程度','文化程度','XueLs',false,1,{queryMode: 'local'}),
+								FV.lib.KeyMapMng.getCombField('文化程度','全日制学历','XueLs',false,1,{queryMode: 'local'}),
 								FV.lib.KeyMapMng.getCombField('学位','学位','XueWs',false,1,{queryMode: 'local'})
 							]
 						},{
