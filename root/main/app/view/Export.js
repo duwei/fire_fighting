@@ -34,6 +34,10 @@ Ext.define('FV.view.Export', {
                     action: 'schall'
                 },'-',{
                     iconCls: 'refresh',
+                    text: '剔除数据',
+                    action: 'remove'
+                },'-',{
+                    iconCls: 'refresh',
                     text: '导出',
 					hidden: true,
                     action: 'download'

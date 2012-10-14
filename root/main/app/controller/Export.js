@@ -10,6 +10,7 @@ Ext.define('FV.controller.Export', {
 	],
     
     refs: [
+		{ref: 'exportList', selector: 'exportlist'},
 		{ref: 'dwBtn', selector: 'exportlist button[action=download]'},
 		{ref: 'statusBar', selector: 'statusbar'}
     ],
@@ -25,6 +26,9 @@ Ext.define('FV.controller.Export', {
             'exportlist button[action=schall]': {
                 click: this.schall
             },
+            'exportlist button[action=remove]': {
+                click: this.removeit
+            },
             'exportlist button[action=download]': {
                 click: this.download
             },
@@ -34,15 +38,35 @@ Ext.define('FV.controller.Export', {
 		this.getRenYexpsStore().on({
 			load: function(ths,recs,succ){
 				this.getStatusBar().setStatus({
-					text:succ?'搜索完毕，共'+recs.length+'条数据。':'发生错误！',
+					text:succ?'共'+recs.length+'条数据。':'发生错误！',
 					iconCls: succ?'x-status-valid':'x-status-error'
 				});
 				if(succ)this.getDwBtn().show();
+				this.data_num = recs.length;
+				this.curDwKey = null;
 			},
 			scope: this
 		});
 	},
+	removeit: function() {
+		var slt = this.getExportList().getSelectionModel().getSelection();
+		if(slt){
+			slt = slt[0];
+			if(slt){
+				this.getRenYexpsStore().remove(slt);
+				this.data_num --;
+				this.getStatusBar().setStatus({
+					text:'共'+this.data_num+'条数据。',
+					iconCls: 'x-status-valid'
+				});
+			}
+		}
+	},
 	download: function(btn){
+		if(this.curDwKey){
+			FV.lib.Utils.downloadURL('/data/exportdl.app?k='+this.curDwKey);
+			return;
+		}
 		var recs = this.getRenYexpsStore().getRange(),
 			dwids = {},nodt = true,ids=[],k,b1=false,b2=false,zt;
         Ext.Array.forEach(recs, function(reny){
