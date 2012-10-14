@@ -78,15 +78,29 @@ Ext.define('FV.view.sch.List', {
 				// any standard Toolbar items:
 				items: [
 					{
-						text: '显示空编信息',
+						text: "<span style='background-color:#FFBBFF;'>&nbsp;&nbsp;空编&nbsp;&nbsp;</span>",
 						enableToggle: true,
 						pressed: true,
 						action: 'kongbian'
 					},"-",
-					"<span style='background-color:#FFFFBB;'>&nbsp;&nbsp;超编&nbsp;&nbsp;</span>","-",
-					"<span style='background-color:#FFBBFF;'>&nbsp;&nbsp;空编&nbsp;&nbsp;</span>","-",
-					"<span style='color:green;'>低配</span>","-",
-					"<span style='color:red;'>高配</span>",
+					{
+						text: "<span style='background-color:#FFFFBB;'>&nbsp;&nbsp;超编&nbsp;&nbsp;</span>",
+						enableToggle: true,
+						pressed: false,
+						action: 'chaobian'
+					},"-",
+					{
+						text: "<span style='color:green;'>低配</span>",
+						enableToggle: true,
+						pressed: false,
+						action: 'dipei'
+					},"-",
+					{
+						text: "<span style='color:red;'>高配</span>",
+						enableToggle: true,
+						pressed: false,
+						action: 'gaopei'
+					},
 					"<span>&nbsp;&nbsp;</span>"
 				]
 			})

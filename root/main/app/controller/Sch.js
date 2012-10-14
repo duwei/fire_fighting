@@ -83,6 +83,15 @@ Ext.define('FV.controller.Sch', {
             'schlist button[action=kongbian]': {
                 toggle: this.kongbian
             },
+            'schlist button[action=chaobian]': {
+                toggle: this.chaobian
+            },
+            'schlist button[action=gaopei]': {
+                toggle: this.gaopei
+            },
+            'schlist button[action=dipei]': {
+                toggle: this.dipei
+            },
            'schtiaoj button[action=save]': {
                 click: this.sch
             },
@@ -101,6 +110,9 @@ Ext.define('FV.controller.Sch', {
         });
 		this.curDanW = 0;
 		this.showKb = 1;
+		this.showCb = 0;
+		this.showGp = 0;
+		this.showDp = 0;
     },
 	onLaunch: function() {
 		var form = this.getSchForm(),
@@ -186,14 +198,29 @@ Ext.define('FV.controller.Sch', {
 	gangWZGDJ_lst: function(btn){
 		this.show_lst(btn,this.getGangWZGDJLst(),this.getGangWZGDJLShsStore());
 	},
-	kongbian: function(btn,pressed){
-		this.showKb = pressed?1:0;
+	chgDwBtnSt: function(){
 		this.getStatusBar().setStatus({
 			text: '请重新搜索。',
 			iconCls: 'x-status-error'
 		});
 		this.getDwBtn().hide();
 		this.curDwKey = null;
+	},
+	kongbian: function(btn,pressed){
+		this.showKb = pressed?1:0;
+		this.chgDwBtnSt();
+	},
+	chaobian: function(btn,pressed){
+		this.showCb = pressed?1:0;
+		this.chgDwBtnSt();
+	},
+	gaopei: function(btn,pressed){
+		this.showGp = pressed?1:0;
+		this.chgDwBtnSt();
+	},
+	dipei: function(btn,pressed){
+		this.showDp = pressed?1:0;
+		this.chgDwBtnSt();
 	},
 	showIt: function(v,rec){
 		var win = this.getSchView(),
@@ -299,6 +326,9 @@ Ext.define('FV.controller.Sch', {
 		this.getStatusBar().showBusy();
 		this.schParam = {
 			showKb: this.showKb,
+			showCb: this.showCb,
+			showGp: this.showGp,
+			showDp: this.showDp,
 			danWId:this.curDanW
 		};
 		this.curDwKey = null;
@@ -313,6 +343,9 @@ Ext.define('FV.controller.Sch', {
 		this.getStatusBar().showBusy();
 		vl.danWId = this.curDanW;
 		vl.showKb = this.showKb;
+		vl.showCb = this.showCb;
+		vl.showGp = this.showGp;
+		vl.showDp = this.showDp;
 		this.schParam = vl;
 		this.curDwKey = null;
 		this.getSchsStore().load({
