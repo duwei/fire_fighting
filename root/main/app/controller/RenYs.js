@@ -989,20 +989,32 @@ Ext.define('FV.controller.RenYs', {
 	},
 	xd_export: function(){
 		var recs = this.getRenYslctStore().getRange(),
-			dwids = {},nodt = true,ids=[],k;
+			dwids = {},nodt = true,ids=[],k,b1=false,b2=false,zt;
         Ext.Array.forEach(recs, function(reny){
 			var o = dwids[reny.get('danWId')];
 			if(o==null)o=[];
 			o.push(reny.get('id'));
-			ids.push(reny.get('id'));
 			dwids[reny.get('danWId')] = o;
 			nodt = false;
+			zt = reny.get("状态");
+			if(zt<10 && zt>0){
+				b2=true;
+			}else{
+				b1=true;
+				ids.push(reny.get('id'));
+			}
         }, this);
 		if(nodt){
 			Ext.Msg.alert("注意！",'请先选择人员。');
 			return;
 		}
-		
+		if(!b1){
+			Ext.Msg.alert("注意！",'无可导出数据，只能导出本地已审核状态和正常状态的数据。');
+			return;
+		}
+		if(b2){
+			Ext.Msg.alert("警告！",'选定的数据中有未审核数据，未审核数据不能导出。');
+		}
 		dwids.ids = ids;
 		for(k in dwids){
 			dwids[k] = dwids[k].join(',');
