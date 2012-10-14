@@ -236,7 +236,7 @@ function submitForm() {
 <div id="pageContent">
     <div id="horizonTop">
         <h1 style="padding-top: 80px; margin-top: 0px; margin-bottom: 0px;">
-            济南消防干部信息管理系统
+            干部信息管理系统
         </h1>
     </div>
 <div class="mainPane">
