@@ -44,11 +44,13 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.KeyMapMng'
 	],
 	
-    stores: ['RenYs','BianZhs','RenYslct','JiangLs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
-    models: ['RenY','RenY2','BianZh','ZhanB','Img','JiangL','RuWQJL','RuWHJL','GangWZGDJLSh'],
+    stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','Img','JiangL','ChuF','RuWQJL','RuWHJL','GangWZGDJLSh'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
+		'sub.ChuFLst',
+		'sub.ChuFEd',
 		'sub.RuWQJLLst',
 		'sub.RuWQJLEd',
 		'sub.RuWHJLLst',
@@ -105,6 +107,21 @@ Ext.define('FV.controller.RenYs', {
 			selector: 'jiangled'
         },
         {ref: 'jiangLForm', selector: 'jiangled form'},
+		{
+			ref: 'chuFLst',
+			xtype: 'chuflst',
+			closable: true,
+            autoCreate: true,
+			selector: 'chuflst'
+        },
+		{
+			ref: 'chuFEd',
+			xtype: 'chufed',
+			closable: true,
+            autoCreate: true,
+			selector: 'chufed'
+        },
+        {ref: 'chuFForm', selector: 'chufed form'},
 		{
 			ref: 'ruWQJLLst',
 			xtype: 'ruwqjllst',
@@ -247,6 +264,9 @@ Ext.define('FV.controller.RenYs', {
 			'renyone button[action=jiangL]': {
 				click: this.jiangL_lst
             },
+			'renyone button[action=chuF]': {
+				click: this.chuF_lst
+            },
 			'renyone button[action=ruWQJL]': {
 				click: this.ruWQJL_lst
             },
@@ -273,6 +293,18 @@ Ext.define('FV.controller.RenYs', {
             },
 			'jiangled button[action=del]': {
 				click: this.jiangL_del
+            },
+			'chuflst grid': {
+                itemdblclick: this.chuF_ed
+            },
+			'chuflst button[action=add]': {
+				click: this.chuF_add
+            },
+			'chufed button[action=save]': {
+				click: this.chuF_save
+            },
+			'chufed button[action=del]': {
+				click: this.chuF_del
             },
 			'ruwqjllst grid': {
                 itemdblclick: this.ruWQJL_ed
@@ -348,6 +380,9 @@ Ext.define('FV.controller.RenYs', {
 	jiangL_ed: function(v,rec){
 		this.show_ed(rec,this.getJiangLEd(),this.getJiangLForm());
 	},
+	chuF_ed: function(v,rec){
+		this.show_ed(rec,this.getChuFEd(),this.getChuFForm());
+	},
 	ruWQJL_ed: function(v,rec){
 		this.show_ed(rec,this.getRuWQJLEd(),this.getRuWQJLForm());
 	},
@@ -362,6 +397,12 @@ Ext.define('FV.controller.RenYs', {
 		this.show_ed(this.getJiangLModel().create({
 				rid: lstw._rid
 			}),this.getJiangLEd(),this.getJiangLForm());
+	},
+	chuF_add: function(btn){
+		var lstw = this.getChuFLst();
+		this.show_ed(this.getChuFModel().create({
+				rid: lstw._rid
+			}),this.getChuFEd(),this.getChuFForm());
 	},
 	ruWQJL_add: function(btn){
 		var lstw = this.getRuWQJLLst();
@@ -396,6 +437,7 @@ Ext.define('FV.controller.RenYs', {
 			win.close();
 			return;
 		}
+		if(!rec.modified.rid)rec.modified.rid = rec.data.rid;
 		if(id==0 || id==null){
 			st.add(rec);
 		}
@@ -425,6 +467,9 @@ Ext.define('FV.controller.RenYs', {
 	},
 	jiangL_save: function(btn){
 		this.save_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore());
+	},
+	chuF_save: function(btn){
+		this.save_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore());
 	},
 	ruWQJL_save: function(btn){
 		this.save_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
@@ -456,6 +501,9 @@ Ext.define('FV.controller.RenYs', {
 	jiangL_del: function(btn){
 		this.del_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore());
 	},
+	chuF_del: function(btn){
+		this.del_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore());
+	},
 	ruWQJL_del: function(btn){
 		this.del_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
 	},
@@ -486,6 +534,9 @@ Ext.define('FV.controller.RenYs', {
 	},
 	jiangL_lst: function(btn){
 		this.show_lst(btn,this.getJiangLLst(),this.getJiangLsStore());
+	},
+	chuF_lst: function(btn){
+		this.show_lst(btn,this.getChuFLst(),this.getChuFsStore());
 	},
 	ruWQJL_lst: function(btn){
 		this.show_lst(btn,this.getRuWQJLLst(),this.getRuWQJLsStore());
@@ -976,8 +1027,54 @@ Ext.define('FV.controller.RenYs', {
 			scope: this
 		});
 	},
-	xd_import: function(){
-		console.log('xd_import');
+	readImport: function(btn,file){
+		var reader = new FileReader(),
+			ths = this;
+
+		reader.onloadend = Ext.Function.bind(function() { 
+			if (reader.error) { 
+				console.log(reader.error); 
+			} else { 
+				Ext.Ajax.request({
+					url: '/data/import.app',
+					jsonData: reader.result,
+					success: function(response){
+						var m = response.responseText;
+						if(m!='ERR'){
+							alert('OK');
+							btn._flag=true;// 装入审核数据
+							this._shenHflag = true;
+							this.getRenYslctStore().load();
+						}else{
+							Ext.Msg.alert('错误！','导入文件格式错误！');
+						}
+					},
+					failure: function(response){
+						Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+					},
+					scope: this
+				});
+			}
+		},this); 
+		reader.readAsText(file); 
+	},
+	handleImport: function(btn,inputObj) {
+		this.readImport(btn,inputObj.files[0]);
+	},
+	xd_import: function(ths){
+		if(ths._flag){
+			// 已经装入审核数据，回到普通界面
+			//btn.up("xuandry").bindStory();
+			alert('111');
+			this._shenHflag = false;
+			return;
+		}
+		if(ths._fileinput==null){
+			ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
+				'<input type="file" accept="*/*" style="display:none"/>',true);
+			ths._fileinput.dom.onchange=Ext.Function.bind(this.handleImport,this,[ths,ths._fileinput.dom]);
+		}
+		ths._fileinput.dom.click();
 	},
 	xd_import_sv: function(){
 		console.log('xd_import_sv');

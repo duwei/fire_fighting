@@ -10,6 +10,6 @@ Ext.define('FV.store.ZhuangTs', {// 状态  修改状态  导入数据，都会�
         {value: 3,   label: '修改,待上传'},
         {value: 4,   label: '已删除,待同步'},
 		{value: 13,  label: '修改,审核未通过'},
-		{value: 14,  label: '删除,审核未通过'}
+		{value: 14,  label: '删除,审核未通过'}// 未用，删除操作直接生效
 	]
 });

@@ -589,6 +589,9 @@ Ext.define('FV.view.center.RenYOne', {
 					text: '奖励情况',
 					action: 'jiangL'
 				}, {
+					text: '处分情况',
+					action: 'chuF'
+				}, {
 					text: '入伍前简历',
 					action: 'ruWQJL'
 				}, {

@@ -1,9 +1,9 @@
-Ext.define('FV.store.RenYslct', {
+Ext.define('FV.store.RenYShHs', {
     extend: 'Ext.data.Store',
 
     requires: ['FV.reader.MyJson'],
 
-    model: 'FV.model.RenY',
+    model: 'FV.model.RenYShH',
 
 	proxy: {
 		type: 'ajax',
