@@ -41,10 +41,6 @@ Ext.define('FV.view.center.XuanDRY', {
                     action: 'export'
                 },'->',{
                     iconCls: 'open-all',
-                    text: '所有已修改',
-                    action: 'slct_chged'
-                },'-',{
-                    iconCls: 'open-all',
                     text: '清除',
                     action: 'clean'
                 },{
