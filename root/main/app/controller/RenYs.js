@@ -261,6 +261,9 @@ Ext.define('FV.controller.RenYs', {
 			'renyone image': {
 				afterrender: this.addImageMenu
             },
+			'renyone button[action=tongG]': {
+				click: this.shenH_tongG
+            },
 			'renyone button[action=jiangL]': {
 				click: this.jiangL_lst
             },
@@ -345,10 +348,28 @@ Ext.define('FV.controller.RenYs', {
         });
     },
     onLaunch: function() {
-		if(!FV.lib.UsInf.hasPm('p1')){
+		if(!FV.lib.UsInf.hasPm('p1')&&!FV.lib.UsInf.hasPm('p01')){
 			this.hideBtn();
 		}
     },
+	shenH_tongG: function(btn){
+		var ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			r1 = f1.getRecord(),
+			st = this.getRenYsStore(),
+			zt = r1.get('状态');
+
+		if(zt>0 && zt<10){
+			Ext.Msg.confirm('警告','数据确定无误，确认签发? ',function(kid){
+				if(kid=='yes'){
+					r1.set('状态',zt+10);
+					st.sync();
+				}
+			},this);
+		}else{
+			Ext.Msg.alert('警告','只有新建/修改/删除的数据才需要签发.');
+		}
+	},
 	wenZhGB_chg: function(fld,newVl,oldVl){
 		var fm = fld.up('form'),
 			zwdj = fm.down('combobox[fieldLabel=行政职务等级]'),
@@ -895,7 +916,7 @@ Ext.define('FV.controller.RenYs', {
 			f2 = tab.down('form[formId=renY2]'),
 			zhaoPFld = f1.down('image'),
 			zhaoPId,m;
-		if(FV.lib.UsInf.hasPm('p1')){
+		if(FV.lib.UsInf.hasPm('p1') || FV.lib.UsInf.hasPm('p01')){
 			f1.down('container[cid=jbxx]').enable();
 		}
 		if(reny==null){
@@ -951,6 +972,11 @@ Ext.define('FV.controller.RenYs', {
 			this.loadRenYInfo(tab,reny);
 			if(toAdd) toAdd.push(tab);
 			if(b) viewer.add(tab);
+			if(FV.lib.UsInf.hasPm('p01') || FV.lib.UsInf.hasPm('p02')){
+				tab.down('button[action=tongG]').show();
+			}else{
+				tab.down('button[action=tongG]').hide();
+			}
 		}
 		if(b)viewer.setActiveTab(tab);            
 	},
@@ -1148,7 +1174,7 @@ Ext.define('FV.controller.RenYs', {
 		win.show();
 	},
 	editBianZh:function(){
-		if(!FV.lib.UsInf.hasPm('p1'))return false;
+		if(!FV.lib.UsInf.hasPm('p1') && !FV.lib.UsInf.hasPm('p01'))return false;
 		else{
 			var win = this.getBianZhWindow(),
 				form = this.getBianZhForm(),
@@ -1282,7 +1308,6 @@ Ext.define('FV.controller.RenYs', {
 		var rec = data.records[0];
 
 		if(rec instanceof FV.model.RenY){// 拖动人员
-			//if(!FV.lib.UsInf.hasPm('p1'))return false;
 			var p = overModel,tdid,odid=rec.get('danWId');
 			if(dropPosition!='append'){
 				p = overModel.parentNode;

@@ -586,6 +586,9 @@ Ext.define('FV.view.center.RenYOne', {
 			},{
 				xtype: 'panel',
 				buttons: [{
+					text: '主任签发',
+					action: 'tongG'
+				}, {
 					text: '奖励情况',
 					action: 'jiangL'
 				}, {
