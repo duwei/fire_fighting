@@ -26,11 +26,11 @@ Ext.define('FV.view.Export', {
                 dock: 'top',
                 items: [{
                     iconCls: 'refresh',
-                    text: '已审核数据',
+                    text: '已签发数据',
                     action: 'sch'
                 },'-',{
                     iconCls: 'refresh',
-                    text: '所有数据',
+                    text: '所有数据(变更未签发除外)',
                     action: 'schall'
                 },'-',{
                     iconCls: 'refresh',
