@@ -686,6 +686,7 @@ Ext.define('FV.controller.RenYs', {
 			}else{
 				Ext.Msg.alert('成功','数据保存成功！',function(){
 					ro.close();
+					this.refreshRenYs();
 				},this);
 			}
 			return;
@@ -746,7 +747,10 @@ Ext.define('FV.controller.RenYs', {
 								}
 								this.saveRec(ro,2,rid,r2);
 							}else{
-								Ext.Msg.alert('成功','数据保存成功！');
+								Ext.Msg.alert('成功','数据保存成功！',function(){
+									ro.close();
+									this.refreshRenYs();
+								},this);
 							}
 						}else{
 							Ext.Msg.alert('失败','Msg:'+obj.msg);
@@ -768,7 +772,12 @@ Ext.define('FV.controller.RenYs', {
 			f1 = ro.down('form[formId=renY1]'),
 			f2 = ro.down('form[formId=renY2]'),
 			f1f = f1.getForm(),
+			r1 = f1.getRecord(),
 			f2f = f2.getForm();
+		if(r1.get('状态')>10){
+			Ext.Msg.alert('警告','签发后数据不能修改，请先同步数据。');
+			return;
+		}
 		f1f.checkValidity();
 		f2f.checkValidity();
 		if(!f1f.isValid() || !f2f.isValid()){
@@ -779,7 +788,6 @@ Ext.define('FV.controller.RenYs', {
 			zhaoPRec = zhaoPFld._rec,
 			vs1 = f1.getValues(false,true),
 			vs2 = f2.getValues(false,false),
-			r1 = f1.getRecord(),
 			r2 = f2.getRecord(),
 			st = this.getRenYsStore(),
 			flag = false;
