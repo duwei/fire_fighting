@@ -679,12 +679,14 @@ Ext.define('FV.controller.RenYs', {
 		if(m==0)return false;
 		return true;
 	},
-	saveRec: function(step,rid,r1,r2,r3,st,ro){
+	saveRec: function(ro,step,rid,r1,r2,r3,st){
 		if(r1 == null || !this.hasProps(r1.getChanges()) && !r1.phantom){
 			if(step<2){
-				this.saveRec(step+1,rid,r2,r3);
+				this.saveRec(ro,step+1,rid,r2,r3);
 			}else{
-				Ext.Msg.alert('成功','数据保存成功！');
+				Ext.Msg.alert('成功','数据保存成功！',function(){
+					ro.close();
+				},this);
 			}
 			return;
 		}
@@ -709,7 +711,7 @@ Ext.define('FV.controller.RenYs', {
 								}
 							}
 							if(r3)r3.set('id',r1.get('id'));
-							this.saveRec(step+1,r1.get('id'),r2,r3);
+							this.saveRec(ro,step+1,r1.get('id'),r2,r3);
 						}else{
 							Ext.Msg.alert('失败','Msg:'+obj.msg);
 						}
@@ -742,7 +744,7 @@ Ext.define('FV.controller.RenYs', {
 								if(r2){
 									r2.set('照片id',rec.get('id'));
 								}
-								this.saveRec(2,rid,r2);
+								this.saveRec(ro,2,rid,r2);
 							}else{
 								Ext.Msg.alert('成功','数据保存成功！');
 							}
@@ -784,7 +786,7 @@ Ext.define('FV.controller.RenYs', {
 		r1.set(vs1);
 		r2.set(vs2);
 
-		this.saveRec(0,r1.get('id'),r1,zhaoPRec,r2,st,ro);
+		this.saveRec(ro,0,r1.get('id'),r1,zhaoPRec,r2,st);
 		return;
 	},
 	getRang: function(ind2,st,recs,id){
