@@ -10,8 +10,6 @@ defaults
 chrome
 plugins
 
-logs
-
 xulrunner
 
 root/extjs-4.1
