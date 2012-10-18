@@ -88,17 +88,16 @@ Ext.define('FV.controller.Export', {
 			return;
 		}
 		if(!b1){
-			Ext.Msg.alert("注意！",'无可导出数据，只能导出本地已审核状态和正常状态的数据。');
+			Ext.Msg.alert("注意！",'无可导出数据，只能导出已签发状态和正常状态的数据。');
 			return;
 		}
 		if(b2){
-			Ext.Msg.alert("警告！",'选定的数据中有未审核数据，未审核数据不能导出。');
+			Ext.Msg.alert("警告！",'选定的数据中有未签发数据，未签发数据不能导出。');
 		}
 		dwids.ids = ids;
 		for(k in dwids){
 			dwids[k] = dwids[k].join(',');
 		}
-		console.dir(dwids);
 		
 		Ext.Ajax.request({
 			url: '/data/export.app',

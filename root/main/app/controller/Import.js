@@ -92,8 +92,6 @@ Ext.define('FV.controller.Import', {
 			}
 		}
 	},
-	chck_import_info: function(){
-	},
 	_msg_vl: {
 		'导入基本信息...':0.1,
 		'导入编制信息...':0.35,
@@ -161,7 +159,6 @@ Ext.define('FV.controller.Import', {
 								update: upfun,
 								scope: this
 							});
-							this.chck_import_info();
 						}else{
 							Ext.Msg.alert('错误！','导入文件格式错误！');
 						}
