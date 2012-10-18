@@ -38,6 +38,7 @@ Ext.define('FV.controller.Import', {
 					iconCls: succ?'x-status-valid':'x-status-error'
 				});
 				this.curDwKey = null;
+				this.ids2 = [];
 				this.data_num = recs.length;
 			},
 			scope: this
@@ -59,6 +60,10 @@ Ext.define('FV.controller.Import', {
 			return;
 		}
 		dwids.ids = ids.join(',');
+		if(this.ids2 && this.ids2.length>0){
+			dwids.ids += ',';
+			dwids.ids += this.ids2.join(',');// 正连职以下的直接保存
+		}
 		
 		Ext.Ajax.request({
 			url: '/data/get_importrslt.app',
@@ -66,8 +71,50 @@ Ext.define('FV.controller.Import', {
 			success: function(response){
 				var m = response.responseText;
 				if(m!='ERR'){
-					FV.lib.Utils.downloadURL('/data/dw.app?nm=data_rslt.bin&k='+m);
-					this.curDwKey = m;
+					var ww=Ext.Msg.wait('请稍候...');
+					var wking=false;
+					ww._flg = false;
+					var upfun = function(ths, value, text){
+						if(ww._flg)return;
+						if(wking)return;
+						wking = true;
+						Ext.Ajax.request({
+							url: '/data/get_importrsltinfo.app',
+							success: function(response){
+								wking = false;
+								var s = response.responseText;
+								if(s=='ERR'){
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									Ext.Msg.alert('错误！','保存数据错误');
+									return;
+								}else if(s=='OK'){
+									ww._flg = true;
+									ww.hide();
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									FV.lib.Utils.downloadURL('/data/dw.app?nm=data_rslt.bin&k='+m);
+									this.curDwKey = m;
+								}
+							},
+							failure: function(response){
+								ths.un({
+									update: upfun,
+									scope: this
+								});
+								Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+							},
+							scope: this
+						});
+					};
+					ww.progressBar.on({
+						update: upfun,
+						scope: this
+					});
 				}else{
 					Ext.Msg.alert('错误！','保存数据出错！');
 				}
@@ -79,10 +126,14 @@ Ext.define('FV.controller.Import', {
 		});
 	},
 	removeit: function() {
-		var slt = this.getImportList().getSelectionModel().getSelection();
+		var slt = this.getImportList().getSelectionModel().getSelection(),zw;
 		if(slt){
 			slt = slt[0];
 			if(slt){
+				zw = slt.get('行政职务等级');
+				if(zw>11){// 正连职以下不需要审核直接保存
+					this.ids2.push(slt.get('id'));
+				}
 				this.getRenYimpsStore().remove(slt);
 				this.data_num --;
 				this.getStatusBar().setStatus({
@@ -120,7 +171,7 @@ Ext.define('FV.controller.Import', {
 						var m = response.responseText;
 						if(m!='ERR'){
 							var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
-							var vvv=0,vvv2=12.0,wking=false;
+							var wking=false;
 							ww._flg = false;
 							var upfun = function(ths, value, text){
 								if(ww._flg)return;
@@ -132,8 +183,11 @@ Ext.define('FV.controller.Import', {
 										wking = false;
 										var s = response.responseText;
 										if(s=='ERR'){
+											ths.un({
+												update: upfun,
+												scope: this
+											});
 											Ext.Msg.alert('错误！','导入数据错误');
-											ths.un({update: upfun});
 											return;
 										}else if(s=='OK'){
 											ww._flg = true;
@@ -149,7 +203,10 @@ Ext.define('FV.controller.Import', {
 										ths.updateProgress(this._msg_vl[s],s);
 									},
 									failure: function(response){
-										ww.close();
+										ths.un({
+											update: upfun,
+											scope: this
+										});
 										Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
 									},
 									scope: this
