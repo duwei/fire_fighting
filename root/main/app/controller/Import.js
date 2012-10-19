@@ -169,7 +169,9 @@ Ext.define('FV.controller.Import', {
 					jsonData: reader.result,
 					success: function(response){
 						var m = response.responseText;
-						if(m!='ERR'){
+						if(m=='OK2'){
+							Ext.Msg.alert('成功！','数据同步成功！');
+						}else if(m!='ERR'){
 							var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
 							var wking=false;
 							ww._flg = false;
