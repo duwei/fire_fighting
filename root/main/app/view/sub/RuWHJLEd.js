@@ -71,11 +71,21 @@ Ext.define('FV.view.sub.RuWHJLEd', {
 						margin:'0 0 5 0'
 					},
 					items: [
-						FV.lib.KeyMapMng.getCombField('职务','职务','BianZhZhWs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('行政职务','行政职务','BianZhZhWs',false,1,{}),
 						FV.lib.KeyMapMng.getCombField('职务等级','职务等级','ZhiWDJ3s',false,1,{})
 					]
-				},
-					FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{})
+				},{
+					xtype: 'container',
+					layout: 'hbox',
+					defaults: {
+						flex: 1,
+						margin:'0 0 5 0'
+					},
+					items: [
+						FV.lib.KeyMapMng.getCombField('技术职务','技术职务','BianZhZhWs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{})
+					]
+				}
 				]
             }]
         });

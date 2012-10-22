@@ -37,9 +37,10 @@ Ext.define('FV.view.sub.RuWHJLLst', {
 					{xtype: 'rownumberer'},
 					{text: '起始时间',	dataIndex:'起始时间', sortable: true,  width:100, renderer: FV.lib.KeyMapMng.formatDate},
 					{text: '单位',	dataIndex:'单位', sortable: false, flex:1 },
-					{text: '职务',	dataIndex:'职务', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhZhWs')},
+					{text: '行政职务',	dataIndex:'行政职务', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhZhWs')},
 					{text: '职务等级',	dataIndex:'职务等级', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('ZhiWDJ3s')},
-					{text: '技术职务',	dataIndex:'技术职务', sortable: false, width:180, renderer: FV.lib.KeyMapMng.getGridRenderer('JiShZhWs')}
+					{text: '技术职务',	dataIndex:'技术职务', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhZhWs')},
+					{text: '技术等级',	dataIndex:'技术等级', sortable: false, width:100, renderer: FV.lib.KeyMapMng.getGridRenderer('JiShDJs')}
 				]
 			}]
 		});
