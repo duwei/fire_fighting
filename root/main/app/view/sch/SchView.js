@@ -20,6 +20,9 @@ Ext.define('FV.view.sch.SchView', {
     initComponent: function() {
         Ext.apply(this, {
 			buttons: [{
+				text: '打印',
+				action: 'daY'
+			}, {
 				text: '奖励情况',
 				action: 'jiangL'
 			}, {

@@ -95,6 +95,9 @@ Ext.define('FV.controller.Sch', {
            'schtiaoj button[action=save]': {
                 click: this.sch
             },
+			'schview button[action=daY]': {
+				click: this.daY
+            },
 			'schview button[action=jiangL]': {
 				click: this.jiangL_lst
             },
@@ -147,6 +150,9 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
+	},
+	daY: function(btn){
+		window.open("/main/dayin.app?id="+this._curId);
 	},
 	downloadRst: function(btn){
 		if(this.curDwKey){
@@ -234,6 +240,8 @@ Ext.define('FV.controller.Sch', {
 		}
 		form.loadRecord(rec);
 
+		this._curId = rec.get("id");
+		
 		if(rec.img_){
 			zhaoPFld.setSrc(rec.img_);
 		}else if(zhaoPId&&zhaoPId>0){
