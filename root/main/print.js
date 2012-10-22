@@ -20,6 +20,118 @@ var ChuFDJs = {
 	'6': '撤职',
 	'7': '开除军籍'
 };
+var JiShDJs = {
+'1': '技术一级',
+'2': '技术二级',
+'3': '技术三级',
+'4': '技术四级',
+'5': '技术五级',
+'6': '技术六级',
+'7': '技术七级',
+'8': '技术八级',
+'9': '技术九级',
+'10': '技术十级',
+'11': '技术十一级',
+'12': '技术十二级',
+'13': '技术十三级',
+'14': '技术十四级',
+'0': '非专业技术干部'
+};
+var ZhiWDJs = {
+'5': '副军职',
+'6': '正师职',
+'7': '副师职',
+'8': '正团职',
+'9': '副团职',
+'10': '正营职',
+'11': '副营职',
+'12': '正连职',
+'13': '副连职',
+'14': '正排职',
+'57': '副局级',
+'58': '正处级',
+'59': '副处级',
+'60': '正科级',
+'61': '副科级',
+'62': '一级科员',
+'63': '二级科员',
+'64': '办事员',
+'0': '无职务等级'
+};
+var BianZhZhWs = {
+'1':'总队长',
+'2':'政治委员',
+'3':'副总队长',
+'4':'副政治委员',
+'5':'总工程师',
+'6':'支队长',
+'7':'副支队长',
+'8':'参谋长',
+'9':'副参谋长',
+'10':'政治协理员',
+'11':'部长',
+'12':'副部长',
+'13':'主任',
+'14':'副主任',
+'15':'处长',
+'16':'副处长',
+'17':'科长',
+'18':'副科长',
+'19':'大队长',
+'20':'政治教导员',
+'21':'副大队长',
+'22':'副政治教导员',
+'23':'代理大队长',
+'24':'代理政治教导员',
+'25':'中队长',
+'26':'政治指导员',
+'27':'副中队长',
+'28':'副政治指导员',
+'29':'代理副中队长',
+'30':'代理副政治指导员',
+'31':'队长',
+'32':'所长',
+'33':'站长',
+'34':'参谋',
+'35':'干事',
+'36':'助理员',
+'37':'管理员',
+'38':'科员',
+'39':'秘书',
+'40':'副主任医师',
+'41':'高级会计师',
+'42':'教员',
+'43':'主任护师',
+'44':'副主任护师',
+'45':'主管护师',
+'46':'护师',
+'47':'护士',
+'48':'高级审计师',
+'49':'审计师',
+'50':'助理审计师',
+'51':'审计员',
+'52':'高级记者',
+'53':'主任记者',
+'54':'记者',
+'55':'助理记者',
+'56':'高级编辑',
+'57':'主任编辑',
+'58':'编辑',
+'59':'助理编辑',
+'60':'医士',
+'61':'会计员',
+'139':'医师',
+'140':'主治医师',
+'141':'主任医师',
+'142':'会计师',
+'143':'助理会计师',
+'144':'工程师',
+'145':'助理工程师',
+'146':'高级工程师',
+'147':'技术员',
+'148':'锻炼干部',
+'0':'无'
+};
 function updt(id,key){
 	document.getElementById(id).innerHTML = day_inf[key];
 }
@@ -113,6 +225,40 @@ function updt_cfqk(){
 		}
 	}
 }
+function updt_rwhjl(){
+	var qk = day_inf.ruwhjls,o;
+	if(!qk)return;
+	var i,n=qk.length,x,y,a,b;
+	b = document.getElementById('ruWHJL_0');
+	if(n>22){
+		x = document.getElementById('ruWHJL_bd');
+		y = document.getElementById('ruWHJL_head');
+	}
+	for(i=0;i<n;i++){
+		o = qk[i];
+		a = b.firstElementChild;
+		a.firstElementChild.innerHTML = '<span class="my1">'+dtvl(o['起始时间'])+'</span>';
+		a = a.nextElementSibling;
+		a.firstElementChild.innerHTML = '<span class="my1">'+o['单位']+'</span>';
+		a = a.nextElementSibling;
+		a.firstElementChild.innerHTML = '<span class="my1">'+BianZhZhWs[o['行政职务']]+'</span>';
+		a = a.nextElementSibling;
+		a.firstElementChild.innerHTML = '<span class="my1">'+ZhiWDJs[o['职务等级']]+'</span>';
+		a = a.nextElementSibling;
+		a.firstElementChild.innerHTML = '<span class="my1">'+BianZhZhWs[o['技术职务']]+'</span>';
+		a = a.nextElementSibling;
+		a.firstElementChild.innerHTML = '<span class="my1">'+JiShDJs[o['技术等级']]+'</span>';
+		if(i<21){
+			b = b.nextElementSibling;
+		}else{
+			if(i>21){
+				x.appendChild(b);
+				y.setAttribute('rowspan',i+2);
+			}
+			b = b.cloneNode();
+		}
+	}
+}
 function init(){
 	if(!day_inf){
 		return;
@@ -155,4 +301,5 @@ function init(){
 	updt3('gangWZGShJ','岗位资格时间');
 	updt_jlqk();
 	updt_cfqk();
+	updt_rwhjl();
 }
