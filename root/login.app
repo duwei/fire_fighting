@@ -20,7 +20,7 @@ color: #2C2D31;
 margin: 0;
 padding: 0;
 text-align: center;
-background: url("images/HorizonBgBottom.png") repeat-x scroll left 325px #566169;
+background-color: #DFE8F6;
 }
 img, form {
 border: medium none;
@@ -28,8 +28,7 @@ margin: 0;
 padding: 0;
 }
 #horizonTop {
-background: url("images/HorizonBgTop.png") no-repeat scroll left top #FDFDFD;
-height: 325px;
+height: 25px;
 text-align: center;
 width: 100%;
 }
@@ -42,15 +41,16 @@ margin: 0;
 padding: 0;
 }
 .mainPane {
-background: url("images/Devices.png") no-repeat scroll center 30px transparent;
+background: url("images/shouye.jpg") no-repeat scroll center 0 transparent;
 color: white;
 overflow: auto;
 padding: 0;
 position: relative;
-top: -120px;
+top: 0;
 left: 0;
 margin: 0;
 right: 0;
+height: 410px;
 }
 table {
 border: 0 none;
@@ -153,8 +153,11 @@ font-weight: normal;
 clear: both;
 }
 .loginForm {
-text-align: left;
-margin: 0 auto;
+    left: 140px;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    top: 270px;
 }
 .loginForm td.labelCell {
 text-align: right;
@@ -178,7 +181,7 @@ padding: 2px;
 text-align: left;
 }
 .loginEntries {
-width: 28ex;
+width: 18ex;
 }
 .loginButton {
 float: right;
@@ -228,10 +231,23 @@ function submitForm() {
         document.forms[0].submit();
     }
 }
+
+function oet(e){
+    if(window.event){ // IE
+        if(e.keyCode == 13) submitForm();
+    }
+    else if(e.which){ // Netscape/Firefox/Opera
+        if(e.which == 13) submitForm();
+    }
+}
+function init(){
+	var a=document.getElementById('user');
+	a.focus();
+}
 </script>
 </head>
-<body>
-<form autocomplete="off" action="login.app" method="post">
+<body onload="init()">
+<form autocomplete="off" action="login.app" method="post" onKeyDown="oet(event)">
 <div id="overallWrapper">
 <div id="pageContent">
     <div id="horizonTop">
@@ -240,23 +256,6 @@ function submitForm() {
         </h1>
     </div>
 <div class="mainPane">
-<table cellspacing="0" cellpadding="0" class="carbonBox">
-<tbody><tr><td class="carbonBoxBottom">
-<table cellspacing="0" cellpadding="0" align="center" class="glowBox dynamicGlowBoxMargin">
-<tbody><tr>
-<td class="glowBoxTop glowBoxLeft glowBoxTopLeft"></td>
-<td class="glowBoxTop glowBoxTopMid"><div class="leftGradient"><div class="rightGradient"><div class="centerGradient"></div></div></div></td>
-<td class="glowBoxTop glowBoxRight glowBoxTopRight"></td>
-</tr>
-<tr>
-<td class="glowBoxLeft glowBoxMidLeft"></td>
-<td class="glowBoxMid loginTableMidWidth">
-
-<div id="welcome">
-<h4 class="" id="welcomeTitle">登录</h4>
-</div>
-<div class="spacer"></div>
-<div class="actionPane">
 <table class="loginForm">
 <tbody>
 <tr>
@@ -274,19 +273,6 @@ function submitForm() {
         </div>
     </td>
 </tr>
-</tbody></table>
-<div class="spacer"></div>
-</div>
-</td>
-<td class="glowBoxRight glowBoxMidRight"></td>
-</tr>
-<tr>
-<td class="glowBoxFooter glowBoxLeft glowBoxFooterLeft"></td>
-<td class="glowBoxFooter glowBoxFooterMid"></td>
-<td class="glowBoxFooter glowBoxRight glowBoxFooterRight"></td>
-</tr>
-</tbody></table>
-</td></tr>
 </tbody></table>
 </div>
 </div>
