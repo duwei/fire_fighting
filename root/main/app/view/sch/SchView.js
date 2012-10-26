@@ -74,7 +74,7 @@ Ext.define('FV.view.sch.SchView', {
 						xtype: 'container',
 						layout: 'anchor',
 						width: 600,
-						height: 228,
+						height: 238,
 						defaults: {
 							xtype: 'container',
 							defaultType: 'displayfield',
@@ -250,13 +250,13 @@ Ext.define('FV.view.sch.SchView', {
 						fieldLabel: '是否随军',
 						name: '是否随军'
 					},{
-						fieldLabel: '随军人员',
-						name: '随军人员'
-					},{
 						renderer: this.rdDate,
-						flex: 2,
 						fieldLabel: '随军时间',
 						name: '随军时间'
+					},{
+						fieldLabel: '随军人员',
+						flex: 2,
+						name: '随军人员'
 					}
 					]
 				}]
