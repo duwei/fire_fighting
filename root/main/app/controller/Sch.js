@@ -14,10 +14,19 @@ Ext.define('FV.controller.Sch', {
 		'sch.Search',
 		'sch.List',
 		'sch.SchView',
-		'sch.SchTiaoJ'
+		'sch.SchTiaoJ',
+		'west.ChgPwdWindow'
 	],
     
     refs: [
+        {ref: 'pwdForm', selector: 'chgpwdwindow form'},
+        {
+            ref: 'pwdWindow', 
+            selector: 'chgpwdwindow', 
+            autoCreate: true,
+            xtype: 'chgpwdwindow'
+        },
+		{ref: 'pwdBtn', selector: 'schlist button[action=pwd]'},
 		{ref: 'dwBtn', selector: 'schlist button[action=download]'},
 		{ref: 'statusBar', selector: 'statusbar'},
 		{ref: 'schForm', selector: 'schform'},
@@ -88,6 +97,9 @@ Ext.define('FV.controller.Sch', {
             'schlist button[action=download]': {
                 click: this.downloadRst
             },
+            'schlist button[action=pwd]': {
+                click: this.chgpwd
+            },
             'schlist button[action=kongbian]': {
                 toggle: this.kongbian
             },
@@ -120,6 +132,9 @@ Ext.define('FV.controller.Sch', {
             },
 			'schview button[action=gangWZGDJ]': {
 				click: this.gangWZGDJ_lst
+            },
+            'chgpwdwindow button[action=save]': {
+				click: this.savePwd
             }
         });
 		this.curDanW = 0;
@@ -132,6 +147,9 @@ Ext.define('FV.controller.Sch', {
 		var form = this.getSchForm(),
 			rdw = form.down('displayfield'),
 			store = Ext.create('FV.store.DanWLists');
+		if(window==top){
+			this.getPwdBtn().show();
+		}
 		store.load({
 			params:{
 				node:0
@@ -161,6 +179,67 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
+	},
+	savePwd: function(){
+		var win = this.getPwdWindow(),
+			form = this.getPwdForm(),
+			vs = form.getValues(),
+			ff = form.getForm(),v,vv;
+			
+		v = vs.password;
+		if(!v || v.trim()==''){
+			Ext.Msg.alert('警告','请输入原密码。');
+			return;
+		}
+		v = vs.npwd;
+		if(!v || v.trim()==''){
+			Ext.Msg.alert('警告','请输入新密码。');
+			return;
+		}
+		vv = vs.npwd1;
+		if(!vv || vv.trim()!=v.trim()){
+			Ext.Msg.alert('警告','两次输入的密码不一致!');
+			return;
+		}
+		if(vv.length<6){
+			Ext.Msg.alert('警告','密码长度最少6个字符!');
+			return;
+		}
+		v = 0;
+		if(/[a-z]/.test(vv))v++;
+		if(/[A-Z]/.test(vv))v++;
+		if(/[0-9]/.test(vv))v++;
+		if(/[`~!@#$%^&*()-+|{}\\\[\];':",.\/<>?\=_]/.test(vv))v++;
+		if(v<3){
+			Ext.Msg.alert('警告','密码必须由小写字母，大写字母，数字和标点符号4种符号中最少3中组成!');
+			return;
+		}
+		delete vs.npwd1;
+		Ext.Ajax.request({
+			url: '/main/pwd.app',
+			jsonData: vs,
+			success: function(response){
+				var m = response.responseText;
+				if(m=='OK'){
+					Ext.Msg.alert('成功！','密码修改成功！',function(){win.close();});
+				}else{
+					Ext.Msg.alert('错误！',m);
+				}
+			},
+			failure: function(response){
+				console.log('服务器错误');
+				console.dir(response);
+				Ext.Msg.alert('错误！','服务器错误');
+			},
+			scope: this
+		});
+	},
+	chgpwd: function(){
+		var win = this.getPwdWindow(),
+			form = this.getPwdForm(),
+			ff = form.getForm();
+		ff.reset();
+		win.show();
 	},
 	daY: function(btn){
 		window.open("/main/dayin.app?id="+this._curId);

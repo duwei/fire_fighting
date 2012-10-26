@@ -62,6 +62,11 @@ Ext.define('FV.view.sch.List', {
                     text: '结果下载',
 					hidden: true,
                     action: 'download'
+                },'->',{
+                    iconCls: 'slct-bianzh',
+                    text: '修改登录密码',
+					hidden: true,
+                    action: 'pwd'
                 }]
             }],
 			bbar: Ext.create('Ext.ux.StatusBar', {
