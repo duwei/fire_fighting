@@ -309,12 +309,13 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
+						FV.lib.KeyMapMng.getCombField('性别','性别','XingBs',false,1,{}),
 						FV.lib.KeyMapMng.getCombField('岗位资格等级','岗位资格等级','GangWZGDJs',false,1,{}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '岗位资格时间',
 						layout: 'hbox',
-						flex: 1,
+						flex: 2,
 						defaults: {
 							flex: 1,
 							hideLabel: true,
@@ -335,12 +336,13 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('上次评审未通过','上次评审未通过','YesNos',false,1,{labelWidth: 87}),
+						FV.lib.KeyMapMng.getCombField('是否少数民族','是否少数民族','YesNos',false,1,{}), 
+						FV.lib.KeyMapMng.getCombField('上次评审未通过','上次评审未通过','YesNos',false,1,{labelWidth: 90}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '上次评审时间',
 						layout: 'hbox',
-						flex: 1,
+						flex: 2,
 						defaults: {
 							flex: 1,
 							hideLabel: true,
