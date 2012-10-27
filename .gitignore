@@ -11,7 +11,7 @@ root/data/
 logs/*.log
 serv/logs/*.log
 xulrunner/
-fire_fighting.zip
+fire_fighting*.zip
 
 Thumbs.db*
 

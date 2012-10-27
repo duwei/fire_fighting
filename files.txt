@@ -21,5 +21,4 @@ root/index.app
 root/main
 
 serv/svCore.dll
-serv/data/*.db
 serv/db/*.dll
