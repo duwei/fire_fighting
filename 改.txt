@@ -240,3 +240,4 @@ CREATE UNIQUE INDEX logsUINDEX ON logs (unm,操作时间,rid);
 2，变更日志列表
 3，数据库备份，手工和自动
 4，数据收集上来后如何整理
+5，数据导入导出压缩加密
