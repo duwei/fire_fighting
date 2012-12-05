@@ -41,7 +41,8 @@ Ext.define('FV.controller.RenYs', {
 		'FV.store.ZhuLBMs',
 		'FV.lib.UsInf',
 		'FV.lib.Utils',
-		'FV.lib.KeyMapMng'
+		'FV.lib.KeyMapMng',
+		'Ext.window.MessageBox'
 	],
 	
     stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
@@ -251,12 +252,6 @@ Ext.define('FV.controller.RenYs', {
             },
             'xuandry button[action=export]': {
                 click: this.xd_export
-            },
-            'xuandry button[action=import]': {
-                click: this.xd_import
-            },
-            'xuandry button[action=import_sv]': {
-                click: this.xd_import_sv
             },
 			'renyone image': {
 				afterrender: this.addImageMenu
@@ -1063,8 +1058,53 @@ Ext.define('FV.controller.RenYs', {
 			success: function(response){
 				var m = response.responseText;
 				if(m!='ERR'){
-					FV.lib.Utils.downloadURL('/data/exportdl.app?k='+m);
-					this.curDwKey = m;
+					var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
+					var wking=false;
+					ww._flg = false;
+					var upfun = function(ths, value, text){
+						if(ww._flg)return;
+						if(wking)return;
+						wking = true;
+						Ext.Ajax.request({
+							url: '/data/exportinfo.app',
+							success: function(response){
+								wking = false;
+								var s = response.responseText;
+								if(s=='ERR'){
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									Ext.Msg.alert('错误！','生成数据错误');
+									return;
+								}else if(s.substring(0,2)=='OK'){
+									ww._flg = true;
+									ww.hide();
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									FV.lib.Utils.downloadURL('/data/exportdl.app?k='+s);
+									this.curDwKey = s;
+								}
+								if(m==s)return;
+								m = s;
+								ths.updateProgress(0.1,s);
+							},
+							failure: function(response){
+								ths.un({
+									update: upfun,
+									scope: this
+								});
+								Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+							},
+							scope: this
+						});
+					};
+					ww.progressBar.on({
+						update: upfun,
+						scope: this
+					});
 				}else{
 					Ext.Msg.alert('错误！','生成Excel文件出错！');
 				}
@@ -1074,58 +1114,6 @@ Ext.define('FV.controller.RenYs', {
 			},
 			scope: this
 		});
-	},
-	readImport: function(btn,file){
-		var reader = new FileReader(),
-			ths = this;
-
-		reader.onloadend = Ext.Function.bind(function() { 
-			if (reader.error) { 
-				console.log(reader.error); 
-			} else { 
-				Ext.Ajax.request({
-					url: '/data/import.app',
-					jsonData: reader.result,
-					success: function(response){
-						var m = response.responseText;
-						if(m!='ERR'){
-							alert('OK');
-							btn._flag=true;// 装入审核数据
-							this._shenHflag = true;
-							this.getRenYslctStore().load();
-						}else{
-							Ext.Msg.alert('错误！','导入文件格式错误！');
-						}
-					},
-					failure: function(response){
-						Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
-					},
-					scope: this
-				});
-			}
-		},this); 
-		reader.readAsText(file); 
-	},
-	handleImport: function(btn,inputObj) {
-		this.readImport(btn,inputObj.files[0]);
-	},
-	xd_import: function(ths){
-		if(ths._flag){
-			// 已经装入审核数据，回到普通界面
-			//btn.up("xuandry").bindStory();
-			alert('111');
-			this._shenHflag = false;
-			return;
-		}
-		if(ths._fileinput==null){
-			ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
-				'<input type="file" accept="*/*" style="display:none"/>',true);
-			ths._fileinput.dom.onchange=Ext.Function.bind(this.handleImport,this,[ths,ths._fileinput.dom]);
-		}
-		ths._fileinput.dom.click();
-	},
-	xd_import_sv: function(){
-		console.log('xd_import_sv');
 	},
 	saveBianZh: function(){
 		var win = this.getBianZhWindow(),
