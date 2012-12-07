@@ -170,6 +170,7 @@ var hours = minutes * 60;
 var days = hours * 24;
 var years = days * 365;
 function sui(d){
+	if(!d)return '';
 	var s = ''+((new Date()).getTime()-d.getTime())/years;
 	return s.substr(0,s.indexOf('.'));
 }
