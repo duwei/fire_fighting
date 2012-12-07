@@ -1209,12 +1209,18 @@ Ext.define('FV.controller.RenYs', {
 	delRenYs: function(){
 		var reny = this.curRenY,
 			st = this.getRenYsStore();
-		Ext.Msg.confirm('警告!','确定要删除人员: '+reny.get('姓名')+' 么? 删除后不能恢复。',function(kid){
+		Ext.Msg.confirm('警告!','确定要删除人员: '+reny.get('姓名')+' 么? 新建数据删除后不能恢复。',function(kid){
 			if(kid=='yes'){
 				st.remove(reny);
 				st.sync({
 					success: function(batch,opt){
+						var tab = this.getCenterTab().down('[renYId=' + reny.get('id') + ']');
+						if(tab){
+							tab.close();
+						}
 						this.chgCurRenY(null,[null]);
+						this.refreshRenYs();
+						this.refreshBianZh();
 					},
 					failure: function(batch,opt){
 						console.log("failure");
