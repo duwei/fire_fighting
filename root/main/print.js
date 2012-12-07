@@ -132,14 +132,19 @@ var BianZhZhWs = {
 '148':'锻炼干部',
 '0':'无'
 };
+function getTxt(obj,key){
+	var v = obj[key];
+	if(v)return v;
+	return '';
+}
 function updt(id,key){
-	document.getElementById(id).innerHTML = day_inf[key];
+	document.getElementById(id).innerHTML = getTxt(day_inf, key);
 }
 function updt2(id,vl){
 	if(vl)document.getElementById(id).innerHTML = vl;
 }
 function updt3(id,key,b){
-	var vl = day_inf[key],y,m,d;
+	var vl = getTxt(day_inf, key),y,m,d;
 	if(vl&&vl.length==8){
 		y = vl.substr(0,4);
 		m = vl.substr(4,2);
@@ -158,7 +163,7 @@ function dtvl(vl){
 		d = vl.substr(6,2);
 		vl = y+'.'+m+'.'+d;
 	}
-	return vl;
+	return vl||'';
 }
 var minutes = 1000 * 60;
 var hours = minutes * 60;
@@ -183,9 +188,9 @@ function updt_jlqk(){
 		a = b.firstElementChild;
 		a.firstElementChild.firstElementChild.innerHTML = dtvl(o['奖励时间']);
 		a = a.nextElementSibling;
-		a.firstElementChild.firstElementChild.innerHTML = JiangLDJs[o['奖励等级']];
+		a.firstElementChild.firstElementChild.innerHTML = getTxt(JiangLDJs, o['奖励等级']);
 		a = a.nextElementSibling;
-		a.firstElementChild.firstElementChild.innerHTML = o['奖励原因'];
+		a.firstElementChild.firstElementChild.innerHTML = getTxt(o, '奖励原因');
 		if(i<2){
 			b = b.nextElementSibling;
 		}else{
@@ -211,9 +216,9 @@ function updt_cfqk(){
 		a = b.firstElementChild;
 		a.firstElementChild.firstElementChild.innerHTML = dtvl(o['处分时间']);
 		a = a.nextElementSibling;
-		a.firstElementChild.firstElementChild.innerHTML = ChuFDJs[o['处分等级']];
+		a.firstElementChild.firstElementChild.innerHTML = getTxt(ChuFDJs, o['处分等级']);
 		a = a.nextElementSibling;
-		a.firstElementChild.firstElementChild.innerHTML = o['处分原因'];
+		a.firstElementChild.firstElementChild.innerHTML = getTxt(o, '处分原因');
 		if(i<1){
 			b = b.nextElementSibling;
 		}else{
@@ -239,15 +244,15 @@ function updt_rwhjl(){
 		a = b.firstElementChild;
 		a.firstElementChild.innerHTML = '<span class="my1">'+dtvl(o['起始时间'])+'</span>';
 		a = a.nextElementSibling;
-		a.firstElementChild.innerHTML = '<span class="my1">'+o['单位']+'</span>';
+		a.firstElementChild.innerHTML = '<span class="my1">'+getTxt(o, '单位')+'</span>';
 		a = a.nextElementSibling;
-		a.firstElementChild.innerHTML = '<span class="my1">'+BianZhZhWs[o['行政职务']]+'</span>';
+		a.firstElementChild.innerHTML = '<span class="my1">'+getTxt(BianZhZhWs, o['行政职务'])+'</span>';
 		a = a.nextElementSibling;
-		a.firstElementChild.innerHTML = '<span class="my1">'+ZhiWDJs[o['职务等级']]+'</span>';
+		a.firstElementChild.innerHTML = '<span class="my1">'+getTxt(ZhiWDJs, o['职务等级'])+'</span>';
 		a = a.nextElementSibling;
-		a.firstElementChild.innerHTML = '<span class="my1">'+BianZhZhWs[o['技术职务']]+'</span>';
+		a.firstElementChild.innerHTML = '<span class="my1">'+getTxt(BianZhZhWs, o['技术职务'])+'</span>';
 		a = a.nextElementSibling;
-		a.firstElementChild.innerHTML = '<span class="my1">'+JiShDJs[o['技术等级']]+'</span>';
+		a.firstElementChild.innerHTML = '<span class="my1">'+getTxt(JiShDJs, o['技术等级'])+'</span>';
 		if(i<21){
 			b = b.nextElementSibling;
 		}else{
