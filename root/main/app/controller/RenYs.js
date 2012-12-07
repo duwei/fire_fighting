@@ -397,7 +397,7 @@ Ext.define('FV.controller.RenYs', {
 				rid: lstw._rid
 			}),this.getGangWZGDJEd(),this.getGangWZGDJForm());
 	},
-	save_ed: function(win,fm,st){
+	save_ed: function(win,fm,st,sortFld){
 		var vl = fm.getValues(),
 			rec = fm.getRecord(),
 			id = rec.getId(),
@@ -416,6 +416,7 @@ Ext.define('FV.controller.RenYs', {
 		if(id==0 || id==null){
 			st.add(rec);
 		}
+		if(sortFld)st.sort(sortFld,'ASC');
 		st.sync({
 			success: function(batch,opt){
 				try{
@@ -441,16 +442,16 @@ Ext.define('FV.controller.RenYs', {
 		});
 	},
 	jiangL_save: function(btn){
-		this.save_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore());
+		this.save_ed(this.getJiangLEd(),this.getJiangLForm(),this.getJiangLsStore(),'奖励时间');
 	},
 	chuF_save: function(btn){
-		this.save_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore());
+		this.save_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore(),'处分时间');
 	},
 	ruWHJL_save: function(btn){
-		this.save_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
+		this.save_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore(),'起始时间');
 	},
 	gangWZGDJ_save: function(btn){
-		this.save_ed(this.getGangWZGDJEd(),this.getGangWZGDJForm(),this.getGangWZGDJLShsStore());
+		this.save_ed(this.getGangWZGDJEd(),this.getGangWZGDJForm(),this.getGangWZGDJLShsStore(),'等级时间');
 	},
 	del_ed: function(win,fm,st){
 		var rec = fm.getRecord(),
