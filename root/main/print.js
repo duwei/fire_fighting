@@ -132,10 +132,10 @@ var BianZhZhWs = {
 '148':'锻炼干部',
 '0':'无'
 };
-function getTxt(obj,key){
+function getTxt(obj,key,dfvl){
 	var v = obj[key];
 	if(v)return v;
-	return '';
+	return dfvl||'';
 }
 function updt(id,key){
 	document.getElementById(id).innerHTML = getTxt(day_inf, key);
@@ -296,9 +296,16 @@ function init(){
 	updt('quanRZhJY','学历');
 	updt('biYYX1','毕业院校');
 	updt('xiJZhY1','专业');
-	updt('zaiZhJY','学历1');////// or 学历2
-	updt('biYYX2','院校名称1');///////////////or 院校名称2
-	updt('xiJZhY2','专业1');//////// or 专业2
+	d = getTxt(day_inf,'',0);
+	if(parseInt(d)<=0){
+		updt('zaiZhJY','学历1');
+		updt('biYYX2','院校名称1');
+		updt('xiJZhY2','专业1');
+	}else{
+		updt('zaiZhJY','学历2');
+		updt('biYYX2','院校名称2');
+		updt('xiJZhY2','专业2');
+	}
 	updt('shiFSJ','是否随军');
 	updt3('suiJShJ','随军时间');
 	updt('suiJRY','随军人员');
