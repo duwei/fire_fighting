@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-
 <window title="干部信息管理软件" width="800" height="600" persist="screenX screenY width height" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml"
-		onload="document.getElementById('br').loadURI('http://127.0.0.1:16384/');" >
+		onload="document.getElementById('br').loadURI('http://127.0.0.1:16384/');" 
+		onclose="return cls();" >
+	<script><![CDATA[
+	var xhr;
+	function backupdb(){
+		xhr = new XMLHttpRequest();
+		var url = "http://127.0.0.1:16384/backupdb.app";
+		xhr.onreadystatechange = processResponse;
+		xhr.open("GET", url, false);
+		// xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		// set-up authentication headers and/or parameters
+		// then send the request
+		xhr.send();
+	}
+
+	function processResponse(res){
+		 // check for readyState == 'loaded'
+		 if (xhr.readyState == 4){
+			  if (xhr.status == 200 && res.responseText == 'OK'){
+				   alert("备份失败，请重试。");
+			  }
+		 }
+	}
+	
+	function cls(){
+		if(document.getElementById('br').currentURI.path.indexOf('login.app')>=0){
+			return true;
+		}
+		var ps = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
+		var rv = ps.confirmEx(window, "提示", "确认退出系统?",
+                          ps.BUTTON_TITLE_IS_STRING * ps.BUTTON_POS_0 +
+                          ps.BUTTON_TITLE_IS_STRING * ps.BUTTON_POS_1,
+                          "是", "否", null, null, {});
+		if(rv==0){
+			rv = ps.confirmEx(window, "提示", "是否备份数据库?",
+                          ps.BUTTON_TITLE_IS_STRING * ps.BUTTON_POS_0 +
+                          ps.BUTTON_TITLE_IS_STRING * ps.BUTTON_POS_1,
+                          "是", "否", null, null, {});
+			if(rv==0){
+				backupdb();
+			}
+			return true;
+		}
+		return false;
+	}
+	]]>
+	</script>
 	<html:embed type="application/x-serv" style="height:0px;width:0px;"/>
 	<browser id="br" type="content-primary" src="about:blank" flex="1"/>
 </window>
