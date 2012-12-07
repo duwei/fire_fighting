@@ -65,11 +65,16 @@ Ext.define('FV.view.sub.JiangLEd', {
 					xtype: 'textfield',
 					name: '奖励单位',
 					fieldLabel: '奖励单位'
-				},{
-					xtype: 'textfield',
+				},new Ext.form.ComboBox({
+					store: ['年底立功','火场立功','专项立功'],
 					name: '奖励原因',
-					fieldLabel: '奖励原因'
-				}]
+					fieldLabel: '奖励原因',
+					typeAhead: true,
+					triggerAction: 'all',
+					emptyText:'',
+					selectOnFocus:true
+				})
+				]
             }]
         });
 
