@@ -45,15 +45,13 @@ Ext.define('FV.controller.RenYs', {
 		'Ext.window.MessageBox'
 	],
 	
-    stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
-    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','Img','JiangL','ChuF','RuWQJL','RuWHJL','GangWZGDJLSh'],
+    stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','Img','JiangL','ChuF','RuWHJL','GangWZGDJLSh'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
 		'sub.ChuFLst',
 		'sub.ChuFEd',
-		'sub.RuWQJLLst',
-		'sub.RuWQJLEd',
 		'sub.RuWHJLLst',
 		'sub.RuWHJLEd',
 		'sub.GangWZGDJLst',
@@ -123,21 +121,6 @@ Ext.define('FV.controller.RenYs', {
 			selector: 'chufed'
         },
         {ref: 'chuFForm', selector: 'chufed form'},
-		{
-			ref: 'ruWQJLLst',
-			xtype: 'ruwqjllst',
-			closable: true,
-            autoCreate: true,
-			selector: 'ruwqjllst'
-        },
-		{
-			ref: 'ruWQJLEd',
-			xtype: 'ruwqjled',
-			closable: true,
-            autoCreate: true,
-			selector: 'ruwqjled'
-        },
-        {ref: 'ruWQJLForm', selector: 'ruwqjled form'},
 		{
 			ref: 'ruWHJLLst',
 			xtype: 'ruwhjllst',
@@ -265,9 +248,6 @@ Ext.define('FV.controller.RenYs', {
 			'renyone button[action=chuF]': {
 				click: this.chuF_lst
             },
-			'renyone button[action=ruWQJL]': {
-				click: this.ruWQJL_lst
-            },
 			'renyone button[action=ruWHJL]': {
 				click: this.ruWHJL_lst
             },
@@ -303,18 +283,6 @@ Ext.define('FV.controller.RenYs', {
             },
 			'chufed button[action=del]': {
 				click: this.chuF_del
-            },
-			'ruwqjllst grid': {
-                itemdblclick: this.ruWQJL_ed
-            },
-			'ruwqjllst button[action=add]': {
-				click: this.ruWQJL_add
-            },
-			'ruwqjled button[action=save]': {
-				click: this.ruWQJL_save
-            },
-			'ruwqjled button[action=del]': {
-				click: this.ruWQJL_del
             },
 			'ruwhjllst grid': {
                 itemdblclick: this.ruWHJL_ed
@@ -399,9 +367,6 @@ Ext.define('FV.controller.RenYs', {
 	chuF_ed: function(v,rec){
 		this.show_ed(rec,this.getChuFEd(),this.getChuFForm());
 	},
-	ruWQJL_ed: function(v,rec){
-		this.show_ed(rec,this.getRuWQJLEd(),this.getRuWQJLForm());
-	},
 	ruWHJL_ed: function(v,rec){
 		this.show_ed(rec,this.getRuWHJLEd(),this.getRuWHJLForm());
 	},
@@ -419,12 +384,6 @@ Ext.define('FV.controller.RenYs', {
 		this.show_ed(this.getChuFModel().create({
 				rid: lstw._rid
 			}),this.getChuFEd(),this.getChuFForm());
-	},
-	ruWQJL_add: function(btn){
-		var lstw = this.getRuWQJLLst();
-		this.show_ed(this.getRuWQJLModel().create({
-				rid: lstw._rid
-			}),this.getRuWQJLEd(),this.getRuWQJLForm());
 	},
 	ruWHJL_add: function(btn){
 		var lstw = this.getRuWHJLLst();
@@ -487,9 +446,6 @@ Ext.define('FV.controller.RenYs', {
 	chuF_save: function(btn){
 		this.save_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore());
 	},
-	ruWQJL_save: function(btn){
-		this.save_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
-	},
 	ruWHJL_save: function(btn){
 		this.save_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
 	},
@@ -519,9 +475,6 @@ Ext.define('FV.controller.RenYs', {
 	},
 	chuF_del: function(btn){
 		this.del_ed(this.getChuFEd(),this.getChuFForm(),this.getChuFsStore());
-	},
-	ruWQJL_del: function(btn){
-		this.del_ed(this.getRuWQJLEd(),this.getRuWQJLForm(),this.getRuWQJLsStore());
 	},
 	ruWHJL_del: function(btn){
 		this.del_ed(this.getRuWHJLEd(),this.getRuWHJLForm(),this.getRuWHJLsStore());
@@ -553,9 +506,6 @@ Ext.define('FV.controller.RenYs', {
 	},
 	chuF_lst: function(btn){
 		this.show_lst(btn,this.getChuFLst(),this.getChuFsStore());
-	},
-	ruWQJL_lst: function(btn){
-		this.show_lst(btn,this.getRuWQJLLst(),this.getRuWQJLsStore());
 	},
 	ruWHJL_lst: function(btn){
 		this.show_lst(btn,this.getRuWHJLLst(),this.getRuWHJLsStore());

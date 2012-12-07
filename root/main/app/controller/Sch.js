@@ -3,12 +3,11 @@ Ext.define('FV.controller.Sch', {
 
 	requires: ['FV.store.DanWLists','FV.lib.Utils'],
 
-    stores: ['Schs','JiangLs','ChuFs','RuWQJLs','RuWHJLs','GangWZGDJLShs'],
+    stores: ['Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
     models: ['Sch','Img','DanWList'],
     views: [
 		'sub.JiangLLst',
 		'sub.ChuFLst',
-		'sub.RuWQJLLst',
 		'sub.RuWHJLLst',
 		'sub.GangWZGDJLst',
 		'sch.Search',
@@ -57,13 +56,6 @@ Ext.define('FV.controller.Sch', {
 			closable: true,
             autoCreate: true,
 			selector: 'chuflst'
-        },
-		{
-			ref: 'ruWQJLLst',
-			xtype: 'ruwqjllst',
-			closable: true,
-            autoCreate: true,
-			selector: 'ruwqjllst'
         },
 		{
 			ref: 'ruWHJLLst',
@@ -123,9 +115,6 @@ Ext.define('FV.controller.Sch', {
             },
 			'schview button[action=chuF]': {
 				click: this.chuF_lst
-            },
-			'schview button[action=ruWQJL]': {
-				click: this.ruWQJL_lst
             },
 			'schview button[action=ruWHJL]': {
 				click: this.ruWHJL_lst
@@ -287,9 +276,6 @@ Ext.define('FV.controller.Sch', {
 	},
 	chuF_lst: function(btn){
 		this.show_lst(btn,this.getChuFLst(),this.getChuFsStore());
-	},
-	ruWQJL_lst: function(btn){
-		this.show_lst(btn,this.getRuWQJLLst(),this.getRuWQJLsStore());
 	},
 	ruWHJL_lst: function(btn){
 		this.show_lst(btn,this.getRuWHJLLst(),this.getRuWHJLsStore());

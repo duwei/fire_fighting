@@ -595,9 +595,6 @@ Ext.define('FV.view.center.RenYOne', {
 					text: '处分情况',
 					action: 'chuF'
 				}, {
-					text: '入伍前简历',
-					action: 'ruWQJL'
-				}, {
 					text: '入伍后简历',
 					action: 'ruWHJL'
 				}, {
