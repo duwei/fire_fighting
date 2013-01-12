@@ -30,6 +30,7 @@ serv/testdba.exe
 serv/testsql.exe
 serv/xml.exe
 serv/xml2sql.exe
+serv/dataurl2file.exe
 
 serv/db/*.dll
 serv/db/*.c
