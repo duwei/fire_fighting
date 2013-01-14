@@ -10,7 +10,6 @@ Ext.define('FV.controller.RenYs', {
 		'FV.store.DanWs',
 		'FV.store.GanBLYs',
 		'FV.store.GongZDCs',
-		'FV.store.Imgs',
 		'FV.store.JiaTChShs',
 		'FV.store.JiGDJs',
 		'FV.store.JingGWZhs',
@@ -46,7 +45,7 @@ Ext.define('FV.controller.RenYs', {
 	],
 	
     stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
-    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','Img','JiangL','ChuF','RuWHJL','GangWZGDJLSh'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
@@ -546,54 +545,60 @@ Ext.define('FV.controller.RenYs', {
 		}
 	},
 	readIt: function(file,img){
+		img.setSrc(window.URL.createObjectURL(file));
+		img.onload = function(e) {
+			window.URL.revokeObjectURL(this.src);
+		}
 		var reader = new FileReader(),
 			ths = this,
-			rec = img._rec;
-
+			xhr = new XMLHttpRequest(),
+			s = file.name.substr(file.name.lastIndexOf('.')+1);
+		xhr.open("POST", "/data/zhaopupld.app?name="+img._rid+'.'+s);
 		reader.onloadend = Ext.Function.bind(function() { 
 			if (reader.error) { 
 				console.log(reader.error); 
-			} else { 
-				img.setSrc(reader.result);
-				if(!rec){
-					rec = this.getImgModel().create({
-						tp:0,
-						img:reader.result
-					});
-				}else{
-					rec.set('img',reader.result);
-				}
-				img._rec = rec;
+			} else {
+				xhr.sendAsBinary(reader.result);
+				img._fm.setValues({'照片id':s});
+				Ext.Msg.alert('信息','照片更新，请注意保存人员信息。');
 			}
 		},this); 
-		reader.readAsDataURL(file); 
+		reader.readAsBinaryString(file); 
 	},
 	handleFiles: function(img,inputObj) {
+		if(!img._rid){
+			Ext.Msg.alert('警告','请先保存人员信息后再更新照片！');
+			return;
+		}
 		this.readIt(inputObj.files[0],img);
 	},
 	delZhaoP: function(img){
-		var rec = img._rec;
-		if(!rec || rec.phantom)return;
+		var fm = img._fm;
+		if(!fm)return;
 		
 		Ext.Msg.confirm('警告!','确定要删除此照片么?',function(kid){
 			if(kid=='yes'){
-				rec.destroy({
-					success: function(response){
-						img.setSrc(Ext.BLANK_IMAGE_URL);
-						delete img._rec;
-					},
-					failure: function(batch,opt){
-						console.log("failure..delZhaoP");
-					},
-					scope: this
-				});
+				fm.setValues({'照片id':'0'});
+				img.setSrc(Ext.BLANK_IMAGE_URL);
+				Ext.Msg.alert('信息','照片更新，请注意保存人员信息。');
 			}
 		},this);
+	},
+	downloadZhaoP: function(img){
+		var fm = img._fm;
+		if(!fm)return;
+		var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+		save_link.href = img.src+'&dw=1';
+		save_link.download = img._filename;
+
+		var event = document.createEvent('MouseEvents');
+		event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+		save_link.dispatchEvent(event);
 	},
 	addImageMenu: function(ths){
 		ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
 			'<input type="file" accept="image/*" style="display:none"/>',true);
-		ths._fileinput.dom.onchange=Ext.Function.bind(this.handleFiles,this,[ths,ths._fileinput.dom]);
+		ths._fileinput.dom.onchange=Ext.Function.bind(this.handleFiles,this,[ths,ths._fileinput.dom,]);
 		ths.imgMenu = Ext.create('Ext.menu.Menu', {
 			items:[{
 				text: '更新照片',
@@ -603,6 +608,10 @@ Ext.define('FV.controller.RenYs', {
 			},{
 				text: '删除照片',
 				handler: Ext.Function.bind(this.delZhaoP,this,[ths]),
+				scope: this
+			},{
+				text: '下载照片',
+				handler: Ext.Function.bind(this.downloadZhaoP,this,[ths]),
 				scope: this
 			}]
 		});
@@ -625,10 +634,10 @@ Ext.define('FV.controller.RenYs', {
 		if(m==0)return false;
 		return true;
 	},
-	saveRec: function(ro,step,rid,r1,r2,r3,st){
+	saveRec: function(ro,step,rid,r1,r2,st){
 		if(r1 == null || !this.hasProps(r1.getChanges()) && !r1.phantom){
-			if(step<2){
-				this.saveRec(ro,step+1,rid,r2,r3);
+			if(step==0){
+				this.saveRec(ro,step+1,rid,r2);
 			}else{
 				Ext.Msg.alert('成功','数据保存成功！',function(){
 					ro.close();
@@ -657,8 +666,8 @@ Ext.define('FV.controller.RenYs', {
 									r1.dirty = false;
 								}
 							}
-							if(r3)r3.set('id',r1.get('id'));
-							this.saveRec(ro,step+1,r1.get('id'),r2,r3);
+							if(r2)r2.set('id',r1.get('id'));
+							this.saveRec(ro,step+1,r1.get('id'),r2);
 						}else{
 							Ext.Msg.alert('失败','Msg:'+obj.msg);
 						}
@@ -669,7 +678,7 @@ Ext.define('FV.controller.RenYs', {
 					}
 				},
 				failure: function(batch,opt){
-					Ext.Msg.alert('失败','数据保存不成功！');
+					Ext.Msg.alert('失败','数据保存不成功！<br/>请注意"身份号"必须保证唯一！');
 					console.log("renyone_save failure");
 				},
 				scope: this
@@ -687,17 +696,10 @@ Ext.define('FV.controller.RenYs', {
 							if(obj.data&&obj.data.id>0){
 								rec.set('id',obj.data.id);
 							}
-							if(step==1){
-								if(r2){
-									r2.set('照片id',rec.get('id'));
-								}
-								this.saveRec(ro,2,rid,r2);
-							}else{
-								Ext.Msg.alert('成功','数据保存成功！',function(){
-									ro.close();
-									this.refreshRenYs();
-								},this);
-							}
+							Ext.Msg.alert('成功','数据保存成功！',function(){
+								ro.close();
+								this.refreshRenYs();
+							},this);
 						}else{
 							Ext.Msg.alert('失败','Msg:'+obj.msg);
 						}
@@ -730,9 +732,7 @@ Ext.define('FV.controller.RenYs', {
 			Ext.Msg.alert('警告','请完善数据后提交。');
 			return;
 		}
-		var zhaoPFld = f1.down('image'),
-			zhaoPRec = zhaoPFld._rec,
-			vs1 = f1.getValues(false,true),
+		var vs1 = f1.getValues(false,true),
 			vs2 = f2.getValues(false,false),
 			r2 = f2.getRecord(),
 			st = this.getRenYsStore(),
@@ -740,7 +740,7 @@ Ext.define('FV.controller.RenYs', {
 		r1.set(vs1);
 		r2.set(vs2);
 
-		this.saveRec(ro,0,r1.get('id'),r1,zhaoPRec,r2,st);
+		this.saveRec(ro,0,r1.get('id'),r1,r2,st);
 		return;
 	},
 	getRang: function(ind2,st,recs,id){
@@ -889,6 +889,7 @@ Ext.define('FV.controller.RenYs', {
 				});
 			}
 		}else{
+			zhaoPFld._rid = reny.get('身份号');
 			FV.model.RenY2.load(reny.get('id'),{
 				scope: this,
 				failure: function(record, operation) {
@@ -899,19 +900,11 @@ Ext.define('FV.controller.RenYs', {
 						record = this.getRenY2Model().create({rid:reny.get('id')});
 					}
 					f2.loadRecord(record);
-					zhaoPId = record.get('照片id');
-					if(zhaoPId&&zhaoPId>0){
-						FV.model.Img.load(zhaoPId,{
-							scope: this,
-							success: function(rec,ope){
-								if(rec){
-									zhaoPFld.setSrc(rec.get('img'));
-								}else {
-									zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
-								}
-								zhaoPFld._rec = rec;
-							}
-						});
+					zhaoPId = record.get('照片id');//存文件扩展名
+					zhaoPFld._fm = f2.getForm();
+					if(zhaoPId){
+						zhaoPFld._filename = zhaoPFld._rid+'.'+zhaoPId;
+						zhaoPFld.setSrc('/data/zhaop.app?name='+zhaoPFld._rid+'.'+zhaoPId+'&sn='+Ext.id({},'s'));
 					}
 				}
 			});

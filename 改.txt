@@ -274,3 +274,5 @@ CREATE UNIQUE INDEX logsUINDEX ON logs (unm,操作时间,rid);
 	6、数据导入时有时提示“服务器错误”或“导入文件格式错误”，需多试几遍or重启软件才能解决。
 	7、附加信息“奖励”“入伍后简历”录入保存是否会崩溃，是否录入后没有存上（再点开时没有信息）
 	
+身份号必须唯一：
+CREATE UNIQUE INDEX 人员基本情况_UINDEX ON 人员基本情况 (身份号);
