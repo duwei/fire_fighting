@@ -276,3 +276,9 @@ CREATE UNIQUE INDEX logsUINDEX ON logs (unm,操作时间,rid);
 	
 身份号必须唯一：
 CREATE UNIQUE INDEX 人员基本情况_UINDEX ON 人员基本情况 (身份号);
+增加3个字段：
+alter table 编制分配 add zwdj INTEGER;
+alter table 编制分配 add flag2 INTEGER;
+alter table 编制分配 add indx INTEGER;
+清除无效数据：
+delete from 编制分配 where bid is null;

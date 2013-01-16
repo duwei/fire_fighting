@@ -4,7 +4,7 @@ Ext.define('FV.controller.Sch', {
 	requires: ['FV.store.DanWLists','FV.lib.Utils'],
 
     stores: ['Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
-    models: ['Sch','Img','DanWList'],
+    models: ['Sch','DanWList'],
     views: [
 		'sub.JiangLLst',
 		'sub.ChuFLst',
@@ -312,6 +312,7 @@ Ext.define('FV.controller.Sch', {
 			form = this.getViewForm(),
 			zhaoPFld = form.down('image'),
 			xlind = rec.get('xlind'),
+			sfh = rec.get('身份号'),
 			zhaoPId = rec.get('照片id');
 		if(xlind>0){
 			rec.set('学历1',rec.get('学历2'));
@@ -321,23 +322,10 @@ Ext.define('FV.controller.Sch', {
 
 		this._curId = rec.get("id");
 		
-		if(rec.img_){
-			zhaoPFld.setSrc(rec.img_);
-		}else if(zhaoPId&&zhaoPId>0){
-			FV.model.Img.load(zhaoPId,{
-				scope: this,
-				success: function(rc,ope){
-					if(rc){
-						zhaoPFld.setSrc(rc.get('img'));
-						rec.img_ = rc.get('img');
-					}else {
-						zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
-					}
-				}
-			});
-		}else{
-			zhaoPFld.setSrc(Ext.BLANK_IMAGE_URL);
+		if(!rec.img_){
+			rec.img_ = '/data/zhaop.app?name='+sfh+'.'+zhaoPId+'&sn='+Ext.id({},'s');
 		}
+		zhaoPFld.setSrc(rec.img_);
 		win.show();
 	},
 	removeNext: function(form,pid){

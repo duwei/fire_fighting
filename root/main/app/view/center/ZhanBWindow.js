@@ -48,13 +48,9 @@ Ext.define('FV.view.center.ZhanBWindow', {
 					defaults: {
 						margin:'0 0 5 0'
 					},
-					items: [{
-						flex: 2,
-						xtype: 'displayfield',
-						name: '职务等级s',
-						fieldLabel: '职务等级'
-					},
-						FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',false,0,{readOnly: true,flex:3})
+					items: [
+						FV.lib.KeyMapMng.getCombField('职务等级','职务等级','ZhiWDJs',false,2,{readOnly: true}),
+						FV.lib.KeyMapMng.getCombField('编制职务','编制职务','BianZhZhWs',false,3,{readOnly: true})
 					]
 				},{
 					xtype: 'container',
@@ -82,18 +78,31 @@ Ext.define('FV.view.center.ZhanBWindow', {
 						margin:'0 0 5 0'
 					},
 					items: [{
-						flex: 2,
-						readOnly: true,
-						xtype: 'checkbox',
+						xtype: 'hidden',
 						boxLabel: '超编',
-						name: 'chaoB',
-						inputValue: '2'
+						name: 'chaoB'
+					},{
+						xtype: 'hidden',
+						boxLabel: '虚编',
+						name: 'xuB'
+					},{
+						flex: 1,
+						xtype: 'displayfield',
+						labelWidth: 12,
+						name: 'info'
+					},{
+						flex: 1,
+						xtype: 'checkbox',
+						labelWidth: 5,
+						boxLabel: '代理',
+						name: 'daiL',
+						inputValue: 2
 					},{
 						flex: 3,
 						xtype: 'checkbox',
 						boxLabel: '记入入伍后简历',
 						name: 'log',
-						inputValue: '1'
+						inputValue: 1
 					}]
 				}]
             }]

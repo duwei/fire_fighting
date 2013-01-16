@@ -23,6 +23,7 @@ Ext.define('FV.controller.RenYs', {
 		'FV.store.Logs',
 		'FV.store.MinZs',
 		'FV.store.PeiBQKs',
+		'FV.store.BianZhXShs',
 		'FV.store.PeiXXShs',
 		'FV.store.RenY2s',
 		'FV.store.RenYs',
@@ -213,8 +214,8 @@ Ext.define('FV.controller.RenYs', {
             'zhanbwindow button[action=save]': {
                 click: this.zhanBsave
             },
-            'zhanbwindow checkbox[name=chaoB]': {
-                change: this.chgChaoB
+            'zhanbwindow checkbox[name=daiL]': {
+                change: this.chgDaiL
             },
             'xuandry': {
                 itemdblclick: this.editXDRenYs,
@@ -763,40 +764,69 @@ Ext.define('FV.controller.RenYs', {
 		}
 		return [i+1,a-1];
 	},
+	zhanB_RO: function(form,b,rec){
+		var zw = form.down('combobox[name=编制职务]'),
+			dj = form.down('combobox[name=职务等级]');
+		dj.setReadOnly(b);
+		zw.setReadOnly(b);
+		if(rec&&b){
+			zw.setValue(rec.get('编制职务'));
+			dj.setValue(rec.get('职务等级'));
+		}
+	},
     zhanB: function(node, data, overModel, dropPosition, dropHandlers,eOpts) {
-		var win = this.getZhanBWindow(),
-			form = this.getZhanBForm(),
-			zw = form.down('combobox'),
-			rec = data.records[0],
+		var rec = data.records[0],
 			st = rec.store,
 			ind,ind2,bz,a;
-		if(overModel&&rec instanceof FV.model.RenY){// 拖动人员
+		if(rec instanceof FV.model.RenY){// 拖动人员
 			if(rec.get('职务')){
 				Ext.Msg.alert('警告','不能重复占编！');
 				return false;
 			}
-			a = overModel.get('编制职务等级');
-			ind = (overModel.get('配备情况')>0);
-			bz  = this.getZhanBModel().create({
-				'职务等级': a,
-				'职务等级s': this.keyHlp.getGridRenderer('ZhiWDJ3s')(a),
-				'编制职务': overModel.get('编制职务'),
-				'占编人员': rec.get('姓名'),
-				'占编时间': null,
-				chaoB: ind?2:0,
-				log: 0
-			});
+			var win = this.getZhanBWindow(),
+				form = this.getZhanBForm(),
+				dl = form.down('checkbox[name=daiL]');
+			if(overModel&&overModel.get('编制形式')!=1){
+				a = {
+					'职务等级': overModel.get('编制职务等级'),
+					'编制职务': overModel.get('编制职务'),
+					'占编人员': rec.get('姓名'),
+					'占编时间': null,
+					log: 0,
+					info: '',
+					chaoB: overModel.get('配备情况')>0?2:1,
+					daiL: 0,
+					xuB: 0
+				};
+				if(a.chaoB==2)a.info='超编';
+				dl.show();
+				this.zhanB_RO(form,a.chaoB==1);
+			}else{
+				a = {
+					'占编人员': rec.get('姓名'),
+					log: 0,
+					info: '虚编',
+					chaoB: 2,
+					daiL: 0,
+					xuB: 1
+				};
+				dl.hide();
+				this.zhanB_RO(form,false);
+			}
+			bz  = this.getZhanBModel().create(a);
 			form.loadRecord(bz);
-			zw.setReadOnly(a!=0 && !ind);
 
-			a = overModel.get('id');
-			if(overModel.get('配备情况')>1){
-				a %= 10000;
+			ind = 0;
+			if(overModel){
+				ind = overModel.get('id');
+				if(overModel.get('配备情况')>1){
+					ind %= 10000;
+				}
 			}
 
 			this.zhanBInfo={
 				rid:rec.get('id'),
-				bid:a,
+				bid:ind,
 				danWId:this.curDanW.get('id')
 			};
 			win.show();
@@ -822,16 +852,10 @@ Ext.define('FV.controller.RenYs', {
 		}
 		return false;
     },
-	chgChaoB: function(fld,newVl,oldVl){
+	chgDaiL: function(fld,newVl,oldVl){
 		var fm = fld.up('form'),
-			rec = fm.getRecord(),
-			zw;
-		if(!rec || rec.get('职务等级')==0)return;
-		zw = fm.down('combobox');
-		zw.setReadOnly(!newVl);
-		if(!newVl){
-			zw.setValue(rec.get('编制职务'));
-		}
+			rec = fm.getRecord();
+		this.zhanB_RO(fm,!newVl,rec);
 	},
     zhanBsave: function(){
 		var win = this.getZhanBWindow(),
@@ -847,10 +871,9 @@ Ext.define('FV.controller.RenYs', {
 		this.zhanBInfo.flag = values['chaoB']||1;
 		this.zhanBInfo.log =  values['log']||0;
 		this.zhanBInfo['占编时间'] =  values['占编时间'];
-		if(rec.get('编制职务')!=values['编制职务']){
-			this.zhanBInfo['bianZhZhW'] =  values['编制职务'];
-			//this.zhanBInfo['bid'] =  0;
-		}
+		this.zhanBInfo.bianZhZhW =  values['编制职务'];
+		this.zhanBInfo.zhiWDJ =  values['职务等级'];
+		this.zhanBInfo.flag2 = values.daiL || (values.xuB=='1'?1:0);
 		{
 			Ext.Ajax.request({
 				url: '/data/zhanb_bianzh.app',
@@ -1357,6 +1380,7 @@ Ext.define('FV.controller.RenYs', {
 			this.formatIt(o,'编制职务',this.keyHlp.getGridRenderer('BianZhZhWs'));
 			this.formatIt(o,'编制类型',this.keyHlp.getGridRenderer('BianZhLXs'));
 			this.formatIt(o,'配备情况',this.keyHlp.getGridRenderer('PeiBQKs'));
+			this.formatIt(o,'编制形式',this.keyHlp.getGridRenderer('BianZhXShs'));
 			this.formatIt(o,'编制职务等级',this.keyHlp.getGridRenderer('ZhiWDJ3s'));
 			this.formatIt(o,'占编时间',this.keyHlp.formatDate);
 			w.setTitle('编制信息');

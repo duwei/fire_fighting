@@ -8,6 +8,7 @@ serv/lib/*.o
 serv/lib/libbase.a
 root/extjs-4.1/
 root/data/
+root/zhaop/*
 logs/*.log
 serv/logs/*.log
 xulrunner/

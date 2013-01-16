@@ -29,12 +29,17 @@ Ext.define('FV.view.center.BianZhXX', {
             }, {
                 text: '占编人员',
                 dataIndex: '占编人员',
-                width: 80
+                width: 60
             }, {
                 text: '配备情况',
                 dataIndex: '配备情况',
                 width: 60,
                 renderer: FV.lib.KeyMapMng.getGridRenderer('PeiBQKs')
+            }, {
+                text: '编制形式',
+                dataIndex: '编制形式',
+                width: 60,
+                renderer: FV.lib.KeyMapMng.getGridRenderer('BianZhXShs')
             }],
             dockedItems:[{
                 xtype: 'toolbar',
