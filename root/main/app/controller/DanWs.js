@@ -1,13 +1,14 @@
 Ext.define('FV.controller.DanWs', {
     extend: 'Ext.app.Controller',
 
-    stores: ['DanWs'],
+    stores: ['DanWs','DBFiles'],
     models: ['DanW'],
     views: [
 		'util.IFrame',
 		'west.DanWTree',
 		'west.DanWWindow',
-		'west.ChgPwdWindow'
+		'west.ChgPwdWindow',
+		'west.RestoreWindow'
 	],
     
     refs: [
@@ -20,6 +21,13 @@ Ext.define('FV.controller.DanWs', {
             selector: 'chgpwdwindow', 
             autoCreate: true,
             xtype: 'chgpwdwindow'
+        },
+        {ref: 'resForm', selector: 'restorewindow form'},
+        {
+            ref: 'restoreWindow', 
+            selector: 'restorewindow', 
+            autoCreate: true,
+            xtype: 'restorewindow'
         },
         {ref: 'danWForm', selector: 'danwwindow form'},
         {
@@ -68,6 +76,9 @@ Ext.define('FV.controller.DanWs', {
             },
             'chgpwdwindow button[action=save]': {
 				click: this.savePwd
+            },
+            'restorewindow button[action=save]': {
+				click: this.resDB
             }
         });
 		this.getDanWsStore().on({
@@ -95,6 +106,29 @@ Ext.define('FV.controller.DanWs', {
 				st.expand(false);
 			}
 		}
+	},
+	resDB: function(){
+		var win = this.getRestoreWindow(),
+			form = this.getResForm();
+		Ext.Ajax.request({
+			url: '/restoredb.app',
+			params: form.getValues(),
+			success: function(response){
+				var m = response.responseText;
+				if(m=='OK'){
+					Ext.Msg.alert('成功！','恢复数据库备份成功！',function(){win.close();});
+				}else{
+					Ext.Msg.alert('错误！',m);
+				}
+				win.close();
+			},
+			failure: function(response){
+				console.log('服务器错误');
+				console.dir(response);
+				Ext.Msg.alert('错误！','服务器错误');
+			},
+			scope: this
+		});
 	},
 	savePwd: function(){
 		var win = this.getPwdWindow(),
@@ -168,6 +202,9 @@ Ext.define('FV.controller.DanWs', {
 				form = this.getPwdForm(),
 				ff = form.getForm();
 			ff.reset();
+			win.show();
+		}else if(cf.text=='恢复数据库备份'){
+			var win = this.getRestoreWindow();
 			win.show();
 		}else{
 			return;
