@@ -48,18 +48,26 @@ Ext.define('FV.controller.Export', {
 			scope: this
 		});
 	},
+	showLog: function(){
+		console.info('showLog');
+	},
 	removeit: function() {
-		var slt = this.getExportList().getSelectionModel().getSelection();
+		var slt = this.getExportList().getSelectionModel().getSelection(),
+			sl,i,n,st;
 		if(slt){
-			slt = slt[0];
-			if(slt){
-				this.getRenYexpsStore().remove(slt);
-				this.data_num --;
-				this.getStatusBar().setStatus({
-					text:'共'+this.data_num+'条数据。',
-					iconCls: 'x-status-valid'
-				});
+			st = this.getRenYexpsStore();
+			n = slt.length;
+			for(i=0;i<n;i++){
+				sl = slt[i];
+				if(sl){
+					st.remove(sl);
+					this.data_num --;
+				}
 			}
+			this.getStatusBar().setStatus({
+				text:'共'+this.data_num+'条数据。',
+				iconCls: 'x-status-valid'
+			});
 		}
 	},
 	download: function(btn){

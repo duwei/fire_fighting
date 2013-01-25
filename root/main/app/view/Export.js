@@ -15,6 +15,7 @@ Ext.define('FV.view.Export', {
         Ext.apply(this, {
             store: 'RenYexps',
 
+			multiSelect: true,
             columns: [
 				{text: '姓名',	dataIndex:'姓名',	width:100 },
 				{text: '部别职务',	dataIndex:'部别职务',	flex:1 },
