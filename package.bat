@@ -2,6 +2,8 @@
 del fire_fighting*.zip
 7z a fire_fighting.zip @files.txt
 
+goto end 
+
 copy fire_fighting.zip fire_fighting.zd.zip
 copy serv\data\data1.db.zd serv\data\data1.db
 7z a fire_fighting.zd.zip serv\data\data1.db
@@ -77,5 +79,7 @@ copy serv\data\data1.db.bz serv\data\data1.db
 copy fire_fighting.zip fire_fighting.hz.zip
 copy serv\data\data1.db.hz serv\data\data1.db
 7z a fire_fighting.hz.zip serv\data\data1.db
+
+:end
 
 pause

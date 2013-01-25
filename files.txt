@@ -3,6 +3,7 @@ apr-2.dll
 fun_subr.dll
 mongoose.dll
 xlslib.dll
+z.bin
 
 application.ini
 chrome.manifest
