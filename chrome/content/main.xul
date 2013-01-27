@@ -27,7 +27,8 @@
 	}
 	
 	function cls(){
-		if(document.getElementById('br').currentURI.path.indexOf('login.app')>=0){
+		var ps = document.getElementById('br').currentURI.path;
+		if(ps.indexOf('login.app')>=0 || ps.indexOf('app')<0){
 			return true;
 		}
 		var ps = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
