@@ -156,83 +156,87 @@ Ext.define('FV.controller.Import', {
 		'导入修改日志...':0.88,
 		'完成导入...':0.9
 	},
-	readImport: function(btn,file){
+	update_pecentage: function(pc){
+		console.log(pc);
+	},
+	up_OK: function(m){
+		console.log('up_OK');
+		var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
+		var wking=false;
+		ww._flg = false;
+		var upfun = function(ths, value, text){
+			if(ww._flg)return;
+			if(wking)return;
+			wking = true;
+			Ext.Ajax.request({
+				url: '/data/importinfo.app',
+				success: function(response){
+					wking = false;
+					var s = response.responseText;
+					if(s=='ERR'){
+						ths.un({
+							update: upfun,
+							scope: this
+						});
+						Ext.Msg.alert('错误！','导入数据错误');
+						return;
+					}else if(s=='OK'){
+						ww._flg = true;
+						ww.hide();
+						ths.un({
+							update: upfun,
+							scope: this
+						});
+						this.getRenYimpsStore().load();
+					}else if(s=='OK2'){
+						Ext.Msg.alert('成功！','数据同步成功！');
+					}
+					if(m==s)return;
+					m = s;
+					ths.updateProgress(this._msg_vl[s],s);
+				},
+				failure: function(response){
+					ths.un({
+						update: upfun,
+						scope: this
+					});
+					Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+				},
+				scope: this
+			});
+		};
+		ww.progressBar.on({
+			update: upfun,
+			scope: this
+		});
+	},
+	readIt: function(file){
 		var reader = new FileReader(),
-			ths = this;
+			ths = this,
+			xhr = new XMLHttpRequest();
+		xhr.upload.addEventListener("progress", function(e) {
+			if (e.lengthComputable) {
+				var percentage = Math.round((e.loaded * 100) / e.total);
+				ths.update_pecentage(percentage);
+			}
+		}, false);
 
+		xhr.upload.addEventListener("load", function(e) {
+			ths.update_pecentage(100);
+			ths.up_OK(xhr.responseText);
+		}, false);
+		xhr.open("POST", "/data/import.app?name="+file.name);
 		reader.onloadend = Ext.Function.bind(function() { 
 			if (reader.error) { 
 				console.log(reader.error); 
-			} else { 
-				Ext.Ajax.request({
-					url: '/data/import.app',
-					jsonData: reader.result,
-					success: function(response){
-						var m = response.responseText;
-						if(m=='OK2'){
-							Ext.Msg.alert('成功！','数据同步成功！');
-						}else if(m!='ERR'){
-							var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
-							var wking=false;
-							ww._flg = false;
-							var upfun = function(ths, value, text){
-								if(ww._flg)return;
-								if(wking)return;
-								wking = true;
-								Ext.Ajax.request({
-									url: '/data/importinfo.app',
-									success: function(response){
-										wking = false;
-										var s = response.responseText;
-										if(s=='ERR'){
-											ths.un({
-												update: upfun,
-												scope: this
-											});
-											Ext.Msg.alert('错误！','导入数据错误');
-											return;
-										}else if(s=='OK'){
-											ww._flg = true;
-											ww.hide();
-											ths.un({
-												update: upfun,
-												scope: this
-											});
-											this.getRenYimpsStore().load();
-										}
-										if(m==s)return;
-										m = s;
-										ths.updateProgress(this._msg_vl[s],s);
-									},
-									failure: function(response){
-										ths.un({
-											update: upfun,
-											scope: this
-										});
-										Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
-									},
-									scope: this
-								});
-							};
-							ww.progressBar.on({
-								update: upfun,
-								scope: this
-							});
-						}else{
-							Ext.Msg.alert('错误！','导入文件格式错误！');
-						}
-					},
-					failure: function(response){
-						Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
-					},
-					scope: this
-				});
+			} else {
+				xhr.sendAsBinary(reader.result);
 			}
 		},this); 
-		reader.readAsText(file); 
+		reader.readAsBinaryString(file); 
 	},
 	handleImport: function(btn,inputObj) {
-		this.readImport(btn,inputObj.files[0]);
+		this.readIt(inputObj.files[0]);
 	},
 	importfile: function(ths){
 		if(ths._fileinput==null){
