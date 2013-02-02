@@ -1,5 +1,7 @@
 Ext.application({
     name: 'FV',
+	
+	requires:['Ext.state.*'],
 
     // All the paths for custom classes
     paths: {
@@ -12,5 +14,9 @@ Ext.application({
 		'RenYs'
     ],
     
-    autoCreateViewport: true
+    autoCreateViewport: true,
+	
+	init: function(app){
+		Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+	}
 });
