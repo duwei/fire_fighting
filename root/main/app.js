@@ -17,6 +17,6 @@ Ext.application({
     autoCreateViewport: true,
 	
 	init: function(app){
-		Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+		Ext.state.Manager.setProvider(Ext.create('Ext.state.LocalStorageProvider'));
 	}
 });

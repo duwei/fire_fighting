@@ -29,7 +29,7 @@ Ext.define('FV.view.center.RenYMain', {
 				weight: -100,
 				title: '选定人员',
 				stateful: true,
-				stateid: 'xuandry',
+				stateId: 'xuandry',
 				xtype: 'xuandry'
 /*			}, {
 				region: 'south',
@@ -45,7 +45,7 @@ Ext.define('FV.view.center.RenYMain', {
 				weight: -110,
 				title: '编制信息',
 				stateful: true,
-				stateid: 'bianzhxx',
+				stateId: 'bianzhxx',
 				xtype: 'bianzhxx'
 			}, {
 				region: 'east',
@@ -54,7 +54,7 @@ Ext.define('FV.view.center.RenYMain', {
 				split: true,
 				title: '常用信息',
 				stateful: true,
-				stateid: 'changyxx',
+				stateId: 'changyxx',
 				xtype: 'changyxx'
 			}]
         });

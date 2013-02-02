@@ -8,7 +8,7 @@ Ext.define('FV.view.Viewport', {
     ],
 
     stateful: true,
-	stateid: 'xfViewport',
+	stateId: 'xfViewport',
 
 	layout: {
 		type: 'border',
@@ -25,7 +25,7 @@ Ext.define('FV.view.Viewport', {
 		collapsible: true,
 		split: true,
 		stateful: true,
-		stateid: 'westtab',
+		stateId: 'westtab',
         xtype: 'westtab'
     }]
 });
