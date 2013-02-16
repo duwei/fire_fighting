@@ -3,7 +3,7 @@ Ext.define('FV.store.DBFiles', {// 备份文件列表
 
     requires: ['FV.reader.MyJson'],
 
-    model: 'FV.model.DictList',
+    model: 'FV.model.Dbf',
 
 	proxy: {
 		type: 'ajax',
