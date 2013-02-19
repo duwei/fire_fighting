@@ -35,3 +35,5 @@ serv/dataurl2file.exe
 
 serv/db/*.dll
 serv/db/*.c
+
+root/main/*-all.js

@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../extjs-4.1/ux/statusbar/css/statusbar.css" />
     <link rel="stylesheet" type="text/css" href="../style/icon.css">
 
-    <script type="text/javascript" src="../extjs-4.1/ext-debug.js"></script>
+    <script type="text/javascript" src="../extjs-4.1/ext.js"></script>
     <script type="text/javascript" src="../extjs-4.1/locale/ext-lang-zh_CN.js"></script>
     <script type="text/javascript">
         Ext.Loader.setConfig({
@@ -18,7 +18,7 @@
         });
     </script>
 
-    <script type="text/javascript" src="sch.js"></script>
+    <script type="text/javascript" src="sch-all.js"></script>
 
     <style type="text/css" media="screen">
         /**
