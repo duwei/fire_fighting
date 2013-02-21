@@ -17,10 +17,10 @@
 		xhr.send();
 	}
 
-	function processResponse(res){
+	function processResponse(){
 		 // check for readyState == 'loaded'
 		 if (xhr.readyState == 4){
-			  if (xhr.status == 200 && res.responseText == 'OK'){
+			  if (xhr.status == 200 && xhr.responseText != 'OK'){
 				   alert("备份失败，请重试。");
 			  }
 		 }
