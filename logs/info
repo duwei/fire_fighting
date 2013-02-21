@@ -6,3 +6,4 @@ db_manager.c
 http_response.c
 http_servlet.c
 #reg_processors.c
+cmd.c
