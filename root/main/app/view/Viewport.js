@@ -7,9 +7,6 @@ Ext.define('FV.view.Viewport', {
         'Ext.layout.container.Border'
     ],
 
-    stateful: true,
-	stateId: 'xfViewport',
-
 	layout: {
 		type: 'border',
 		padding: 5
