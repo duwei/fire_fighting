@@ -83,14 +83,7 @@ Ext.define('FV.controller.Import', {
 							success: function(response){
 								wking = false;
 								var s = response.responseText;
-								if(s=='ERR'){
-									ths.un({
-										update: upfun,
-										scope: this
-									});
-									Ext.Msg.alert('错误！','保存数据错误');
-									return;
-								}else if(s=='OK'){
+								if(s=='OK'){
 									ww._flg = true;
 									ww.hide();
 									ths.un({
@@ -99,6 +92,13 @@ Ext.define('FV.controller.Import', {
 									});
 									FV.lib.Utils.downloadURL('/data/dw.app?nm=data_rslt.bin&k='+m);
 									this.curDwKey = m;
+								}else if(s.startsWith('ERR')){
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									Ext.Msg.alert('错误！',s);
+									return;
 								}
 							},
 							failure: function(response){
@@ -173,14 +173,7 @@ Ext.define('FV.controller.Import', {
 				success: function(response){
 					wking = false;
 					var s = response.responseText;
-					if(s=='ERR'){
-						ths.un({
-							update: upfun,
-							scope: this
-						});
-						Ext.Msg.alert('错误！','导入数据错误');
-						return;
-					}else if(s=='OK'){
+					if(s=='OK'){
 						ww._flg = true;
 						ww.hide();
 						ths.un({
@@ -190,7 +183,14 @@ Ext.define('FV.controller.Import', {
 						this.getRenYimpsStore().load();
 					}else if(s=='OK2'){
 						Ext.Msg.alert('成功！','数据同步成功！');
-					}
+					}else if(s.startsWith('ERR')){
+						ths.un({
+							update: upfun,
+							scope: this
+						});
+						Ext.Msg.alert('错误！',s);
+						return;
+					}else 
 					if(m==s)return;
 					m = s;
 					ths.updateProgress(this._msg_vl[s],s);
