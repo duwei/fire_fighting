@@ -1,0 +1,7 @@
+压缩js：
+装入sencha SDK,在root\main目录下命令行执行：
+sencha build -p app.jsb3 -d . -v
+sencha build -p export.jsb3 -d . -v
+sencha build -p import.jsb3 -d . -v
+sencha build -p qianf.jsb3 -d . -v
+sencha build -p sch.jsb3 -d . -v
