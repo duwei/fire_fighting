@@ -20,6 +20,7 @@ root/style
 root/images
 root/index.app
 root/main
+root/zhaop/zhaop
 
 serv/svCore.dll
 serv/db/*.dll
