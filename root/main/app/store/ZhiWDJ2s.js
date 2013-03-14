@@ -18,6 +18,6 @@ Ext.define('FV.store.ZhiWDJ2s', {// 行政职务等级2  文职干部
         {value: 62,   label: '一级科员'},
         {value: 63,   label: '二级科员'},
         {value: 64,   label: '办事员'},
-        {value: 0,   label: '无职务等级'}
+        {value: 0,   label: '_'}
 	]
 });

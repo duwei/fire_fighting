@@ -14,6 +14,6 @@ Ext.define('FV.store.JingXWJ2s', {// 警衔文级 文职干部
         {value: 57,   label: '文职7级'},
         {value: 58,   label: '文职8级'},
         {value: 59,   label: '文职9级'},
-        {value: 0,   label: '无'}
+        {value: 0,   label: '_'}
 	]
 });

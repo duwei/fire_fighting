@@ -21,6 +21,6 @@ Ext.define('FV.store.ZhiWDJs', {// 行政职务等级 职务等级 警官
         {value: 14,   label: '正排职'},
         //{value: 31,   label: '正兵团职'},
         //{value: 32,   label: '副兵团职'},
-        {value: 0,   label: '无职务等级'}
+        {value: 0,   label: '_'}
 	]
 });

@@ -42,6 +42,6 @@ Ext.define('FV.store.XueWs', {// 学位
         {value: 410,   label: '医学学士'},
         {value: 411,   label: '军事学学士'},
         {value: 100,   label: '名誉博士'},
-        {value: 0,   label: '无学位'}
+        {value: 0,   label: '_'}
 	]
 });

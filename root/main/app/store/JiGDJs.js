@@ -19,6 +19,6 @@ Ext.define('FV.store.JiGDJs', {// 机构等级
         {value: 12,   label: '正连级'},
         //{value: 13,   label: '副连级'},
         //{value: 14,   label: '正排级'},
-        {value: 0,   label: '无等级'}
+        {value: 0,   label: '_'}
 	]
 });

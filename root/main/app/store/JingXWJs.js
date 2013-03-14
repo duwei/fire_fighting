@@ -13,6 +13,6 @@ Ext.define('FV.store.JingXWJs', {// 警衔文级 警官
         {value: 31,   label: '上尉'},
         {value: 32,   label: '中尉'},
         {value: 33,   label: '少尉'},
-        {value: 0,   label: '无'}
+        {value: 0,   label: '_'}
 	]
 });

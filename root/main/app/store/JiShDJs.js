@@ -19,6 +19,6 @@ Ext.define('FV.store.JiShDJs', {// 技术等级
         {value: 12,   label: '技术十二级'},
         {value: 13,   label: '技术十三级'},
         {value: 14,   label: '技术十四级'},
-        {value: 0,   label: '非专业技术干部'}
+        {value: 0,   label: '_'}
 	]
 });

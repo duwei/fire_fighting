@@ -10,6 +10,6 @@ Ext.define('FV.store.JiShZhWDJs', {//技术职务等级 技术职务 职务资�
         {value: 3,   label: '中职'},
         {value: 4,   label: '初职'},
         {value: 5,   label: '最初职'},
-        {value: 0,   label: '无'}
+        {value: 0,   label: '_'}
 	]
 });

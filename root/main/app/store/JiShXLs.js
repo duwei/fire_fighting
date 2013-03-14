@@ -14,6 +14,6 @@ Ext.define('FV.store.JiShXLs', {//技术系列 技术职务 职务资格  两位
         {value: 7,   label: '编辑系列'},
         {value: 8,   label: '出版系列'},
         {value: 9,   label: '教育系列'},
-        {value: 0,   label: '无'}
+        {value: 0,   label: '_'}
 	]
 });
