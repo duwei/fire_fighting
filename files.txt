@@ -4,6 +4,7 @@ fun_subr.dll
 mongoose.dll
 xlslib.dll
 z.bin
+libopc.dll
 
 application.ini
 chrome.manifest
