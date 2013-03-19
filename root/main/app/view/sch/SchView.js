@@ -20,6 +20,9 @@ Ext.define('FV.view.sch.SchView', {
     initComponent: function() {
         Ext.apply(this, {
 			buttons: [{
+				text: '下载晋衔报告表',
+				action: 'jinXBGB'
+			}, {
 				text: '打印',
 				action: 'daY'
 			}, {

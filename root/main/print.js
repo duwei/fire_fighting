@@ -35,7 +35,7 @@ var JiShDJs = {
 '12': '技术十二级',
 '13': '技术十三级',
 '14': '技术十四级',
-'0': '非专业技术干部'
+'0': '_'
 };
 var ZhiWDJs = {
 '5': '副军职',
@@ -56,7 +56,7 @@ var ZhiWDJs = {
 '62': '一级科员',
 '63': '二级科员',
 '64': '办事员',
-'0': '无职务等级'
+'0': '_'
 };
 var BianZhZhWs = {
 '1':'总队长',
@@ -130,7 +130,7 @@ var BianZhZhWs = {
 '146':'高级工程师',
 '147':'技术员',
 '148':'锻炼干部',
-'0':'无'
+'0':'_'
 };
 function getTxt(obj,key,dfvl){
 	var v = obj[key];
@@ -297,7 +297,7 @@ function init(){
 	updt('quanRZhJY','学历');
 	updt('biYYX1','毕业院校');
 	updt('xiJZhY1','专业');
-	d = getTxt(day_inf,'',0);
+	d = getTxt(day_inf,'xlind',0);
 	if(parseInt(d)<=0){
 		updt('zaiZhJY','学历1');
 		updt('biYYX2','院校名称1');

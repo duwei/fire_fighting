@@ -107,6 +107,9 @@ Ext.define('FV.controller.Sch', {
            'schtiaoj button[action=save]': {
                 click: this.sch
             },
+			'schview button[action=jinXBGB]': {
+				click: this.jinXBGB
+            },
 			'schview button[action=daY]': {
 				click: this.daY
             },
@@ -229,6 +232,9 @@ Ext.define('FV.controller.Sch', {
 			ff = form.getForm();
 		ff.reset();
 		win.show();
+	},
+	jinXBGB: function(btn){
+		FV.lib.Utils.downloadURL("/data/jinXBGB.app?id="+this._curId);
 	},
 	daY: function(btn){
 		window.open("/main/dayin.app?id="+this._curId);
