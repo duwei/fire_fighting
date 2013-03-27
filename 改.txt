@@ -351,35 +351,5 @@ insert into dict (type,value,label,sn) values ('JiShZhW', 0, '_', 0);
 )
 
 4、导出《警官任免晋衔报告表》只把表头填上
-(只能导出docx文件，微软的新的word文档结构，旧格式不支持，office2007以后版本支持，以前版本需要安装插件)
-select j.id,姓名,d11.label 性别,
-单位名称||ifnull(d1.label,'')||ifnull('('||d6.label||')','')||ifnull(','||d9.label,'')||ifnull('('||d8.label||')','') 现部职别,
-substr(出生时间,1,4)||'.'||substr(出生时间,5,2) 出生时间,
-cast((julianday('now')-julianday(substr(出生时间,1,4)||'-'||substr(出生时间,5,2)||'-'||substr(出生时间,7,2)))/365 as int) 岁数,
-substr(入伍时间,1,4)||'.'||substr(入伍时间,5,2) 入伍时间,substr(党团时间,1,4)||'.'||substr(党团时间,5,2) 党团时间,d12.label 民族,籍贯,
-出生地,d9.label 技术职务,d3.label 文化程度,毕业院校,d5.label 专业大类,
-''||case when ifnull(学历1,99)-ifnull(学历2,100)>0 then d17.label else d15.label end 学历22,
-''||case when ifnull(学历1,99)-ifnull(学历2,100)>0 then 院校名称2 else 院校名称1 end 院校名称22,
-''||case when ifnull(学历1,99)-ifnull(学历2,100)>0 then d18.label else d16.label end 专业22,
-'武警'||case 是否技术干部 when 1 then '专业技术' else '' end||d7.label 警衔文级,
-substr(衔级时间,1,4)||'.'||substr(衔级时间,5,2) 衔级时间
-from 人员基本情况 j inner join 干部常用信息 c on c.id=j.id
-left outer join danw d on d.id=j.danWId 
-left outer join 编制分配 f on f.danWId=d.id and j.id=f.rid
-left outer join 编制 b on b.danWId=d.id and b.id=f.bid
-left outer join dict d1 on d1.type='BianZhZhW' and d1.value=ifnull(bzzw,b.编制职务)
-left outer join dict d6 on d6.type='ZhiWDJ' and d6.value=行政职务等级
-left outer join dict d3 on d3.type='XueL' and d3.value=文化程度
-left outer join dict d8 on d8.type='JiShDJ' and d8.value=技术等级
-left outer join dict d9 on d9.type='JiShZhW' and d9.value=技术职务
-left outer join dict d5 on d5.type='ZhuanYDL' and d5.value=专业大类
-left outer join dict d15 on d15.type='XueL' and d15.value=学历1
-left outer join dict d16 on d16.type='ZhuanYDL' and d16.value=专业1
-left outer join dict d17 on d17.type='XueL' and d17.value=学历2
-left outer join dict d18 on d18.type='ZhuanYDL' and d18.value=专业2
-left outer join dict d7 on d7.type='JingXWJ' and d7.value=警衔文级
-left outer join dict d11 on d11.type='XingB' and d11.value=性别
-left outer join dict d12 on d12.type='MinZ' and d12.value=民族
-where j.id=6
-;
+(只能导出docx文件，微软的新的word文档结构，旧格式不支持，office2007以后版本支持，以前版本需要安装插件)(OK)
 
