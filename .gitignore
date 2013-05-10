@@ -40,3 +40,11 @@ serv/db/*.dll
 serv/db/*.c
 
 root/main/*-all.js
+root/main/all-classes.sch.js
+
+backupdb/
+
+serv/data/adasdf.sql
+serv/data/bbb.sql
+serv/data/zd0.sql
+serv/db/schSQL.dll.zip
