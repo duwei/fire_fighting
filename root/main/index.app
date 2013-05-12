@@ -18,7 +18,7 @@
 	</script>
 
 	<script type="text/javascript" src="Inf.js.app"></script>
-	<script type="text/javascript" src="app-all.js"></script>
+	<script type="text/javascript" src="app.js"></script>
 
 	<style type="text/css" media="screen">
 		.my-disabledCls .x-mask {
