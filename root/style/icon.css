@@ -1,6 +1,12 @@
 .list-icon {
     background-image: url( ../images/grid.png ) !important;
 }
+.details {
+    background-image: url( ../images/details.gif ) !important;
+}
+.new_folder {
+    background-image: url( ../images/new_folder.png ) !important;
+}
 .add {
     background-image: url( ../images/add.gif ) !important;
 }
@@ -30,4 +36,10 @@
 }
 .logout {
     background-image: url( ../images/logout.png ) !important;
+}
+.add1 {
+    background-image: url( ../images/add.png ) !important;
+}
+.delete {
+    background-image: url( ../images/delete.png ) !important;
 }

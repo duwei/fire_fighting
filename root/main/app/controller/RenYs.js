@@ -56,6 +56,10 @@ Ext.define('FV.controller.RenYs', {
 		'sub.RuWHJLEd',
 		'sub.GangWZGDJLst',
 		'sub.GangWZGDJEd',
+		'sub.DangAnInfo',
+		'sub.DangAnTree',
+		'sub.DangAnDetails',
+		'sub.DangAnShow',
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
 		'center.RenYMain',
@@ -150,7 +154,15 @@ Ext.define('FV.controller.RenYs', {
             autoCreate: true,
 			selector: 'gangwzgdjed'
         },
-        {ref: 'gangWZGDJForm', selector: 'gangwzgdjed form'}
+		{ref: 'gangWZGDJForm', selector: 'gangwzgdjed form'},
+		{
+			ref: 'dangAnInfo',
+			xtype: 'danganinfo',
+			closable: true,
+			autoCreate: true,
+			selector: 'danganinfo'
+		},
+		{ref: 'dangAnTree', selector: 'dangantree'}
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -307,6 +319,22 @@ Ext.define('FV.controller.RenYs', {
             },
 			'gangwzgdjed button[action=del]': {
 				click: this.gangWZGDJ_del
+			},
+			'renyone button[action=dangAnInfo]': {
+				click: this.dangAnInfo
+			},
+			'dangantree': {
+				selectionchange: this.dangAnChg,
+				cellclick: this.dangAnShow
+			},
+			'dangantree treeview': {
+				beforedrop: this.dangAnDrop
+			},
+			'dangantree button[action=details]': {
+				click: this.dangAnDetails
+			},
+			'dangantree button[action=docs]': {
+				click: this.dangAnDocs
 			}
         });
     },
@@ -314,6 +342,7 @@ Ext.define('FV.controller.RenYs', {
 		if(!FV.lib.UsInf.hasPm('p1')&&!FV.lib.UsInf.hasPm('p01')){
 			this.hideBtn();
 		}
+		this.curDAItem=0;
     },
 	shenH_tongG: function(btn){
 		var ro = btn.up('renyone'),
@@ -1392,6 +1421,54 @@ Ext.define('FV.controller.RenYs', {
 			button2.disable();
 			button3.disable();
 		}
-    }
+    },
+	
+	dangAnInfo: function(btn){
+		var ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			r1 = f1.getRecord(),
+			rid = r1.get('id'),
+			win = this.getDangAnInfo();
+		if(rid == 0 || rid==null){
+			Ext.Msg.alert("注意！",'请先保存人员信息。');
+			return;
+		}
+		win._rid = rid;
+		win.setTitle('档案 - '+r1.get('姓名'));
+		win.show();
+	},
+	dangAnDetails: function(btn) {
+		if(this.curDAItem==0){
+			btn.toggle(true,true);
+			return false;
+		}
+		this.curDAItem=0;
+		var card = Ext.getCmp('dangAnCard');
+		card.getLayout().setActiveItem(0);
+	},
+	dangAnDocs: function(btn) {
+		if(this.curDAItem==1){
+			btn.toggle(true,true);
+			return false;
+		}
+		this.curDAItem=1;
+		var card = Ext.getCmp('dangAnCard');
+		card.getLayout().setActiveItem(1);
+	},
+	dangAnShow: function(ths, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+		if(this.curDAItem!=1){
+			var btn = this.getDangAnTree().down('button[action=docs]');
+			btn.fireEvent('click',btn);
+			btn.toggle(true);
+		}
+	},
+	dangAnChg: function(selModel, selected) {
+		var slcd = selected[0];
+		// 显示当前档案图片
+	},
+	dangAnDrop: function(node, data, overModel, dropPosition, eOpts) {
+		var rec = data.records[0];
+		return false;// 禁止完成拖动
+	}
 
 });
