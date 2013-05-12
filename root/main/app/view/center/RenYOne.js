@@ -105,7 +105,7 @@ Ext.define('FV.view.center.RenYOne', {
 							defaultType: 'datefield',
 							defaults: {
 								labelWidth: 60,
-								altFormats: 'Ymd',
+								altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 								format: 'Y-m-d',
 								submitFormat : 'Ymd',
 								flex: 1,
@@ -183,7 +183,7 @@ Ext.define('FV.view.center.RenYOne', {
 							defaultType: 'datefield',
 							defaults: {
 								labelWidth: 60,
-								altFormats: 'Ymd',
+								altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 								format: 'Y-m-d',
 								submitFormat : 'Ymd',
 								flex: 1,
@@ -259,7 +259,7 @@ Ext.define('FV.view.center.RenYOne', {
 							FV.lib.KeyMapMng.getCombField('行政职务等级','职务等级','ZhiWDJs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '职级时间',
@@ -293,7 +293,7 @@ Ext.define('FV.view.center.RenYOne', {
 							FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '技术职务时间',
@@ -312,7 +312,7 @@ Ext.define('FV.view.center.RenYOne', {
 							FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '技术等级时间',
@@ -338,7 +338,7 @@ Ext.define('FV.view.center.RenYOne', {
 							style: 'margin-bottom:10px'
 						},{
 							labelWidth: 90,
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '上次评审时间',
@@ -372,7 +372,7 @@ Ext.define('FV.view.center.RenYOne', {
 							FV.lib.KeyMapMng.getCombField('职务资格','职务资格','JiShZhWs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '职务资格时间',
@@ -392,7 +392,7 @@ Ext.define('FV.view.center.RenYOne', {
 						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJs',false,1,{queryMode: 'local'}),
 						{
 							format: 'Y-m-d',
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							submitFormat : 'Ymd',
 							fieldLabel: '衔级时间',
 							name: '衔级时间'
@@ -434,13 +434,13 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '艰苦起时',
 							name: '艰苦起时'
 						},{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '艰苦止时',
@@ -467,7 +467,7 @@ Ext.define('FV.view.center.RenYOne', {
 						},
 						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,1,{queryMode: 'local'}),
 						{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '党团时间',
@@ -490,13 +490,13 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '入学时间',
 							name: '入学时间1'
 						},{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '毕业时间',
@@ -523,13 +523,13 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '入学时间',
 							name: '入学时间2'
 						},{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '毕业时间',
@@ -571,7 +571,7 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [{
-							altFormats: 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
 							fieldLabel: '随军时间',

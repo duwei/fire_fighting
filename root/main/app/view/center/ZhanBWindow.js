@@ -66,6 +66,7 @@ Ext.define('FV.view.center.ZhanBWindow', {
 					},{
 						flex: 3,
 						xtype: 'datefield',
+						altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 						format: 'Y-m-d',
 						submitFormat : 'Ymd',
 						name: '占编时间',

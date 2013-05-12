@@ -46,7 +46,7 @@ Ext.define('FV.view.sub.RuWQJLEd', {
 				},
                 items: [{
 					xtype: 'datefield',
-					altFormats: 'Ymd',
+					altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 					format: 'Y-m-d',
 					submitFormat : 'Ymd',
 					name: '起始时间',

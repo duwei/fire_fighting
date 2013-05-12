@@ -48,7 +48,7 @@ Ext.define('FV.view.sub.GangWZGDJEd', {
 					FV.lib.KeyMapMng.getCombField('等级','岗位资格等级','GangWZGDJs',false,1,{}),
 				{
 					xtype: 'datefield',
-					altFormats: 'Ymd',
+					altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 					format: 'Y-m-d',
 					submitFormat : 'Ymd',
 					name: '等级时间',
