@@ -7,6 +7,6 @@ Ext.define('FV.model.LabelValue', {// lavel value
     
     fields: [
         {name: 'label',  type: 'string'},
-        {name: 'value', type: 'int'}
+        {name: 'value', type: 'int', useNull: true}
     ]
 });

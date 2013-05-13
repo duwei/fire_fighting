@@ -335,6 +335,9 @@ Ext.define('FV.controller.RenYs', {
 			},
 			'dangantree button[action=docs]': {
 				click: this.dangAnDocs
+			},
+			'dangandetails button[action=save]': {
+				click: this.dangandetails_save
 			}
         });
     },
@@ -1426,6 +1429,7 @@ Ext.define('FV.controller.RenYs', {
 	dangAnInfo: function(btn){
 		var ro = btn.up('renyone'),
 			f1 = ro.down('form[formId=renY1]'),
+			f2 = ro.down('form[formId=renY2]'),
 			r1 = f1.getRecord(),
 			rid = r1.get('id'),
 			win = this.getDangAnInfo();
@@ -1433,6 +1437,10 @@ Ext.define('FV.controller.RenYs', {
 			Ext.Msg.alert("注意！",'请先保存人员信息。');
 			return;
 		}
+		var fm1 = win.down('form[formId=dangAnBase]'),
+			o = Ext.apply({},r1.data);
+		Ext.apply(o,f2.getValues(false,false));
+		fm1.form.setValues(o);
 		win._rid = rid;
 		win.setTitle('档案 - '+r1.get('姓名'));
 		win.show();
@@ -1469,6 +1477,12 @@ Ext.define('FV.controller.RenYs', {
 	dangAnDrop: function(node, data, overModel, dropPosition, eOpts) {
 		var rec = data.records[0];
 		return false;// 禁止完成拖动
+	},
+	dangandetails_save: function(btn){
+		var win = this.getDangAnInfo(),
+			fm1 = win.down('form[formId=dangAnBase]'),
+			vl = fm1.getValues();// 只取出8个没有disable的字段值
+		console.dir(vl);
 	}
 
 });
