@@ -7,11 +7,9 @@ Ext.define('FV.view.sub.DangAnShow', {
 		'FV.lib.KeyMapMng'
 	],
 
-	title: '档案信息',
-	iconCls: 'details',
+	title: '档案资料',
+	iconCls: 'new_folder',
 	
-	html: 'details',
-
 	dockedItems: [{
 		xtype: 'toolbar',
 		dock: 'left',
@@ -31,6 +29,49 @@ Ext.define('FV.view.sub.DangAnShow', {
 			iconCls: 'delete',
 			text: '删除页',
 			action: 'delete2'
+		}]
+	},{
+		xtype: 'toolbar',
+		dock: 'top',
+		items: ['->',{
+			labelWidth: 20,
+			width: 70,
+			xtype: 'numberfield',
+			allowDecimals: false,
+			minValue: 1,
+			fieldLabel: '类',
+			name: '类'
+		},'-',{
+			labelWidth: 20,
+			width: 70,
+			xtype: 'numberfield',
+			allowDecimals: false,
+			minValue: 0,
+			fieldLabel: '序',
+			name: '序'
+		},'-',
+			FV.lib.KeyMapMng.getCombField('材料名称','材料名称','CaiLMChs',false,240,{valueField: 'label',editable:true,labelWidth: 56,emptyText:''}),
+			'-',{
+			labelWidth: 56,
+			width: 160,
+			xtype: 'datefield',
+			altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+			format: 'Y.m.d',
+			submitFormat : 'Ymd',
+			fieldLabel: '材料时间',
+			name: '材料时间'
+		},'-',{
+			labelWidth: 34,
+			width: 84,
+			xtype: 'numberfield',
+			allowDecimals: false,
+			minValue: 0,
+			fieldLabel: '页数',
+			name: '页数'
+		},'-',{
+			iconCls: 'accept',
+			text:'保存',
+			action: 'accept'
 		}]
 	}]
 });

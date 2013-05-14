@@ -396,4 +396,16 @@ id INTEGER,
 接收单位 VARCHAR(50),
 收回执日期 VARCHAR(8)
 );
+create table 档案
+(
+id INTEGER PRIMARY KEY,
+pid INTEGER,
+rid INTEGER,
+类 INTEGER,
+序 INTEGER,
+材料名称 VARCHAR(50),
+材料时间 VARCHAR(8),
+页数 INTEGER,
+ind INTEGER
+);
 

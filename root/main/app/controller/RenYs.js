@@ -45,8 +45,8 @@ Ext.define('FV.controller.RenYs', {
 		'Ext.window.MessageBox'
 	],
 	
-    stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
-    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh','DangAXX'],
+    stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs','DangAs'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh','DangAXX','DangA'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
@@ -162,7 +162,8 @@ Ext.define('FV.controller.RenYs', {
 			autoCreate: true,
 			selector: 'danganinfo'
 		},
-		{ref: 'dangAnTree', selector: 'dangantree'}
+		{ref: 'dangAnTree', selector: 'dangantree'},
+		{ref: 'dangAnShow', selector: 'danganshow'}
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -338,6 +339,21 @@ Ext.define('FV.controller.RenYs', {
 			},
 			'dangandetails button[action=save]': {
 				click: this.dangandetails_save
+			},
+			'danganshow button[action=add1]': {
+				click: this.danganshow_add1
+			},
+			'danganshow button[action=add2]': {
+				click: this.danganshow_add2
+			},
+			'danganshow button[action=delete1]': {
+				click: this.danganshow_delete1
+			},
+			'danganshow button[action=delete2]': {
+				click: this.danganshow_delete2
+			},
+			'danganshow button[action=accept]': {
+				click: this.danganshow_accept
 			}
         });
     },
@@ -1438,7 +1454,8 @@ Ext.define('FV.controller.RenYs', {
 			return;
 		}
 		var fm1 = win.down('form[formId=dangAnBase]'),
-			o = Ext.apply({},r1.data);
+			o = Ext.apply({},r1.data)
+			st = this.getDangAsStore();
 		Ext.apply(o,f2.getValues(false,false));
 		fm1.form.setValues(o);
 		FV.model.DangAXX.load(rid,{
@@ -1452,6 +1469,12 @@ Ext.define('FV.controller.RenYs', {
 					record = this.getDangAXXModel().create({rid:rid});
 				}
 				fm1.loadRecord(record);
+			}
+		});
+		st.load({
+			params: {
+				rid: rid,
+				node: 0
 			}
 		});
 		win._rid = rid;
@@ -1484,8 +1507,15 @@ Ext.define('FV.controller.RenYs', {
 		}
 	},
 	dangAnChg: function(selModel, selected) {
-		var slcd = selected[0];
-		// 显示当前档案图片
+		var slcd = selected[0],
+			win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win);
+		tb.set(slcd.data);
+		tb.curRec = slcd;
+		if(slcd.get('pid')==0){
+			tb.curFen = slcd;
+		}
+		// TODO 显示当前档案图片
 	},
 	dangAnDrop: function(node, data, overModel, dropPosition, eOpts) {
 		var rec = data.records[0];
@@ -1526,6 +1556,187 @@ Ext.define('FV.controller.RenYs', {
 			},
 			scope: this
 		});
+	},
+	_init_ds_tb: function(win){
+		var tb = this.danganshow_tb;
+		if(tb==null){
+			tb = {
+				tree: this.getDangAnTree(),
+				lei: win.down('field[name=类]'),
+				xu: win.down('field[name=序]'),
+				cm: win.down('field[name=材料名称]'),
+				cs: win.down('field[name=材料时间]'),
+				ys: win.down('field[name=页数]'),
+				//btn: win.down('button[action=accept]'),
+				get: function(o){
+					if(o==null)o={};
+					o['类']=tb.lei.getValue();
+					o['序']=tb.xu.getValue();
+					o['材料名称']=tb.cm.getValue();
+					o['材料时间']=tb.cs.getSubmitValue();
+					o['页数']=tb.ys.getValue();
+					return o;
+				},
+				set: function(o){
+					if(o==null)return;
+					tb.lei.setValue(o['类']);
+					tb.xu.setValue(o['序']);
+					if(o['序']==0){
+						tb.lei.enable();
+						tb.xu.disable();
+						tb.ys.enable();
+					}else{
+						tb.lei.disable();
+						tb.xu.enable();
+						tb.ys.disable();
+					}
+					tb.cm.setValue(o['材料名称']);
+					tb.cs.setValue(o['材料时间']);
+					tb.ys.setValue(o['页数']);
+				}
+			};
+			this.danganshow_tb = tb;
+		}
+		return tb;
+	},
+	danganshow_accept: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			rec = tb.curRec,
+			vl = tb.get();
+		rec.set(vl);
+		if(!rec.dirty){
+			return;
+		}
+		var st = this.getDangAsStore();
+		st.sync({
+			success: function(batch,opt){
+				try{
+					var obj = Ext.decode(batch.operations[0].response.responseText);
+					rec.set('text',vl['类']+'.'+(rec.get('pid')==0?'':(vl['序']+'.'))+vl['材料名称']);
+					rec.commit();
+				}catch(e){
+					console.dir(e);
+				}
+			},
+			failure: function(batch,opt){
+				console.log("danganshow_accept failure");
+			},
+			scope: this
+		});
+	},
+	danganshow_add1: function(btn){
+		var st = this.getDangAsStore(),
+			record = this.getDangAModel().create({
+				pid: 0,
+				rid: this.getDangAnInfo()._rid,
+				'类': 1,
+				'序': 0,
+				'材料名称': '(材料名称)',
+				'材料时间': null,
+				'页数': 0,
+				ind: 0,
+				parentId: 0,
+				leaf: false,
+				text: '1.(材料名称)',
+				iconCls: 'book',
+				index: 0
+			});
+		st.getRootNode().appendChild(record);
+		st.sync({
+			success: function(batch,opt){
+				try{
+					var obj = Ext.decode(batch.operations[0].response.responseText);
+					if(obj.ok){
+						if(obj.data){
+							record.set('id',obj.data.id);
+							// 只更改了id
+							delete record.modified.id;
+							record.dirty = false;
+						}
+					}else{
+						console.log(obj.msg);
+					}
+				}catch(e){
+					console.dir(e);
+				}
+			},
+			failure: function(batch,opt){
+				console.log("danganshow_add1 failure");
+			},
+			scope: this
+		});
+	},
+	danganshow_delete1: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win);
+
+		console.dir(tb.get());
+	},
+	danganshow_add2: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			st = this.getDangAsStore(),
+			fen = tb.curFen;
+		if(fen==null){
+			Ext.Msg.alert('警告','请先选择份！');
+			return;
+		}
+		var vl={
+				pid: fen.get('id'),
+				rid: this.getDangAnInfo()._rid,
+				'类': fen.get('类'),
+				'序': 1,
+				'材料名称': '(材料名称)',
+				'材料时间': null,
+				'页数': 1,
+				ind: 0,
+				leaf: true,
+				iconCls: 'templates',
+				index: 0
+			},record;
+		vl.parentId=vl.pid;
+		vl.text=vl['类']+'.1. (材料名称)';
+		
+		record = this.getDangAModel().create(vl);
+		var fff = function(){
+			fen.set('页数',fen.get('页数')+1);
+			fen.appendChild(record);
+			st.sync({
+				success: function(batch,opt){
+					try{
+						var obj = Ext.decode(batch.operations[0].response.responseText);
+						if(obj.ok){
+							if(obj.data&&obj.data.id!=record.get('id')){
+								record.set('id',obj.data.id);
+								// 只更改了id
+								delete record.modified.id;
+								record.dirty = false;
+							}
+						}else{
+							console.log(obj.msg);
+						}
+					}catch(e){
+						console.dir(e);
+					}
+				},
+				failure: function(batch,opt){
+					console.log("danganshow_add1 failure");
+				},
+				scope: this
+			});
+		};
+		if(fen.isExpanded()){
+			fff();
+		}else{
+			tb.tree.expandNode(fen,false,fff,this);
+		}
+	},
+	danganshow_delete2: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win);
+
+		console.dir(tb.get());
 	}
 
 });

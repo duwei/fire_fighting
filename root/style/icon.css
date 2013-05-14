@@ -43,3 +43,12 @@
 .delete {
     background-image: url( ../images/delete.png ) !important;
 }
+.accept {
+    background-image: url( ../images/accept.png ) !important;
+}
+.templates {
+    background-image: url( ../images/templates.png ) !important;
+}
+.book {
+    background-image: url( ../images/book.png ) !important;
+}

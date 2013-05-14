@@ -72,8 +72,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							labelWidth: 60,
 							flex: 1,
 							margin:'0 0 5 0',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd'
 						},
 						items: [
@@ -97,8 +97,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							labelWidth: 60,
 							flex: 1,
 							margin:'0 0 5 0',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd'
 						},
 						items: [
@@ -120,8 +120,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							labelWidth: 60,
 							flex: 1,
 							margin:'0 0 5 0',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd'
 						},
 						items: [
@@ -147,8 +147,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							flex: 1,
 							margin:'0 0 5 0',
 							readOnly: false,
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd'
 						},
 						items: [
@@ -213,8 +213,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 						defaultType: 'numberfield',
 						items: [{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							fieldLabel: '建档时间',
 							name: '建档时间'
@@ -250,8 +250,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							FV.lib.KeyMapMng.getCombField('现自传职级','现自传职级','ZhiWDJs',false,1,{labelWidth: 72}), 
 						{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							labelWidth: 72,
 							fieldLabel: '现自传日期',
@@ -304,8 +304,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							name: '转来编号'
 						},{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							fieldLabel: '接收日期',
 							name: '接收日期'
@@ -318,8 +318,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							name: '接收承办人'
 						},{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							labelWidth: 72,
 							fieldLabel: '退回执日期',
@@ -344,8 +344,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 					items: [{
 						items: [{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							fieldLabel: '转出日期',
 							name: '转出日期'
@@ -366,8 +366,8 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							name: '接收单位'
 						},{
 							xtype: 'datefield',
-							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
-							format: 'Y-m-d',
+							altFormats: 'Ymd|Y.n.j|Y-m-d|Y.n.d|Y.m.j',
+							format: 'Y.m.d',
 							submitFormat : 'Ymd',
 							labelWidth: 72,
 							fieldLabel: '收回执日期',

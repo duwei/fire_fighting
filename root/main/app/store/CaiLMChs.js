@@ -1,0 +1,41 @@
+Ext.define('FV.store.CaiLMChs', {// 材料名称
+    extend: 'Ext.data.Store',
+
+    model: 'FV.model.LabelValue',
+
+    data: [
+        {value: null,   label: '请选择...'},
+        {value: 1,   label: '干部履历书'},
+        {value: 2,   label: '自传'},
+        {value: 3,   label: '履历变化补充报告表'},
+        {value: 4,   label: '入团志愿书'},
+        {value: 5,   label: '入党志愿书'},
+        {value: 6,   label: '入伍（兵役）登记表'},
+        {value: 7,   label: '士兵提干报告表'},
+        {value: 8,   label: '干部升调报告表'},
+        {value: 9,   label: '干部调整级别报告表'},
+        {value: 10,   label: '干部任免报告表'},
+        {value: 11,   label: '军官任免、进衔报告表'},
+        {value: 12,   label: '授予军官军衔报告表'},
+        {value: 13,   label: '文职干部任免晋级报告表'},
+        {value: 14,   label: '专业技术职务评审报告表'},
+        {value: 15,   label: '奖励等级（报告）表'},
+        {value: 16,   label: '党员登记表'},
+        {value: 17,   label: '现役军官薪金审批表'},
+        {value: 18,   label: '调整干部薪金审批表'},
+        {value: 19,   label: '工资套改审批表'},
+        {value: 20,   label: '学历证明'},
+        {value: 21,   label: '学员毕（结）业鉴定书'},
+        {value: 22,   label: '学习成绩登记表'},
+        {value: 23,   label: '入伍时间批注'},
+        {value: 24,   label: '干部申请结婚报告表'},
+        {value: 25,   label: '干部爱人情况登记表'},
+        {value: 26,   label: '家属随军报告表'},
+        {value: 27,   label: '证明材料'},
+        {value: 28,   label: '鉴定'},
+        {value: 29,   label: '干部退休审批报告表'},
+        {value: 30,   label: '干部离休审批报告表'},
+        {value: 31,   label: '空勤学院登记表'},
+        {value: 32,   label: '飞行等级补助报告表'}
+	]
+});

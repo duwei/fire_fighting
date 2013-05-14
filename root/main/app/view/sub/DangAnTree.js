@@ -8,7 +8,7 @@ Ext.define('FV.view.sub.DangAnTree', {
 	],
     initComponent: function() {
         Ext.apply(this, {
-			store: "DanWs",
+			store: "DangAs",
 			viewConfig: {
 				plugins: {
 					ddGroup: 'dangAn-group',
