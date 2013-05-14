@@ -1,4 +1,4 @@
-1，显示字段：
+﻿1，显示字段：
 	  身份号    VARCHAR(23) not null,
 	  姓名     VARCHAR(20),
 	  曾用名     VARCHAR(20),
@@ -352,4 +352,48 @@ insert into dict (type,value,label,sn) values ('JiShZhW', 0, '_', 0);
 
 4、导出《警官任免晋衔报告表》只把表头填上
 (只能导出docx文件，微软的新的word文档结构，旧格式不支持，office2007以后版本支持，以前版本需要安装插件)(OK)
+
+
+2013.05.01:
+增加档案管理相关功能。
+1，数据表：
+create table 档案信息
+(
+id INTEGER,
+管理标识 INTEGER,
+干部性质 INTEGER,
+离退休时间 VARCHAR(8), 
+病故时间 VARCHAR(8), 
+机构名称码 VARCHAR(50),
+自定项A VARCHAR(50),
+自定项B VARCHAR(50),
+自定项D VARCHAR(50),
+档案号 VARCHAR(50),
+档案现状  INTEGER,
+存放位置 VARCHAR(50),
+建档时间 VARCHAR(8), 
+正本数  INTEGER,
+副本数  INTEGER,
+主件数  INTEGER,
+附件数  INTEGER,
+自传数  INTEGER,
+现自传职级  INTEGER,
+现自传日期 VARCHAR(8), 
+履历书数  INTEGER,
+缺件情况 VARCHAR(50),
+扫描档案  INTEGER,
+扫描照片  INTEGER,
+条形码 VARCHAR(50),
+何部转来 VARCHAR(50),
+转来编号 VARCHAR(50),
+接收日期 VARCHAR(8), 
+接收承办人 VARCHAR(50),
+退回执日期 VARCHAR(8), 
+转出日期 VARCHAR(8), 
+转出原因  INTEGER,
+转出承办人 VARCHAR(50),
+转递编号 VARCHAR(50),
+接收单位 VARCHAR(50),
+收回执日期 VARCHAR(8)
+);
 

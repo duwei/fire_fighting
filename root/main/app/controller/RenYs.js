@@ -46,7 +46,7 @@ Ext.define('FV.controller.RenYs', {
 	],
 	
     stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
-    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh','DangAXX'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
@@ -1441,6 +1441,19 @@ Ext.define('FV.controller.RenYs', {
 			o = Ext.apply({},r1.data);
 		Ext.apply(o,f2.getValues(false,false));
 		fm1.form.setValues(o);
+		FV.model.DangAXX.load(rid,{
+			scope: this,
+			failure: function(record, operation) {
+				console.log('load DangAXX ERR.');
+				fm1.loadRecord(this.getDangAXXModel().create({rid:rid}));
+			},
+			success: function(record, operation) {
+				if(record==null){
+					record = this.getDangAXXModel().create({rid:rid});
+				}
+				fm1.loadRecord(record);
+			}
+		});
 		win._rid = rid;
 		win.setTitle('档案 - '+r1.get('姓名'));
 		win.show();
@@ -1481,8 +1494,38 @@ Ext.define('FV.controller.RenYs', {
 	dangandetails_save: function(btn){
 		var win = this.getDangAnInfo(),
 			fm1 = win.down('form[formId=dangAnBase]'),
-			vl = fm1.getValues();// 只取出8个没有disable的字段值
-		console.dir(vl);
+			rec = fm1.getRecord(),
+			ff = fm1.getForm(),
+			vl = fm1.getValues();
+
+		ff.checkValidity();
+		if(!ff.isValid()){
+			Ext.Msg.alert('警告','请完善数据后提交。');
+			return;
+		}
+		rec.set(vl);
+		if(!rec.dirty){
+			return;
+		}
+		rec.save({
+			success: function(rcd,opt){
+				try{
+					var obj = Ext.decode(opt.response.responseText);
+					if(obj.ok){
+						Ext.Msg.alert('成功','数据保存成功！');
+					}else{
+						Ext.Msg.alert('失败','Msg:'+obj.msg);
+					}
+				}catch(e){
+					Ext.Msg.alert('异常','捕获异常');
+					console.error(e);
+				}
+			},
+			failure: function(batch,opt){
+				Ext.Msg.alert('失败','数据保存不成功！');
+			},
+			scope: this
+		});
 	}
 
 });
