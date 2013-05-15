@@ -352,6 +352,21 @@ Ext.define('FV.controller.RenYs', {
 			'danganshow button[action=delete2]': {
 				click: this.danganshow_delete2
 			},
+			'danganshow button[action=upload]': {
+				click: this.danganshow_upload
+			},
+			'danganshow button[action=dw]': {
+				click: this.danganshow_dw
+			},
+			'danganshow button[action=clear]': {
+				click: this.danganshow_clear
+			},
+			'danganshow button[action=zoomout]': {
+				click: this.danganshow_zoomout
+			},
+			'danganshow button[action=zoomin]': {
+				click: this.danganshow_zoomin
+			},
 			'danganshow button[action=accept]': {
 				click: this.danganshow_accept
 			}
@@ -1514,8 +1529,17 @@ Ext.define('FV.controller.RenYs', {
 		tb.curRec = slcd;
 		if(slcd.get('pid')==0){
 			tb.curFen = slcd;
+			tb.img.setSrc(Ext.BLANK_IMAGE_URL);
+			tb.img._zoom = 1;
+			tb.img.setWidth(100);
+		}else{
+			tb.curFen = slcd.parentNode;
+			tb.img._rid=slcd.get('id');
+			tb.img._ext=slcd.get('ext');
+			tb.img._zoom = 8;
+			tb.img.setSrc('/data/danga.app?name='+tb.img._rid+'.'+tb.img._ext);
+			tb.img.setWidth(800);
 		}
-		// TODO 显示当前档案图片
 	},
 	dangAnDrop: function(node, data, overModel, dropPosition, eOpts) {
 		var rec = data.records[0];
@@ -1561,13 +1585,13 @@ Ext.define('FV.controller.RenYs', {
 		var tb = this.danganshow_tb;
 		if(tb==null){
 			tb = {
+				img: win.down('image[imgid=dangAIMG]'),
 				tree: this.getDangAnTree(),
 				lei: win.down('field[name=类]'),
 				xu: win.down('field[name=序]'),
 				cm: win.down('field[name=材料名称]'),
 				cs: win.down('field[name=材料时间]'),
 				ys: win.down('field[name=页数]'),
-				//btn: win.down('button[action=accept]'),
 				get: function(o){
 					if(o==null)o={};
 					o['类']=tb.lei.getValue();
@@ -1575,6 +1599,7 @@ Ext.define('FV.controller.RenYs', {
 					o['材料名称']=tb.cm.getValue();
 					o['材料时间']=tb.cs.getSubmitValue();
 					o['页数']=tb.ys.getValue();
+					o.ext=tb.img._ext;
 					return o;
 				},
 				set: function(o){
@@ -1595,6 +1620,10 @@ Ext.define('FV.controller.RenYs', {
 					tb.ys.setValue(o['页数']);
 				}
 			};
+			tb.img._fileinput = Ext.DomHelper.insertAfter(tb.img.getEl(),
+				'<input type="file" accept="image/*" style="display:none"/>',true);
+			tb.img._fileinput.dom.onchange=Ext.Function.bind(this.handleDangA,this,[tb.img,tb.img._fileinput.dom]);
+
 			this.danganshow_tb = tb;
 		}
 		return tb;
@@ -1613,7 +1642,7 @@ Ext.define('FV.controller.RenYs', {
 			success: function(batch,opt){
 				try{
 					var obj = Ext.decode(batch.operations[0].response.responseText);
-					rec.set('text',vl['类']+'.'+(rec.get('pid')==0?'':(vl['序']+'.'))+vl['材料名称']);
+					rec.set('text',vl['类']+'.'+(rec.get('pid')==0?' ':(vl['序']+'. '))+vl['材料名称']);
 					rec.commit();
 				}catch(e){
 					console.dir(e);
@@ -1625,12 +1654,25 @@ Ext.define('FV.controller.RenYs', {
 			scope: this
 		});
 	},
+    getStMax: function(node, field) {
+        var value,
+            max=0;
+
+		node.eachChild(function(nd){
+            value = nd.get(field);
+            if (value > max) {
+                max = value;
+            }
+		});
+        return max;
+    },
+
 	danganshow_add1: function(btn){
 		var st = this.getDangAsStore(),
-			record = this.getDangAModel().create({
+			vl = {
 				pid: 0,
 				rid: this.getDangAnInfo()._rid,
-				'类': 1,
+				'类': this.getStMax(st.getRootNode(),'类')+1,
 				'序': 0,
 				'材料名称': '(材料名称)',
 				'材料时间': null,
@@ -1638,10 +1680,12 @@ Ext.define('FV.controller.RenYs', {
 				ind: 0,
 				parentId: 0,
 				leaf: false,
-				text: '1.(材料名称)',
 				iconCls: 'book',
 				index: 0
-			});
+			},
+			record;
+		vl.text=vl['类']+'. (材料名称)';
+		record = this.getDangAModel().create(vl);
 		st.getRootNode().appendChild(record);
 		st.sync({
 			success: function(batch,opt){
@@ -1669,9 +1713,39 @@ Ext.define('FV.controller.RenYs', {
 	},
 	danganshow_delete1: function(btn){
 		var win = this.getDangAnShow(),
-			tb = this._init_ds_tb(win);
-
-		console.dir(tb.get());
+			tb = this._init_ds_tb(win),
+			st = this.getDangAsStore(),
+			fen = tb.curFen;
+		if(fen==null){
+			Ext.Msg.alert('警告','请先选择份！');
+			return;
+		}
+		var fff=function(){
+			if(fen.hasChildNodes()){
+				Ext.Msg.alert('警告','不能删除非空节点。');
+				return;
+			}
+			Ext.Msg.confirm('警告!','确定要删除此份么?',function(kid){
+				if(kid=='yes'){
+					fen.remove();
+					st.sync({
+						success: function(batch,opt){
+							this.curFen = null;
+							this.curRec = null;
+						},
+						failure: function(batch,opt){
+							console.log("danganshow_delete1 failure");
+						},
+						scope: this
+					});
+				}
+			},this);
+		};
+		if(fen.isExpanded()){
+			fff.call(this);
+		}else{
+			tb.tree.expandNode(fen,false,fff,this);
+		}
 	},
 	danganshow_add2: function(btn){
 		var win = this.getDangAnShow(),
@@ -1682,24 +1756,24 @@ Ext.define('FV.controller.RenYs', {
 			Ext.Msg.alert('警告','请先选择份！');
 			return;
 		}
-		var vl={
-				pid: fen.get('id'),
-				rid: this.getDangAnInfo()._rid,
-				'类': fen.get('类'),
-				'序': 1,
-				'材料名称': '(材料名称)',
-				'材料时间': null,
-				'页数': 1,
-				ind: 0,
-				leaf: true,
-				iconCls: 'templates',
-				index: 0
-			},record;
-		vl.parentId=vl.pid;
-		vl.text=vl['类']+'.1. (材料名称)';
-		
-		record = this.getDangAModel().create(vl);
 		var fff = function(){
+			var vl={
+					pid: fen.get('id'),
+					rid: this.getDangAnInfo()._rid,
+					'类': fen.get('类'),
+					'序': this.getStMax(fen,'序')+1,
+					'材料名称': '(材料名称)',
+					'材料时间': null,
+					'页数': 1,
+					ind: 0,
+					leaf: true,
+					iconCls: 'templates',
+					index: 0
+				},record;
+			vl.parentId=vl.pid;
+			vl.text=vl['类']+'.'+vl['序']+'. (材料名称)';
+			
+			record = this.getDangAModel().create(vl);
 			fen.set('页数',fen.get('页数')+1);
 			fen.appendChild(record);
 			st.sync({
@@ -1709,7 +1783,6 @@ Ext.define('FV.controller.RenYs', {
 						if(obj.ok){
 							if(obj.data&&obj.data.id!=record.get('id')){
 								record.set('id',obj.data.id);
-								// 只更改了id
 								delete record.modified.id;
 								record.dirty = false;
 							}
@@ -1727,16 +1800,158 @@ Ext.define('FV.controller.RenYs', {
 			});
 		};
 		if(fen.isExpanded()){
-			fff();
+			fff.call(this);
 		}else{
 			tb.tree.expandNode(fen,false,fff,this);
 		}
 	},
 	danganshow_delete2: function(btn){
 		var win = this.getDangAnShow(),
-			tb = this._init_ds_tb(win);
+			tb = this._init_ds_tb(win),
+			st = this.getDangAsStore(),
+			rec = tb.curRec;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		Ext.Msg.confirm('警告!','确定要删除此页么?',function(kid){
+			if(kid=='yes'){
+				rec.remove();
+				st.sync({
+					success: function(batch,opt){
+						this.curRec = null;
+					},
+					failure: function(batch,opt){
+						console.log("danganshow_delete2 failure");
+					},
+					scope: this
+				});
+			}
+		},this);
+	},
+	danganshow_upload: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		img._rid = rec.get('id');
+		img._ext = rec.get('ext');
+		img._fileinput.dom.click();
+	},
+	danganshow_dw: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		img._rid = rec.get('id');
+		img._ext = rec.get('ext');
+		this.downloadDangA(img);
+	},
+	danganshow_clear: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		img._rid = rec.get('id');
+		img._ext = rec.get('ext');
+		if(img._ext!=null&img._ext.length>0)
+			this.delDangA(img);
+	},
+	danganshow_zoomout: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec,
+			z = img._zoom;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		z++;
+		img.setWidth(z*100);
+		img._zoom=z;
+	},
+	danganshow_zoomin: function(btn){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec,
+			z = img._zoom;
+		if(rec==null||rec.get('pid')==0){
+			Ext.Msg.alert('警告','请先选择页！');
+			return;
+		}
+		z--;
+		if(z==0)z=1;
+		img.setWidth(z*100);
+		img._zoom=z;
+	},
+/////////////
+	readDangA: function(file,img){
+		img.setSrc(window.URL.createObjectURL(file));
+		img.onload = function(e) {
+			window.URL.revokeObjectURL(this.src);
+		}
+		var reader = new FileReader(),
+			ths = this,
+			xhr = new XMLHttpRequest(),
+			s = file.name.substr(file.name.lastIndexOf('.')+1);
+		xhr.open("POST", "/data/dangaupld.app?name="+img._rid+'.'+s);
+		reader.onloadend = Ext.Function.bind(function() { 
+			if (reader.error) { 
+				console.log(reader.error); 
+			} else {
+				xhr.sendAsBinary(reader.result);
+				img._ext=s;
+				this.danganshow_accept();
+			}
+		},this); 
+		reader.readAsBinaryString(file); 
+	},
+	handleDangA: function(img,inputObj) {
+		this.readDangA(inputObj.files[0],img);
+	},
+	delDangA: function(img){
+		var rid = img._rid;
+		if(!rid)return;
+		
+		Ext.Msg.confirm('警告!','确定要删除此图片么?',function(kid){
+			if(kid=='yes'){
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", "/data/dangarm.app?name="+img._rid+'.'+img._ext);
+				xhr.send();
+				img._ext='';
+				this.danganshow_accept();
+				img.setSrc(Ext.BLANK_IMAGE_URL);
+			}
+		},this);
+	},
+	downloadDangA: function(img){
+		var rid = img._rid;
+		if(!rid)return;
+		var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a'),
+			src=img.src;
+		if(src.startsWith('/data/')){
+			src+='&dw=1';
+		}
+		save_link.href = src;
+		save_link.download = rid+'.'+img._ext;
 
-		console.dir(tb.get());
+		var event = document.createEvent('MouseEvents');
+		event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+		save_link.dispatchEvent(event);
 	}
-
+/////////////
 });

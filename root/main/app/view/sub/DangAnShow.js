@@ -9,7 +9,24 @@ Ext.define('FV.view.sub.DangAnShow', {
 
 	title: '档案资料',
 	iconCls: 'new_folder',
-	
+	frame: false,
+	autoScroll: true,
+	layout: {
+		type:'vbox',
+		padding:'5',
+		align:'center'
+	},
+
+	items: [{
+			xtype: 'image',
+			imgid: 'dangAIMG',
+			src: Ext.BLANK_IMAGE_URL,
+			margin: '0 2 0 0',
+			//resizable: true,
+			//height: 225,
+			width : 800
+		}
+	],
 	dockedItems: [{
 		xtype: 'toolbar',
 		dock: 'left',
@@ -21,7 +38,7 @@ Ext.define('FV.view.sub.DangAnShow', {
 			iconCls: 'delete',
 			text: '删除份',
 			action: 'delete1'
-		},{
+		},'-',{
 			iconCls: 'add1',
 			text: '增加页',
 			action: 'add2'
@@ -29,6 +46,26 @@ Ext.define('FV.view.sub.DangAnShow', {
 			iconCls: 'delete',
 			text: '删除页',
 			action: 'delete2'
+		},'-',{
+			iconCls: 'add1',
+			text: '上传',
+			action: 'upload'
+		},{
+			iconCls: 'add1',
+			text: '下载',
+			action: 'dw'
+		},{
+			iconCls: 'delete',
+			text: '删除',
+			action: 'clear'
+		},'-',{
+			iconCls: 'add1',
+			text: '放大',
+			action: 'zoomout'
+		},{
+			iconCls: 'delete',
+			text: '缩小',
+			action: 'zoomin'
 		}]
 	},{
 		xtype: 'toolbar',

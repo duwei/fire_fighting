@@ -406,6 +406,7 @@ rid INTEGER,
 材料名称 VARCHAR(50),
 材料时间 VARCHAR(8),
 页数 INTEGER,
-ind INTEGER
+ind INTEGER,
+ext VARCHAR(50)
 );
 

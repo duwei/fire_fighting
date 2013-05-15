@@ -41,6 +41,7 @@ serv/db/*.c
 
 root/main/*-all.js
 root/main/all-classes.sch.js
+root/danga/
 
 backupdb/
 
@@ -48,3 +49,4 @@ serv/data/adasdf.sql
 serv/data/bbb.sql
 serv/data/zd0.sql
 serv/db/schSQL.dll.zip
+
