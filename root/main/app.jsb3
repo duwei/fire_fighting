@@ -1515,6 +1515,81 @@
                     "path": "app/model/"
                 },
                 {
+                    "clsName": "FV.model.DangA",
+                    "name": "DangA.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.DangAXX",
+                    "name": "DangAXX.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.store.GuanLBShs",
+                    "name": "GuanLBShs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.GanBXZhs",
+                    "name": "GanBXZhs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.DangAnXZhs",
+                    "name": "DangAnXZhs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.YouWs",
+                    "name": "YouWs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.ZhuanChYYs",
+                    "name": "ZhuanChYYs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.DangAXXs",
+                    "name": "DangAXXs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.CaiLMChs",
+                    "name": "CaiLMChs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.DangAs",
+                    "name": "DangAs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.ZhuangTs",
+                    "name": "ZhuangTs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.view.sub.DangAnInfo",
+                    "name": "DangAnInfo.js",
+                    "path": "app/view/sub/"
+                },
+                {
+                    "clsName": "FV.view.sub.DangAnTree",
+                    "name": "DangAnTree.js",
+                    "path": "app/view/sub/"
+                },
+                {
+                    "clsName": "FV.view.sub.DangAnDetails",
+                    "name": "DangAnDetails.js",
+                    "path": "app/view/sub/"
+                },
+                {
+                    "clsName": "FV.view.sub.DangAnShow",
+                    "name": "DangAnShow.js",
+                    "path": "app/view/sub/"
+                },
+                {
                     "clsName": "FV.view.sub.JiangLLst",
                     "name": "JiangLLst.js",
                     "path": "app/view/sub/"
@@ -1818,8 +1893,7 @@
                      "clsName": "Ext.form.field.Hidden",
                      "name": "Hidden.js",
                      "path": "../extjs-4.1/src/form/field/"
-
-                }
+                 }
             ]
         },
         {

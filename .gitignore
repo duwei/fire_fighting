@@ -41,6 +41,7 @@ serv/db/*.c
 
 root/main/*-all.js
 root/main/all-classes.sch.js
+root/main/all-classes.app.js
 root/danga/
 
 backupdb/
