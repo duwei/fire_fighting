@@ -377,6 +377,10 @@ Ext.define('FV.controller.RenYs', {
 			this.hideBtn();
 		}
 		this.curDAItem=0;
+		this.getDangAsStore().on('beforeload',function(st,opt,eOpt){
+			opt.params.rid=opt.node.get('rid');
+			opt.params.ind=opt.node.get('序');
+		});
     },
 	shenH_tongG: function(btn){
 		var ro = btn.up('renyone'),
@@ -1486,9 +1490,11 @@ Ext.define('FV.controller.RenYs', {
 				fm1.loadRecord(record);
 			}
 		});
+		o = st.getRootNode();
+		o.set('rid',rid);
+		o.commit();
 		st.load({
 			params: {
-				rid: rid,
 				node: 0
 			}
 		});
@@ -1525,15 +1531,23 @@ Ext.define('FV.controller.RenYs', {
 		var slcd = selected[0],
 			win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win);
+		if(slcd==null)return;
 		tb.set(slcd.data);
 		tb.curRec = slcd;
-		if(slcd.get('pid')==0){
-			tb.curFen = slcd;
+		if(slcd.get('pid')<=0){
+			if(slcd.get('pid')<0){
+				tb.curFen = slcd;
+				tb.curLei = slcd.parentNode;
+			}else{
+				tb.curFen = null;
+				tb.curLei = slcd;
+			}
 			tb.img.setSrc(Ext.BLANK_IMAGE_URL);
 			tb.img._zoom = 1;
 			tb.img.setWidth(100);
 		}else{
 			tb.curFen = slcd.parentNode;
+			tb.curLei = tb.curFen.parentNode;
 			tb.img._rid=slcd.get('id');
 			tb.img._ext=slcd.get('ext');
 			tb.img._zoom = 8;
@@ -1592,12 +1606,13 @@ Ext.define('FV.controller.RenYs', {
 				cm: win.down('field[name=材料名称]'),
 				cs: win.down('field[name=材料时间]'),
 				ys: win.down('field[name=页数]'),
+				btn: win.down('button[action=accept]'),
 				get: function(o){
 					if(o==null)o={};
 					o['类']=tb.lei.getValue();
 					o['序']=tb.xu.getValue();
-					o['材料名称']=tb.cm.getValue();
-					o['材料时间']=tb.cs.getSubmitValue();
+					o['材料名称']=tb.cm.getValue()||'';
+					o['材料时间']=tb.cs.getSubmitValue()||'';
 					o['页数']=tb.ys.getValue();
 					o.ext=tb.img._ext;
 					return o;
@@ -1606,14 +1621,22 @@ Ext.define('FV.controller.RenYs', {
 					if(o==null)return;
 					tb.lei.setValue(o['类']);
 					tb.xu.setValue(o['序']);
-					if(o['序']==0){
-						tb.lei.enable();
+					if(o.id<=0){
 						tb.xu.disable();
-						tb.ys.enable();
-					}else{
-						tb.lei.disable();
-						tb.xu.enable();
+						tb.cm.disable();
+						tb.cs.disable();
 						tb.ys.disable();
+						tb.btn.disable();
+					}else{
+						tb.xu.enable();
+						tb.cm.enable();
+						tb.cs.enable();
+						tb.btn.enable();
+						if(o.pid>0){
+							tb.ys.disable();
+						}else{
+							tb.ys.enable();
+						}
 					}
 					tb.cm.setValue(o['材料名称']);
 					tb.cs.setValue(o['材料时间']);
@@ -1628,25 +1651,89 @@ Ext.define('FV.controller.RenYs', {
 		}
 		return tb;
 	},
+	_chk_xu: function(nd,p){
+		var x = nd.get('序'),
+			id = nd.getId(),
+			y,
+			i = -1,
+			j = nd.get('index');
+		if(p.childNodes.length==1)return true;
+		p.eachChild(function(n){
+			if(n.getId()==id)return;
+			y=n.get('序');
+			if(y==x){
+				i = -2;
+				return false;
+			}
+			if(i<0&&y>x){
+				i=n.get('index');
+			}
+		});
+		if(i==-2)return false;
+		if(j+1==i)return true;
+		if(i>j)return i-1;
+		return i;
+	},
 	danganshow_accept: function(btn){
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			rec = tb.curRec,
-			vl = tb.get();
+			vl = tb.get(),
+			pid = rec.get('pid'),
+			ys = rec.get('页数'),
+			p = rec.parentNode,
+			m = tb.tree.getSelectionModel(),
+			a;
+		m.deselect(rec);
 		rec.set(vl);
 		if(!rec.dirty){
 			return;
+		}
+		if(rec.isModified('序')){
+			a = this._chk_xu(rec,p);
+			if(a===false){
+				Ext.Msg.alert('警告','序不能重复！');
+				return;
+			}
+			if(a!==true){
+				rec.remove(); 
+				if(a>=0){
+					p.insertChild(a,rec);
+				}else{
+					p.appendChild(rec);
+				}
+			}
+		}
+		if(pid<0&&rec.isModified('页数')){
+			ys = vl['页数'] - ys;
+			if(ys<0){
+				vl['页数'] = vl['页数']-ys;
+				rec.set('页数',vl['页数']);
+				tb.set(vl);
+			}
+		}else{
+			ys = 0;
 		}
 		var st = this.getDangAsStore();
 		st.sync({
 			success: function(batch,opt){
 				try{
 					var obj = Ext.decode(batch.operations[0].response.responseText);
-					rec.set('text',vl['类']+'.'+(rec.get('pid')==0?' ':(vl['序']+'. '))+vl['材料名称']);
+					rec.set('text',vl['类']+'.'+(pid>0?(tb.curFen.get('序')+'.'):'')+ vl['序']+'. '+vl['材料名称']);
 					rec.commit();
+					if(ys>0){
+						this.danganshow_add2.call(this,null,ys);
+					}
+					if(pid<0){
+						rec.eachChild(function(nd){
+							nd.set('text',vl['类']+'.'+vl['序']+'.'+ nd.get('序')+'. '+nd.get('材料名称'));
+							nd.commit();
+						});
+					}
 				}catch(e){
 					console.dir(e);
 				}
+				m.select(rec);
 			},
 			failure: function(batch,opt){
 				console.log("danganshow_accept failure");
@@ -1668,25 +1755,27 @@ Ext.define('FV.controller.RenYs', {
     },
 
 	danganshow_add1: function(btn){
-		var st = this.getDangAsStore(),
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			st = this.getDangAsStore(),
 			vl = {
-				pid: 0,
+				pid: tb.curLei.get('id'),
 				rid: this.getDangAnInfo()._rid,
-				'类': this.getStMax(st.getRootNode(),'类')+1,
-				'序': 0,
+				'类': tb.curLei.get('类'),
+				'序': this.getStMax(tb.curLei,'序')+1,
 				'材料名称': '(材料名称)',
 				'材料时间': null,
 				'页数': 0,
-				ind: 0,
-				parentId: 0,
 				leaf: false,
-				iconCls: 'book',
-				index: 0
+				iconCls: 'book'
 			},
 			record;
-		vl.text=vl['类']+'. (材料名称)';
+		vl.ind = vl['序'];
+		vl.index = vl.ind;
+		vl.parentId = vl.pid;
+		vl.text=vl['类']+'.'+vl.ind+'. (材料名称)';
 		record = this.getDangAModel().create(vl);
-		st.getRootNode().appendChild(record);
+		tb.curLei.appendChild(record);
 		st.sync({
 			success: function(batch,opt){
 				try{
@@ -1747,7 +1836,7 @@ Ext.define('FV.controller.RenYs', {
 			tb.tree.expandNode(fen,false,fff,this);
 		}
 	},
-	danganshow_add2: function(btn){
+	danganshow_add2: function(btn,nnn){
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
@@ -1761,21 +1850,25 @@ Ext.define('FV.controller.RenYs', {
 					pid: fen.get('id'),
 					rid: this.getDangAnInfo()._rid,
 					'类': fen.get('类'),
-					'序': this.getStMax(fen,'序')+1,
-					'材料名称': '(材料名称)',
+					'序': this.getStMax(fen,'序'),
+					'材料名称': '',
 					'材料时间': null,
 					'页数': 1,
-					ind: 0,
 					leaf: true,
 					iconCls: 'templates',
 					index: 0
-				},record;
+				},record,i,xu=tb.curFen.get('序');
 			vl.parentId=vl.pid;
-			vl.text=vl['类']+'.'+vl['序']+'. (材料名称)';
-			
-			record = this.getDangAModel().create(vl);
-			fen.set('页数',fen.get('页数')+1);
-			fen.appendChild(record);
+			if(!nnn){
+				nnn=1;
+				fen.set('页数',fen.get('页数')+1);
+			}
+			for(i=0;i<nnn;i++){
+				vl['序'] = vl['序']+1;
+				vl.text=vl['类']+'.'+xu+'.'+vl['序']+'. ';
+				record = this.getDangAModel().create(vl);
+				fen.appendChild(record);
+			}
 			st.sync({
 				success: function(batch,opt){
 					try{

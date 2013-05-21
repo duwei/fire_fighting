@@ -72,10 +72,10 @@ Ext.define('FV.view.sub.DangAnShow', {
 		dock: 'top',
 		items: ['->',{
 			labelWidth: 20,
-			width: 70,
-			xtype: 'numberfield',
-			allowDecimals: false,
-			minValue: 1,
+			width: 40,
+			xtype: 'displayfield',
+			//allowDecimals: false,
+			//minValue: 1,
 			fieldLabel: '类',
 			name: '类'
 		},'-',{
