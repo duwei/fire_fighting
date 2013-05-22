@@ -9,13 +9,13 @@ Ext.define('FV.view.sub.DangAnTree', {
     initComponent: function() {
         Ext.apply(this, {
 			store: "DangAs",
-			viewConfig: {
+/*			viewConfig: {
 				plugins: {
 					ddGroup: 'dangAn-group',
 					ptype: 'treeviewdragdrop'
 				}
 			},
-			rootVisible: false,
+*/			rootVisible: false,
 			useArrows: true,
 
             dockedItems: [{
