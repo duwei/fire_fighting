@@ -1757,48 +1757,58 @@ Ext.define('FV.controller.RenYs', {
 	danganshow_add1: function(btn){
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
-			st = this.getDangAsStore(),
-			vl = {
-				pid: tb.curLei.get('id'),
-				rid: this.getDangAnInfo()._rid,
-				'类': tb.curLei.get('类'),
-				'序': this.getStMax(tb.curLei,'序')+1,
-				'材料名称': '(材料名称)',
-				'材料时间': null,
-				'页数': 0,
-				leaf: false,
-				iconCls: 'book'
-			},
-			record;
-		vl.ind = vl['序'];
-		vl.index = vl.ind;
-		vl.parentId = vl.pid;
-		vl.text=vl['类']+'.'+vl.ind+'. (材料名称)';
-		record = this.getDangAModel().create(vl);
-		tb.curLei.appendChild(record);
-		st.sync({
-			success: function(batch,opt){
-				try{
-					var obj = Ext.decode(batch.operations[0].response.responseText);
-					if(obj.ok){
-						if(obj.data){
-							record.set('id',obj.data.id);
-							// 只更改了id
-							delete record.modified.id;
-							record.dirty = false;
+			m = tb.tree.getSelectionModel(),
+			lei = tb.curLei;
+		var fff = function(){
+			var st = this.getDangAsStore(),
+				vl = {
+					pid: lei.get('id'),
+					rid: this.getDangAnInfo()._rid,
+					'类': lei.get('类'),
+					'序': this.getStMax(lei,'序')+1,
+					'材料名称': '(材料名称)',
+					'材料时间': null,
+					'页数': 0,
+					leaf: false,
+					iconCls: 'book'
+				},
+				record;
+			vl.ind = vl['序'];
+			vl.index = vl.ind;
+			vl.parentId = vl.pid;
+			vl.text=vl['类']+'.'+vl.ind+'. (材料名称)';
+			record = this.getDangAModel().create(vl);
+			lei.appendChild(record);
+			st.sync({
+				success: function(batch,opt){
+					try{
+						var obj = Ext.decode(batch.operations[0].response.responseText);
+						if(obj.ok){
+							if(obj.data){
+								record.set('id',obj.data.id);
+								// 只更改了id
+								delete record.modified.id;
+								record.dirty = false;
+							}
+						}else{
+							console.log(obj.msg);
 						}
-					}else{
-						console.log(obj.msg);
+					}catch(e){
+						console.dir(e);
 					}
-				}catch(e){
-					console.dir(e);
-				}
-			},
-			failure: function(batch,opt){
-				console.log("danganshow_add1 failure");
-			},
-			scope: this
-		});
+					m.select(lei);
+				},
+				failure: function(batch,opt){
+					console.log("danganshow_add1 failure");
+				},
+				scope: this
+			});
+		};
+		if(lei.isExpanded()){
+			fff.call(this);
+		}else{
+			tb.tree.expandNode(lei,false,fff,this);
+		}
 	},
 	danganshow_delete1: function(btn){
 		var win = this.getDangAnShow(),
@@ -1821,6 +1831,7 @@ Ext.define('FV.controller.RenYs', {
 						success: function(batch,opt){
 							this.curFen = null;
 							this.curRec = null;
+							
 						},
 						failure: function(batch,opt){
 							console.log("danganshow_delete1 failure");
@@ -1840,7 +1851,9 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
-			fen = tb.curFen;
+			m = tb.tree.getSelectionModel(),
+			fen = tb.curFen,
+			lei = tb.curLei;
 		if(fen==null){
 			Ext.Msg.alert('警告','请先选择份！');
 			return;
@@ -1857,27 +1870,36 @@ Ext.define('FV.controller.RenYs', {
 					leaf: true,
 					iconCls: 'templates',
 					index: 0
-				},record,i,xu=tb.curFen.get('序');
+				},record=[],i,xu=tb.curFen.get('序');
 			vl.parentId=vl.pid;
-			if(!nnn){
+			if(Ext.isObject(nnn)){
 				nnn=1;
 				fen.set('页数',fen.get('页数')+1);
 			}
 			for(i=0;i<nnn;i++){
 				vl['序'] = vl['序']+1;
 				vl.text=vl['类']+'.'+xu+'.'+vl['序']+'. ';
-				record = this.getDangAModel().create(vl);
-				fen.appendChild(record);
+				record[i] = this.getDangAModel().create(vl);
+				fen.appendChild(record[i]);
 			}
+			lei.set('页数',lei.get('页数')+nnn);
+			lei.commit();
+			
 			st.sync({
 				success: function(batch,opt){
 					try{
 						var obj = Ext.decode(batch.operations[0].response.responseText);
 						if(obj.ok){
-							if(obj.data&&obj.data.id!=record.get('id')){
-								record.set('id',obj.data.id);
-								delete record.modified.id;
-								record.dirty = false;
+							if(obj.data){
+								if(Ext.isObject(obj.data)){
+									obj.data = [obj.data];
+								}
+								for(i=0;i<nnn;i++){
+									if(obj.data[i].id!=record[i].get('id')){
+										record[i].set('id',obj.data[i].id);
+										record[i].commit();
+									}
+								}
 							}
 						}else{
 							console.log(obj.msg);
@@ -1885,6 +1907,8 @@ Ext.define('FV.controller.RenYs', {
 					}catch(e){
 						console.dir(e);
 					}
+					m.deselectAll();
+					m.select(fen);
 				},
 				failure: function(batch,opt){
 					console.log("danganshow_add1 failure");
@@ -1903,7 +1927,7 @@ Ext.define('FV.controller.RenYs', {
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
 			rec = tb.curRec;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
@@ -1927,7 +1951,7 @@ Ext.define('FV.controller.RenYs', {
 			tb = this._init_ds_tb(win),
 			img = tb.img,
 			rec = tb.curRec;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
@@ -1940,7 +1964,7 @@ Ext.define('FV.controller.RenYs', {
 			tb = this._init_ds_tb(win),
 			img = tb.img,
 			rec = tb.curRec;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
@@ -1953,7 +1977,7 @@ Ext.define('FV.controller.RenYs', {
 			tb = this._init_ds_tb(win),
 			img = tb.img,
 			rec = tb.curRec;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
@@ -1968,7 +1992,7 @@ Ext.define('FV.controller.RenYs', {
 			img = tb.img,
 			rec = tb.curRec,
 			z = img._zoom;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
@@ -1982,7 +2006,7 @@ Ext.define('FV.controller.RenYs', {
 			img = tb.img,
 			rec = tb.curRec,
 			z = img._zoom;
-		if(rec==null||rec.get('pid')==0){
+		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			return;
 		}
