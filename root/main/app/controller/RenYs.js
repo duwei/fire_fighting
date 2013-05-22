@@ -249,6 +249,9 @@ Ext.define('FV.controller.RenYs', {
             'xuandry button[action=export]': {
                 click: this.xd_export
             },
+            'xuandry button[action=exportDangAn]': {
+                click: this.xd_exportDangAn
+            },
 			'renyone image': {
 				afterrender: this.addImageMenu
             },
@@ -2069,6 +2072,91 @@ Ext.define('FV.controller.RenYs', {
 		var event = document.createEvent('MouseEvents');
 		event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
 		save_link.dispatchEvent(event);
-	}
+	},
 /////////////
+	xd_exportDangAn: function(){
+		var recs = this.getRenYslctStore().getRange(),
+			dwids = {},nodt = true,ids=[],k,zt;
+        Ext.Array.forEach(recs, function(reny){
+			var o = dwids[reny.get('danWId')];
+			if(o==null)o=[];
+			o.push(reny.get('id'));
+			dwids[reny.get('danWId')] = o;
+			nodt = false;
+			zt = reny.get("状态");
+			ids.push(reny.get('id'));
+        }, this);
+		if(nodt){
+			Ext.Msg.alert("注意！",'请先选择人员。');
+			return;
+		}
+		dwids.ids = ids;
+		for(k in dwids){
+			dwids[k] = dwids[k].join(',');
+		}
+		console.dir(dwids);
+		
+		Ext.Ajax.request({
+			url: '/data/exportDangAn.app',
+			jsonData: dwids,
+			success: function(response){
+				var m = response.responseText;
+				if(m!='ERR'){
+					var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
+					var wking=false;
+					ww._flg = false;
+					var upfun = function(ths, value, text){
+						if(ww._flg)return;
+						if(wking)return;
+						wking = true;
+						Ext.Ajax.request({
+							url: '/data/exportinfo.app',
+							success: function(response){
+								wking = false;
+								var s = response.responseText;
+								if(s=='ERR'){
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									Ext.Msg.alert('错误！','生成数据错误');
+									return;
+								}else if(s.substring(0,2)=='OK'){
+									ww._flg = true;
+									ww.hide();
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									FV.lib.Utils.downloadURL('/data/exportDangAndl.app?k='+s);
+									this.curDwKey = s;
+								}
+								if(m==s)return;
+								m = s;
+								ths.updateProgress(0.1,s);
+							},
+							failure: function(response){
+								ths.un({
+									update: upfun,
+									scope: this
+								});
+								Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+							},
+							scope: this
+						});
+					};
+					ww.progressBar.on({
+						update: upfun,
+						scope: this
+					});
+				}else{
+					Ext.Msg.alert('错误！','生成Excel文件出错！');
+				}
+			},
+			failure: function(response){
+				Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+			},
+			scope: this
+		});
+	}
 });

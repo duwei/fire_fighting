@@ -39,6 +39,10 @@ Ext.define('FV.view.center.XuanDRY', {
                     iconCls: 'open-all',
                     text: '数据导出',
                     action: 'export'
+                },{
+                    iconCls: 'open-all',
+                    text: '档案导出',
+                    action: 'exportDangAn'
                 },'->',{
                     iconCls: 'open-all',
                     text: '清除',
