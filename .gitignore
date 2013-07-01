@@ -1,4 +1,5 @@
-serv/data/data1.db
+serv/data/*.db
+serv/data/*.sql
 
 serv/*.[oa]
 serv/*.def
