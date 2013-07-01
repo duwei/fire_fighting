@@ -9,7 +9,7 @@ serv/lib/libbase.a
 root/extjs-4.1/
 root/data/
 root/zhaop/*
-logs/*.log
+logs*/*.log
 serv/logs/*.log
 xulrunner/
 fire_fighting*.zip
@@ -17,6 +17,7 @@ fire_fighting*.zip
 Thumbs.db*
 
 main.exe
+update*.exe
 serv/aaaa.db
 serv/testdba.exe.log/
 serv/testsql.exe.log/
