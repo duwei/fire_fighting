@@ -87,7 +87,7 @@ Ext.define('FV.view.sub.DangAnShow', {
 			fieldLabel: '序',
 			name: '序'
 		},'-',
-			FV.lib.KeyMapMng.getCombField('材料名称','材料名称','CaiLMChs',false,240,{valueField: 'label',editable:true,labelWidth: 56,emptyText:''}),
+			FV.lib.KeyMapMng.getCombField('材料名称','材料名称','CaiLMChs',false,260,{valueField: 'label',editable:true,labelWidth: 56,emptyText:''}),
 			'-',{
 			labelWidth: 56,
 			width: 160,

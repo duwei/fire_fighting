@@ -375,8 +375,46 @@ Ext.define('FV.view.center.RenYOne', {
 							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format: 'Y-m-d',
 							submitFormat : 'Ymd',
-							fieldLabel: '职务资格时间',
-							name: '职务资格时间'
+							fieldLabel: '初评资格时间',
+							name: '初评资格时间'
+						}]
+					},{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'datefield',
+						defaults: {
+							labelWidth: 90,
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [{
+							fieldLabel: '第一次续任时间',
+							name: '第一次续任时间'
+						}, {
+							fieldLabel: '第二次续任时间',
+							name: '第二次续任时间'
+						}]
+					},{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'datefield',
+						defaults: {
+							labelWidth: 90,
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format: 'Y-m-d',
+							submitFormat : 'Ymd',
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [{
+							fieldLabel: '第三次续任时间',
+							name: '第三次续任时间'
+						}, {
+							fieldLabel: '第四次续任时间',
+							name: '第四次续任时间'
 						}]
 					}]
 				},{
