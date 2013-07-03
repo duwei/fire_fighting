@@ -1,0 +1,82 @@
+function testPrint(){
+	// set portrait orientation
+	jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);// kPortraitOrientation:纵向打印,kLandscapeOrientation横向打印
+	// set top margins in millimeters
+	jsPrintSetup.setOption('marginTop', 0);
+	jsPrintSetup.setOption('marginBottom', 0);
+	jsPrintSetup.setOption('marginLeft', 0);
+	jsPrintSetup.setOption('marginRight', 0);
+	// set page header
+	jsPrintSetup.setOption('headerStrLeft', '');
+	jsPrintSetup.setOption('headerStrCenter', '');
+	jsPrintSetup.setOption('headerStrRight', '');//&PT
+	// set empty page footer
+	jsPrintSetup.setOption('footerStrLeft', '');
+	jsPrintSetup.setOption('footerStrCenter', '');
+	jsPrintSetup.setOption('footerStrRight', '');
+	
+	jsPrintSetup.setOption('scaling', 100);
+	jsPrintSetup.setOption('shrinkToFit', true);
+
+	jsPrintSetup.setOption('printBGColors', true);
+	jsPrintSetup.setOption('printBGImages', true);
+	// Suppress print dialog
+	jsPrintSetup.setSilentPrint(true);
+	// Do Print
+	//jsPrintSetup.print(); //打印当前窗口
+	jsPrintSetup.printWindow(window); // 打印指定窗口
+	// Restore print dialog
+	jsPrintSetup.setSilentPrint(false);
+}
+
+
+'orientation': 		方向: jsPrintSetup.kPortraitOrientation(0):纵向打印,jsPrintSetup.kLandscapeOrientation(1)横向打印
+'marginTop':
+'marginLeft':
+'marginRight':
+'marginBottom': 	边距,单位mm
+'headerStrCenter':	页眉中
+'headerStrLeft':	页眉左
+'headerStrRight':	页眉右
+'footerStrCenter':	页脚中
+'footerStrLeft':	页脚左
+'footerStrRight':	页脚右
+'scaling':			缩放比例,10-500,小于10取10,大于500取500
+'shrinkToFit':		缩放以适应页面宽度,true/false
+'printBGColors' :	是否打印背景色
+'printBGImages' :	是否打印背景图片
+
+'numCopies':		打印份数
+'outputFormat':		输出格式:jsPrintSetup.kOutputFormatNative(0)/jsPrintSetup.kOutputFormatPS(1)/jsPrintSetup.kOutputFormatPDF(2)
+'paperName':		Paper Name
+'paperData':
+'paperSizeType':
+'paperHeight':
+'paperWidth':
+'printRange':
+'startPageRange':
+'endPageRange':
+'printSilent':
+'showPrintProgress':
+'title':
+'toFileName':
+
+页眉页脚设置格式:
+firefox格式:
+    &PT: Page Number with Total (Example: "3 of 5")
+    &P: Page Number
+    &D: Date
+    &U: URL
+    &T: Page Title
+ie格式:
+    &w: Window title
+    &u: Page address
+    &d: Date in short format (as specified by Regional and Language Options in Control Panel)
+    &D: Date in long format (as specified by Regional and Language Options in Control Panel)
+    &t: Time in the format specified by Regional and Language Options in Control Panel
+    &T: Time in 24-hour format
+    &p: Current page number
+    &P: Total number of pages
+    &b: Right-aligned text (following &b)
+    &b&b: Centered text (between &b&b)
+    &&: A single ampersand (&)
