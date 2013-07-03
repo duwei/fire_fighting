@@ -1,4 +1,4 @@
-serv/data/*.db
+serv/data/*.db*
 serv/data/*.sql
 
 serv/*.[oa]
