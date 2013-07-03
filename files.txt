@@ -6,10 +6,13 @@ xlslib.dll
 z.bin
 libopc.dll
 
+update*.exe
+
 application.ini
 chrome.manifest
 defaults
 chrome
+extensions
 plugins
 
 xulrunner
