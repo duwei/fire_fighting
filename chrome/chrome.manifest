@@ -2,3 +2,4 @@ content myapp            content/
 locale  branding  en-US  branding/
 
 override chrome://navigator/content/navigator.xul   chrome://myapp/content/window.xul
+override chrome://mozapps/content/downloads/unknownContentType.xul   chrome://myapp/content/unknownContentType.xul
