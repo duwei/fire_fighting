@@ -252,6 +252,9 @@ Ext.define('FV.controller.RenYs', {
             'xuandry button[action=exportDangAn]': {
                 click: this.xd_exportDangAn
             },
+            'xuandry button[action=importDangAn]': {
+                click: this.xd_importDangAn
+            },
 			'renyone image': {
 				afterrender: this.addImageMenu
             },
@@ -2074,7 +2077,7 @@ Ext.define('FV.controller.RenYs', {
 		event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
 		save_link.dispatchEvent(event);
 	},
-/////////////
+///////////// 
 	xd_exportDangAn: function(){
 		var recs = this.getRenYslctStore().getRange(),
 			dwids = {},nodt = true,ids=[],k,zt;
@@ -2151,7 +2154,7 @@ Ext.define('FV.controller.RenYs', {
 						scope: this
 					});
 				}else{
-					Ext.Msg.alert('错误！','生成Excel文件出错！');
+					Ext.Msg.alert('错误！','生成数据包出错！');
 				}
 			},
 			failure: function(response){
@@ -2159,5 +2162,96 @@ Ext.define('FV.controller.RenYs', {
 			},
 			scope: this
 		});
-	}
+	},
+///////////// 
+	xd_importDangAn: function(ths){
+		if(ths._fileinput==null){
+			ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
+				'<input type="file" accept="*/*" style="display:none"/>',true);
+			ths._fileinput.dom.onchange=Ext.Function.bind(this.handleImport,this,[ths,ths._fileinput.dom]);
+		}
+		ths._fileinput.dom.click();
+	},
+	handleImport: function(btn,inputObj) {
+		this.readDA(inputObj.files[0]);
+	},
+	readDA: function(file){
+		var reader = new FileReader(),
+			ths = this,
+			xhr = new XMLHttpRequest();
+		xhr.upload.addEventListener("progress", function(e) {
+			if (e.lengthComputable) {
+				var percentage = Math.round((e.loaded * 100) / e.total);
+				ths.update_pecentage(percentage);
+			}
+		}, false);
+
+		xhr.upload.addEventListener("load", function(e) {
+			ths.update_pecentage(100);
+			ths.up_OK(xhr.responseText);
+		}, false);
+		xhr.open("POST", "/data/importDangAn.app?name="+file.name);
+		reader.onloadend = Ext.Function.bind(function() { 
+			if (reader.error) { 
+				console.log(reader.error); 
+			} else {
+				xhr.sendAsBinary(reader.result);
+			}
+		},this); 
+		reader.readAsBinaryString(file); 
+	},
+	update_pecentage: function(pc){
+		console.log(pc);
+	},
+	up_OK: function(m){
+		console.log('up_OK');
+		var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
+		var wking=false;
+		ww._flg = false;
+		var upfun = function(ths, value, text){
+			if(ww._flg)return;
+			if(wking)return;
+			wking = true;
+			Ext.Ajax.request({
+				url: '/data/importinfoDA.app',
+				success: function(response){
+					wking = false;
+					var s = response.responseText;
+					if(s.startsWith('OK')){
+						ww._flg = true;
+						ww.hide();
+						ths.un({
+							update: upfun,
+							scope: this
+						});
+						//Ext.Msg.alert('成功！','档案导入成功:'+s.substring(2));
+						Ext.Msg.alert('成功！','档案导入成功!');
+					}else if(s.startsWith('ERR')){
+						ths.un({
+							update: upfun,
+							scope: this
+						});
+						Ext.Msg.alert('错误！',s);
+						return;
+					}else 
+					if(m==s)return;
+					m = s;
+					ths.updateProgress(0,s);
+				},
+				failure: function(response){
+					ths.un({
+						update: upfun,
+						scope: this
+					});
+					Ext.Msg.alert('错误！','服务器错误 '+response.responseText);
+				},
+				scope: this
+			});
+		};
+		ww.progressBar.on({
+			update: upfun,
+			scope: this
+		});
+	},
+
 });
