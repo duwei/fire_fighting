@@ -38,14 +38,21 @@ Ext.define('FV.view.center.RenYOne', {
 					xtype: 'container',
 					layout: 'hbox',
 					items: [{
-						xtype: 'image',
-						src: Ext.BLANK_IMAGE_URL,
-						margin: '0 2 0 0',
-						style:{
-							cursor: 'pointer'
-						},
-						//height: 225,
-						width : 150
+						xtype: 'container',
+						layout: 'vbox',
+						items: [{
+							xtype: 'image',
+							src: Ext.BLANK_IMAGE_URL,
+							margin: '0 2 0 0',
+							style:{
+								cursor: 'pointer'
+							},
+							//height: 225,
+							width : 150
+						},{
+							xtype: 'container',
+							html:'<div style="width:150px;letter-spacing:12px;text-align:center;cursor:pointer;color:blue;padding-top:80px;">&nbsp;照片</div>'
+						}]
 					},{
 						disabled: true,
 						disabledCls: 'my-disabledCls',

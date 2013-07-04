@@ -667,14 +667,15 @@ Ext.define('FV.controller.RenYs', {
 		save_link.dispatchEvent(event);
 	},
 	addImageMenu: function(ths){
-		ths._fileinput = Ext.DomHelper.insertAfter(ths.getEl(),
+		var tts = ths;
+		ths._fileinput = Ext.DomHelper.insertAfter(ths.container,
 			'<input type="file" accept="image/*" style="display:none"/>',true);
 		ths._fileinput.dom.onchange=Ext.Function.bind(this.handleFiles,this,[ths,ths._fileinput.dom,]);
 		ths.imgMenu = Ext.create('Ext.menu.Menu', {
 			items:[{
 				text: '更新照片',
 				handler: function(){
-					ths._fileinput.dom.click();
+					tts._fileinput.dom.click();
 				}
 			},{
 				text: '删除照片',
@@ -686,7 +687,7 @@ Ext.define('FV.controller.RenYs', {
 				scope: this
 			}]
 		});
-		ths.getEl().on('click',function(evt){
+		ths.container.on('click',function(evt){
 			ths.imgMenu.showAt(evt.getXY());
 		},this,{
 			stopEvent: true
