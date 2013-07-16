@@ -5,6 +5,7 @@ mongoose.dll
 xlslib.dll
 z.bin
 libopc.dll
+7z.dll
 
 update*.exe
 
