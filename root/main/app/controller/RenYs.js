@@ -2266,13 +2266,15 @@ Ext.define('FV.controller.RenYs', {
 				xhr.sendAsBinary(reader.result);
 			}
 		},this); 
+		Ext.Msg.progress('请稍候','正在上传文件...','');
 		reader.readAsBinaryString(file); 
 	},
 	update_pecentage: function(pc){
-		console.log(pc);
+		//console.log(pc);
+		Ext.Msg.updateProgress(pc/100,pc+'%');
 	},
 	up_OK: function(m){
-		console.log('up_OK');
+		//console.log('up_OK');
 		var ww=Ext.Msg.wait('请稍候...',null,{increment:0});
 		var wking=false;
 		ww._flg = false;
