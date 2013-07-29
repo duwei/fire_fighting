@@ -1130,7 +1130,7 @@ Ext.define('FV.controller.RenYs', {
 								}
 								if(m==s)return;
 								m = s;
-								ths.updateProgress(0.1,s);
+								ths.updateText(s);
 							},
 							failure: function(response){
 								ths.un({
@@ -2169,7 +2169,7 @@ Ext.define('FV.controller.RenYs', {
 								}
 								if(m==s)return;
 								m = s;
-								ths.updateProgress(0.1,s);
+								ths.updateText(s);
 							},
 							failure: function(response){
 								ths.un({
@@ -2256,8 +2256,10 @@ Ext.define('FV.controller.RenYs', {
 							update: upfun,
 							scope: this
 						});
-						//Ext.Msg.alert('成功！','档案导入成功:'+s.substring(2));
-						Ext.Msg.alert('成功！','档案导入成功!');
+						s=s.substring(3);
+						s=s.substring(0,s.length-1);
+						s=s.replace(/(,[\s]*)?{[\s]*"name":[\s]*"/gm,'').replace(/",[\s]*"rslt":[\s]*"/gm,' : ').replace(/"[\s]*}/gm,'<br/>');
+						Ext.Msg.alert('完成！','档案导入完毕:<div style="white-space:nowrap;max-width:400px;max-height:300px;overflow:auto;">'+s+'</div>');
 					}else if(s.startsWith('ERR')){
 						ths.un({
 							update: upfun,
@@ -2268,7 +2270,7 @@ Ext.define('FV.controller.RenYs', {
 					}else 
 					if(m==s)return;
 					m = s;
-					ths.updateProgress(0,s);
+					ths.updateText(s);
 				},
 				failure: function(response){
 					ths.un({
