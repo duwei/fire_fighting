@@ -19,6 +19,7 @@ Thumbs.db*
 
 main.exe
 update*.exe
+ear_cache.exe
 serv/aaaa.db
 serv/testdba.exe.log/
 serv/testsql.exe.log/
