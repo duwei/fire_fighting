@@ -65,6 +65,10 @@ Ext.define('FV.view.center.RenYXX', {
                     text: '选择',
                     disabled: true,
                     action: 'slct'
+                },{
+                    iconCls: 'edit-reny',
+                    text: '档案管理',
+                    action: 'dangAnInfo1'
                 },'->',{
                     iconCls: 'refresh',
                     text: '刷新',

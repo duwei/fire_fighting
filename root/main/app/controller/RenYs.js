@@ -198,6 +198,9 @@ Ext.define('FV.controller.RenYs', {
             'renyxx button[action=del]': {
                 click: this.delRenYs
             },
+            'renyxx button[action=dangAnInfo1]': {
+                click: this.dangAnInfo1
+            },
             'bianzhxx': {
                 itemdblclick: this.editBianZh,
                 selectionchange: this.chgCurBianZh
@@ -1468,21 +1471,12 @@ Ext.define('FV.controller.RenYs', {
 		}
     },
 	
-	dangAnInfo: function(btn){
-		var ro = btn.up('renyone'),
-			f1 = ro.down('form[formId=renY1]'),
-			f2 = ro.down('form[formId=renY2]'),
-			r1 = f1.getRecord(),
-			rid = r1.get('id'),
-			win = this.getDangAnInfo();
-		if(rid == 0 || rid==null){
-			Ext.Msg.alert("注意！",'请先保存人员信息。');
-			return;
-		}
-		var fm1 = win.down('form[formId=dangAnBase]'),
+	dangAnInfo_ed: function(rid,r1,r2){
+		var win = this.getDangAnInfo(),
+			fm1 = win.down('form[formId=dangAnBase]'),
 			o = Ext.apply({},r1.data)
 			st = this.getDangAsStore();
-		Ext.apply(o,f2.getValues(false,false));
+		Ext.apply(o,r2.data);
 		fm1.form.setValues(o);
 		FV.model.DangAXX.load(rid,{
 			scope: this,
@@ -1508,6 +1502,41 @@ Ext.define('FV.controller.RenYs', {
 		win._rid = rid;
 		win.setTitle('档案 - '+r1.get('姓名'));
 		win.show();
+    },
+	
+	dangAnInfo1: function(btn){
+		if(!this.curRenY){
+			Ext.Msg.alert("注意",'请先选择人员');
+			return;
+		}
+		var reny = this.curRenY,rid = reny.get('id');
+
+		FV.model.RenY2.load(rid,{
+			scope: this,
+			failure: function(record, operation) {
+				Ext.Msg.alert("注意",'获取人员信息出错.');
+			},
+			success: function(record, operation) {
+				if(record==null){
+					record = this.getRenY2Model().create({rid:rid});
+				}
+				this.dangAnInfo_ed(rid,reny,record);
+			}
+		});
+    },
+	
+	dangAnInfo: function(btn){
+		var ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			f2 = ro.down('form[formId=renY2]'),
+			r1 = f1.getRecord(),
+			rid = r1.get('id'),
+			win = this.getDangAnInfo();
+		if(rid == 0 || rid==null){
+			Ext.Msg.alert("注意！",'请先保存人员信息。');
+			return;
+		}
+		this.dangAnInfo_ed(rid,r1,f2.getRecord());
 	},
 	dangAnDetails: function(btn) {
 		if(this.curDAItem==0){
