@@ -1567,6 +1567,8 @@ Ext.define('FV.controller.RenYs', {
 		return false;// 禁止完成拖动
 	},
 	dangandetails_save: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
 		var win = this.getDangAnInfo(),
 			fm1 = win.down('form[formId=dangAnBase]'),
 			rec = fm1.getRecord(),
@@ -1576,12 +1578,15 @@ Ext.define('FV.controller.RenYs', {
 		ff.checkValidity();
 		if(!ff.isValid()){
 			Ext.Msg.alert('警告','请完善数据后提交。');
+			this.danga_btn = false;
 			return;
 		}
 		rec.set(vl);
 		if(!rec.dirty){
+			this.danga_btn = false;
 			return;
 		}
+		
 		rec.save({
 			success: function(rcd,opt){
 				try{
@@ -1595,9 +1600,11 @@ Ext.define('FV.controller.RenYs', {
 					Ext.Msg.alert('异常','捕获异常');
 					console.error(e);
 				}
+				this.danga_btn = false;
 			},
 			failure: function(batch,opt){
 				Ext.Msg.alert('失败','数据保存不成功！');
+				this.danga_btn = false;
 			},
 			scope: this
 		});
@@ -1682,6 +1689,8 @@ Ext.define('FV.controller.RenYs', {
 		return i;
 	},
 	danganshow_accept: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			rec = tb.curRec,
@@ -1694,6 +1703,7 @@ Ext.define('FV.controller.RenYs', {
 		m.deselect(rec);
 		rec.set(vl);
 		if(!rec.dirty){
+			this.danga_btn = false;
 			return;
 		}
 		if(rec.isModified('序')){
@@ -1741,9 +1751,11 @@ Ext.define('FV.controller.RenYs', {
 					console.dir(e);
 				}
 				m.select(rec);
+				this.danga_btn = false;
 			},
 			failure: function(batch,opt){
 				console.log("danganshow_accept failure");
+				this.danga_btn = false;
 			},
 			scope: this
 		});
@@ -1762,6 +1774,8 @@ Ext.define('FV.controller.RenYs', {
     },
 
 	danganshow_add1: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			m = tb.tree.getSelectionModel(),
@@ -1804,9 +1818,11 @@ Ext.define('FV.controller.RenYs', {
 						console.dir(e);
 					}
 					m.select(lei);
+					this.danga_btn = false;
 				},
 				failure: function(batch,opt){
-					console.log("danganshow_add1 failure");
+					Ext.Msg.alert('警告','增加份出错!');
+					this.danga_btn = false;
 				},
 				scope: this
 			});
@@ -1818,17 +1834,21 @@ Ext.define('FV.controller.RenYs', {
 		}
 	},
 	danganshow_delete1: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;	
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
 			fen = tb.curFen;
 		if(fen==null){
 			Ext.Msg.alert('警告','请先选择份！');
+			this.danga_btn = false;
 			return;
 		}
 		var fff=function(){
 			if(fen.hasChildNodes()){
 				Ext.Msg.alert('警告','不能删除非空节点。');
+				this.danga_btn = false;
 				return;
 			}
 			Ext.Msg.confirm('警告!','确定要删除此份么?',function(kid){
@@ -1839,9 +1859,11 @@ Ext.define('FV.controller.RenYs', {
 							this.curFen = null;
 							this.curRec = null;
 							
+							this.danga_btn = false;
 						},
 						failure: function(batch,opt){
-							console.log("danganshow_delete1 failure");
+							Ext.Msg.alert('警告','删除份出错!');
+							this.danga_btn = false;
 						},
 						scope: this
 					});
@@ -1855,6 +1877,8 @@ Ext.define('FV.controller.RenYs', {
 		}
 	},
 	danganshow_add2: function(btn,nnn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
@@ -1863,6 +1887,7 @@ Ext.define('FV.controller.RenYs', {
 			lei = tb.curLei;
 		if(fen==null){
 			Ext.Msg.alert('警告','请先选择份！');
+			this.danga_btn = false;
 			return;
 		}
 		var fff = function(){
@@ -1916,9 +1941,11 @@ Ext.define('FV.controller.RenYs', {
 					}
 					m.deselectAll();
 					m.select(fen);
+					this.danga_btn = false;
 				},
 				failure: function(batch,opt){
-					console.log("danganshow_add1 failure");
+					Ext.Msg.alert('警告','增加页出错!');
+					this.danga_btn = false;
 				},
 				scope: this
 			});
@@ -1930,12 +1957,15 @@ Ext.define('FV.controller.RenYs', {
 		}
 	},
 	danganshow_delete2: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
 			rec = tb.curRec;
 		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
+			this.danga_btn = false;
 			return;
 		}
 		Ext.Msg.confirm('警告!','确定要删除此页么?',function(kid){
@@ -1944,9 +1974,11 @@ Ext.define('FV.controller.RenYs', {
 				st.sync({
 					success: function(batch,opt){
 						this.curRec = null;
+						this.danga_btn = false;
 					},
 					failure: function(batch,opt){
-						console.log("danganshow_delete2 failure");
+						Ext.Msg.alert('警告','删除页出错!');
+						this.danga_btn = false;
 					},
 					scope: this
 				});
