@@ -2166,6 +2166,13 @@ Ext.define('FV.controller.RenYs', {
 									});
 									FV.lib.Utils.downloadURL('/data/exportDangAndl.app?k='+s);
 									this.curDwKey = s;
+								}else if(s=='NODATA'){
+									ths.un({
+										update: upfun,
+										scope: this
+									});
+									Ext.Msg.alert('信息','选定人员没有档案数据.');
+									return;
 								}
 								if(m==s)return;
 								m = s;
