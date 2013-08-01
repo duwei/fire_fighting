@@ -355,22 +355,7 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '上次评审时间',
 							name: '上次评审时间'
 						}]
-					}]
-				},{
-					xtype: 'fieldset',
-					title: '技术资格',
-					checkboxName: '有无技术资格',
-					checkboxToggle:true,
-					inputValue: 1,
-					uncheckedValue: 0,
-					createCheckboxCmp: this.createCheckboxCmp,
-					defaultType: 'textfield',
-					collapsed: true,
-					layout: 'anchor',
-					defaults: {
-						anchor: '100%'
-					},
-					items: [{
+					},{
 						xtype: 'container',
 						layout: 'hbox',
 						defaultType: 'datefield',
@@ -380,7 +365,7 @@ Ext.define('FV.view.center.RenYOne', {
 							margin:'0 0 5 0'
 						},
 						items: [
-							FV.lib.KeyMapMng.getCombField('职务资格','职务资格','JiShZhWs',false,1,{queryMode: 'local'}), 
+							FV.lib.KeyMapMng.getCombField('职务资格','技术资格','JiShZhWs',false,1,{queryMode: 'local'}), 
 							{
 							labelWidth: 90,
 							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
