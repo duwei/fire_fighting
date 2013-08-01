@@ -77,8 +77,9 @@ Ext.define('FV.view.center.RenYOne', {
 								name: '姓名',
 								allowBlank: false
 							}, {
-								fieldLabel: '曾用名',
-								name: '曾用名'
+								fieldLabel: '部别职务',
+								name: '部别职务',
+								readOnly: true
 							}]
 						},{
 							xtype: 'container',
@@ -90,6 +91,9 @@ Ext.define('FV.view.center.RenYOne', {
 								margin:'0 0 5 0'
 							},
 							items: [{
+								fieldLabel: '曾用名',
+								name: '曾用名'
+							}, {
 								fieldLabel: '身份号',
 								name: '身份号',
 								allowBlank: false
