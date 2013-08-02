@@ -66,6 +66,10 @@ Ext.define('FV.view.sub.DangAnShow', {
 			iconCls: 'delete',
 			text: '缩小',
 			action: 'zoomin'
+		},'-',{
+			iconCls: 'delete',
+			text: '清空类',
+			action: 'delete3'
 		}]
 	},{
 		xtype: 'toolbar',

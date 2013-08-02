@@ -378,6 +378,9 @@ Ext.define('FV.controller.RenYs', {
 			},
 			'danganshow button[action=accept]': {
 				click: this.danganshow_accept
+			},
+			'danganshow button[action=delete3]': {
+				click: this.danganshow_delete3
 			}
         });
     },
@@ -1475,7 +1478,8 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getDangAnInfo(),
 			fm1 = win.down('form[formId=dangAnBase]'),
 			o = Ext.apply({},r1.data)
-			st = this.getDangAsStore();
+			st = this.getDangAsStore(),
+			tb = this.danganshow_tb;
 		Ext.apply(o,r2.data);
 		fm1.form.setValues(o);
 		FV.model.DangAXX.load(rid,{
@@ -1501,6 +1505,11 @@ Ext.define('FV.controller.RenYs', {
 		});
 		win._rid = rid;
 		win.setTitle('档案 - '+r1.get('姓名'));
+		if(tb){
+			tb.img.setSrc(Ext.BLANK_IMAGE_URL);
+			tb.img._zoom = 1;
+			tb.img.setWidth(100);
+		}
 		win.show();
     },
 	
@@ -1882,13 +1891,16 @@ Ext.define('FV.controller.RenYs', {
 			}
 			Ext.Msg.confirm('警告!','确定要删除此份么?',function(kid){
 				if(kid=='yes'){
+					var m = tb.tree.getSelectionModel();
+					m.deselect(fen);
 					fen.remove();
 					st.sync({
 						success: function(batch,opt){
-							this.curFen = null;
-							this.curRec = null;
+							tb.curFen = null;
+							tb.curRec = null;
 							
 							this.danga_btn = false;
+							m.select(tb.curLei);
 						},
 						failure: function(batch,opt){
 							Ext.Msg.alert('警告','删除份出错!');
@@ -1999,10 +2011,13 @@ Ext.define('FV.controller.RenYs', {
 		}
 		Ext.Msg.confirm('警告!','确定要删除此页么?',function(kid){
 			if(kid=='yes'){
+				var m = tb.tree.getSelectionModel();
+				m.deselect(rec);
 				rec.remove();
 				st.sync({
 					success: function(batch,opt){
-						this.curRec = null;
+						tb.curRec = null;
+						m.select(tb.curFen);
 						this.danga_btn = false;
 					},
 					failure: function(batch,opt){
@@ -2013,6 +2028,50 @@ Ext.define('FV.controller.RenYs', {
 				});
 			}
 		},this);
+	},
+	danganshow_delete3: function(btn){
+		if(this.danga_btn===true)return;
+		this.danga_btn = true;
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			st = this.getDangAsStore(),
+			rec = tb.curRec;
+		if(rec==null||rec.get('pid')!=0){
+			Ext.Msg.alert('警告','请先选择类！');
+			this.danga_btn = false;
+			return;
+		}
+		rec = tb.curLei;
+		var fff=function(){
+			if(!rec.hasChildNodes()){
+				this.danga_btn = false;
+				return;
+			}
+			Ext.Msg.confirm('警告!','确定要清空此类么?',function(kid){
+				if(kid=='yes'){
+					var m = tb.tree.getSelectionModel();
+					m.deselect(rec);
+					rec.eachChild(function(r){
+						r.removeAll();
+					});
+					rec.removeAll();
+					st.sync({
+						success: function(batch,opt){
+							tb.curFen = null;
+							tb.curRec = null;
+							m.select(rec);
+							this.danga_btn = false;
+						},
+						failure: function(batch,opt){
+							Ext.Msg.alert('警告','清空类出错!');
+							this.danga_btn = false;
+						},
+						scope: this
+					});
+				}
+			},this);
+		};
+		tb.tree.expandNode(rec,true,fff,this);
 	},
 	danganshow_upload: function(btn){
 		var win = this.getDangAnShow(),
