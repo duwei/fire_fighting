@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 490,
+    height: 520,
     width: 750,
 	//modal: true,
     title: '搜索条件',
@@ -77,6 +77,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -96,6 +97,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -120,6 +122,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -150,6 +153,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -177,6 +181,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -203,6 +208,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -229,6 +235,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -248,13 +255,14 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 						FV.lib.KeyMapMng.getCombField('技术资格','技术资格','JiShZhWs',false,1,{}),
 					{
 						xtype: 'fieldcontainer',
-						fieldLabel: '技术资格时间',
+						fieldLabel: '初评资格时间',
 						layout: 'hbox',
 						flex: 1,
 						defaults: {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -266,6 +274,104 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							{
 								xtype     : 'datefield',
 								name      : '技术资格时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '一次续任时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '第一次续任时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '第一次续任时间2'
+							}
+						]
+					},{
+						xtype: 'fieldcontainer',
+						fieldLabel: '二次续任时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '第二次续任时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '第二次续任时间2'
+							}
+						]
+					}]
+				},{
+					items: [
+					{
+						xtype: 'fieldcontainer',
+						fieldLabel: '三次续任时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '第三次续任时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '第三次续任时间2'
+							}
+						]
+					},{
+						xtype: 'fieldcontainer',
+						fieldLabel: '四次续任时间',
+						layout: 'hbox',
+						flex: 1,
+						defaults: {
+							flex: 1,
+							hideLabel: true,
+							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
+							format :'Y-m-d'
+						},
+						items: [
+							{
+								xtype     : 'datefield',
+								margin    : '0 10 0 0',
+								name      : '第四次续任时间1'
+							},
+							{
+								xtype     : 'datefield',
+								name      : '第四次续任时间2'
 							}
 						]
 					}]
@@ -293,6 +399,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -320,6 +427,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -347,6 +455,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
@@ -378,6 +487,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							flex: 1,
 							hideLabel: true,
 							submitFormat : 'Ymd',
+							altFormats: 'Ymd|Y.n.j|Y.m.d|Y.n.d|Y.m.j',
 							format :'Y-m-d'
 						},
 						items: [
