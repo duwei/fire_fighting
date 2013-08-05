@@ -7,7 +7,7 @@ z.bin
 libopc.dll
 7z.dll
 
-update*.exe
+clear_cache.exe
 
 application.ini
 chrome.manifest
@@ -20,13 +20,10 @@ xulrunner
 
 root/extjs-4.1
 root/login.app
-root/data
 root/style
 root/images
 root/index.app
 root/main
-root/zhaop/zhaop
 
 serv/svCore.dll
 serv/db/*.dll
-serv/data/data
