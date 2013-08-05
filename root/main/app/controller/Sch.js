@@ -1,10 +1,10 @@
 Ext.define('FV.controller.Sch', {
     extend: 'Ext.app.Controller',
 
-	requires: ['FV.store.DanWLists','FV.lib.Utils','FV.lib.DanWsTreeCombo'],
+	requires: [],
 
-    stores: ['DanWs','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
-    models: ['Sch','DanWList'],
+    stores: ['Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
+    models: ['DanWList'],
     views: [
 		'sub.JiangLLst',
 		'sub.ChuFLst',

@@ -55,18 +55,13 @@
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
-                    "clsName": "Ext.util.Sorter",
-                    "name": "Sorter.js",
-                    "path": "../extjs-4.1/src/util/"
-                },
-                {
                     "clsName": "Ext.util.ElementContainer",
                     "name": "ElementContainer.js",
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
-                    "clsName": "Ext.util.Renderable",
-                    "name": "Renderable.js",
+                    "clsName": "Ext.util.Sorter",
+                    "name": "Sorter.js",
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
@@ -75,14 +70,14 @@
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
-                    "clsName": "Ext.util.ProtoElement",
-                    "name": "ProtoElement.js",
+                    "clsName": "Ext.util.Renderable",
+                    "name": "Renderable.js",
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
-                    "clsName": "Ext.state.Provider",
-                    "name": "Provider.js",
-                    "path": "../extjs-4.1/src/state/"
+                    "clsName": "Ext.util.ProtoElement",
+                    "name": "ProtoElement.js",
+                    "path": "../extjs-4.1/src/util/"
                 },
                 {
                     "clsName": "Ext.util.KeyMap",
@@ -93,6 +88,11 @@
                     "clsName": "Ext.util.Memento",
                     "name": "Memento.js",
                     "path": "../extjs-4.1/src/util/"
+                },
+                {
+                    "clsName": "Ext.state.Provider",
+                    "name": "Provider.js",
+                    "path": "../extjs-4.1/src/state/"
                 },
                 {
                     "clsName": "Ext.fx.CubicBezier",
@@ -135,6 +135,11 @@
                     "path": "../extjs-4.1/src/draw/"
                 },
                 {
+                    "clsName": "Ext.layout.container.boxOverflow.None",
+                    "name": "None.js",
+                    "path": "../extjs-4.1/src/layout/container/boxOverflow/"
+                },
+                {
                     "clsName": "Ext.util.Offset",
                     "name": "Offset.js",
                     "path": "../extjs-4.1/src/util/"
@@ -143,11 +148,6 @@
                     "clsName": "Ext.util.ClickRepeater",
                     "name": "ClickRepeater.js",
                     "path": "../extjs-4.1/src/util/"
-                },
-                {
-                    "clsName": "Ext.layout.container.boxOverflow.None",
-                    "name": "None.js",
-                    "path": "../extjs-4.1/src/layout/container/boxOverflow/"
                 },
                 {
                     "clsName": "Ext.util.TextMetrics",
@@ -175,6 +175,16 @@
                     "path": "../extjs-4.1/src/"
                 },
                 {
+                    "clsName": "Ext.data.Types",
+                    "name": "Types.js",
+                    "path": "../extjs-4.1/src/data/"
+                },
+                {
+                    "clsName": "Ext.data.Field",
+                    "name": "Field.js",
+                    "path": "../extjs-4.1/src/data/"
+                },
+                {
                     "clsName": "Ext.util.AbstractMixedCollection",
                     "name": "AbstractMixedCollection.js",
                     "path": "../extjs-4.1/src/util/"
@@ -197,16 +207,6 @@
                 {
                     "clsName": "Ext.data.Errors",
                     "name": "Errors.js",
-                    "path": "../extjs-4.1/src/data/"
-                },
-                {
-                    "clsName": "Ext.data.Types",
-                    "name": "Types.js",
-                    "path": "../extjs-4.1/src/data/"
-                },
-                {
-                    "clsName": "Ext.data.Field",
-                    "name": "Field.js",
                     "path": "../extjs-4.1/src/data/"
                 },
                 {
@@ -245,14 +245,14 @@
                     "path": "../extjs-4.1/src/app/"
                 },
                 {
-                    "clsName": "Ext.fx.Easing",
-                    "name": "Easing.js",
-                    "path": "../extjs-4.1/src/fx/"
-                },
-                {
                     "clsName": "Ext.container.DockingContainer",
                     "name": "DockingContainer.js",
                     "path": "../extjs-4.1/src/container/"
+                },
+                {
+                    "clsName": "Ext.fx.Easing",
+                    "name": "Easing.js",
+                    "path": "../extjs-4.1/src/fx/"
                 },
                 {
                     "clsName": "Ext.XTemplateCompiler",
@@ -263,6 +263,11 @@
                     "clsName": "Ext.XTemplate",
                     "name": "XTemplate.js",
                     "path": "../extjs-4.1/src/"
+                },
+                {
+                    "clsName": "Ext.toolbar.Fill",
+                    "name": "Fill.js",
+                    "path": "../extjs-4.1/src/toolbar/"
                 },
                 {
                     "clsName": "Ext.fx.target.Element",
@@ -310,11 +315,6 @@
                     "path": "../extjs-4.1/src/fx/"
                 },
                 {
-                    "clsName": "Ext.dd.StatusProxy",
-                    "name": "StatusProxy.js",
-                    "path": "../extjs-4.1/src/dd/"
-                },
-                {
                     "clsName": "Ext.draw.Draw",
                     "name": "Draw.js",
                     "path": "../extjs-4.1/src/draw/"
@@ -330,9 +330,9 @@
                     "path": "../extjs-4.1/src/fx/"
                 },
                 {
-                    "clsName": "Ext.toolbar.Fill",
-                    "name": "Fill.js",
-                    "path": "../extjs-4.1/src/toolbar/"
+                    "clsName": "Ext.dd.StatusProxy",
+                    "name": "StatusProxy.js",
+                    "path": "../extjs-4.1/src/dd/"
                 },
                 {
                     "clsName": "Ext.layout.Layout",
@@ -545,19 +545,14 @@
                     "path": "../extjs-4.1/src/"
                 },
                 {
-                    "clsName": "Ext.util.Queue",
-                    "name": "Queue.js",
-                    "path": "../extjs-4.1/src/util/"
-                },
-                {
                     "clsName": "Ext.ElementLoader",
                     "name": "ElementLoader.js",
                     "path": "../extjs-4.1/src/"
                 },
                 {
-                    "clsName": "Ext.dd.DragTracker",
-                    "name": "DragTracker.js",
-                    "path": "../extjs-4.1/src/dd/"
+                    "clsName": "Ext.util.Queue",
+                    "name": "Queue.js",
+                    "path": "../extjs-4.1/src/util/"
                 },
                 {
                     "clsName": "Ext.util.Bindable",
@@ -565,18 +560,28 @@
                     "path": "../extjs-4.1/src/util/"
                 },
                 {
-                    "clsName": "Ext.layout.container.Fit",
-                    "name": "Fit.js",
-                    "path": "../extjs-4.1/src/layout/container/"
-                },
-                {
                     "clsName": "Ext.layout.component.Draw",
                     "name": "Draw.js",
                     "path": "../extjs-4.1/src/layout/component/"
                 },
                 {
+                    "clsName": "Ext.dd.DragTracker",
+                    "name": "DragTracker.js",
+                    "path": "../extjs-4.1/src/dd/"
+                },
+                {
+                    "clsName": "Ext.layout.container.Fit",
+                    "name": "Fit.js",
+                    "path": "../extjs-4.1/src/layout/container/"
+                },
+                {
                     "clsName": "Ext.menu.Item",
                     "name": "Item.js",
+                    "path": "../extjs-4.1/src/menu/"
+                },
+                {
+                    "clsName": "Ext.menu.CheckItem",
+                    "name": "CheckItem.js",
                     "path": "../extjs-4.1/src/menu/"
                 },
                 {
@@ -675,11 +680,6 @@
                     "path": "../extjs-4.1/src/draw/"
                 },
                 {
-                    "clsName": "Ext.menu.CheckItem",
-                    "name": "CheckItem.js",
-                    "path": "../extjs-4.1/src/menu/"
-                },
-                {
                     "clsName": "Ext.menu.KeyNav",
                     "name": "KeyNav.js",
                     "path": "../extjs-4.1/src/menu/"
@@ -690,16 +690,6 @@
                     "path": "../extjs-4.1/src/menu/"
                 },
                 {
-                    "clsName": "Ext.data.proxy.Client",
-                    "name": "Client.js",
-                    "path": "../extjs-4.1/src/data/proxy/"
-                },
-                {
-                    "clsName": "Ext.data.proxy.Memory",
-                    "name": "Memory.js",
-                    "path": "../extjs-4.1/src/data/proxy/"
-                },
-                {
                     "clsName": "Ext.data.AbstractStore",
                     "name": "AbstractStore.js",
                     "path": "../extjs-4.1/src/data/"
@@ -708,6 +698,16 @@
                     "clsName": "Ext.data.writer.Json",
                     "name": "Json.js",
                     "path": "../extjs-4.1/src/data/writer/"
+                },
+                {
+                    "clsName": "Ext.data.proxy.Client",
+                    "name": "Client.js",
+                    "path": "../extjs-4.1/src/data/proxy/"
+                },
+                {
+                    "clsName": "Ext.data.proxy.Memory",
+                    "name": "Memory.js",
+                    "path": "../extjs-4.1/src/data/proxy/"
                 },
                 {
                     "clsName": "Ext.Ajax",
@@ -750,19 +750,19 @@
                     "path": "../extjs-4.1/src/data/"
                 },
                 {
-                    "clsName": "Ext.resizer.ResizeTracker",
-                    "name": "ResizeTracker.js",
-                    "path": "../extjs-4.1/src/resizer/"
-                },
-                {
                     "clsName": "Ext.data.Request",
                     "name": "Request.js",
                     "path": "../extjs-4.1/src/data/"
                 },
                 {
-                    "clsName": "Ext.draw.engine.ImageExporter",
-                    "name": "ImageExporter.js",
-                    "path": "../extjs-4.1/src/draw/engine/"
+                    "clsName": "Ext.resizer.ResizeTracker",
+                    "name": "ResizeTracker.js",
+                    "path": "../extjs-4.1/src/resizer/"
+                },
+                {
+                    "clsName": "Ext.draw.Matrix",
+                    "name": "Matrix.js",
+                    "path": "../extjs-4.1/src/draw/"
                 },
                 {
                     "clsName": "Ext.draw.engine.SvgExporter",
@@ -770,14 +770,14 @@
                     "path": "../extjs-4.1/src/draw/engine/"
                 },
                 {
+                    "clsName": "Ext.draw.engine.ImageExporter",
+                    "name": "ImageExporter.js",
+                    "path": "../extjs-4.1/src/draw/engine/"
+                },
+                {
                     "clsName": "Ext.util.Grouper",
                     "name": "Grouper.js",
                     "path": "../extjs-4.1/src/util/"
-                },
-                {
-                    "clsName": "Ext.draw.Matrix",
-                    "name": "Matrix.js",
-                    "path": "../extjs-4.1/src/draw/"
                 },
                 {
                     "clsName": "Ext.ShadowPool",
@@ -810,64 +810,19 @@
                     "path": "../extjs-4.1/src/draw/engine/"
                 },
                 {
+                    "clsName": "Ext.container.Viewport",
+                    "name": "Viewport.js",
+                    "path": "../extjs-4.1/src/container/"
+                },
+                {
                     "clsName": "FV.lib.Utils",
                     "name": "Utils.js",
                     "path": "app/lib/"
                 },
                 {
-                    "clsName": "FV.reader.MyJson",
-                    "name": "MyJson.js",
-                    "path": "app/reader/"
-                },
-                {
-                    "clsName": "FV.model.DanWList",
-                    "name": "DanWList.js",
-                    "path": "app/model/"
-                },
-                {
-                    "clsName": "FV.store.DanWLists",
-                    "name": "DanWLists.js",
-                    "path": "app/store/"
-                },
-                {
-                    "clsName": "FV.model.Sch",
-                    "name": "Sch.js",
-                    "path": "app/model/"
-                },
-                {
-                    "clsName": "FV.store.Schs",
-                    "name": "Schs.js",
-                    "path": "app/store/"
-                },
-                {
-                    "clsName": "FV.view.west.ChgPwdWindow",
-                    "name": "ChgPwdWindow.js",
-                    "path": "app/view/west/"
-                },
-                {
-                    "clsName": "FV.lib.KeyMapMng",
-                    "name": "KeyMapMng.js",
-                    "path": "app/lib/"
-                },
-                {
-                    "clsName": "FV.model.JiangL",
-                    "name": "JiangL.js",
-                    "path": "app/model/"
-                },
-                {
-                    "clsName": "FV.model.ChuF",
-                    "name": "ChuF.js",
-                    "path": "app/model/"
-                },
-                {
-                    "clsName": "FV.model.GangWZGDJLSh",
-                    "name": "GangWZGDJLSh.js",
-                    "path": "app/model/"
-                },
-                {
-                    "clsName": "FV.model.RuWHJL",
-                    "name": "RuWHJL.js",
-                    "path": "app/model/"
+                    "clsName": "Ext.form.Labelable",
+                    "name": "Labelable.js",
+                    "path": "../extjs-4.1/src/form/"
                 },
                 {
                     "clsName": "Ext.form.FieldAncestor",
@@ -880,9 +835,134 @@
                     "path": "../extjs-4.1/src/panel/"
                 },
                 {
+                    "clsName": "FV.reader.MyJson",
+                    "name": "MyJson.js",
+                    "path": "app/reader/"
+                },
+                {
+                    "clsName": "FV.reader.MyTree",
+                    "name": "MyTree.js",
+                    "path": "app/reader/"
+                },
+                {
+                    "clsName": "FV.model.LabelValue",
+                    "name": "LabelValue.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.DanWList",
+                    "name": "DanWList.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.view.west.ChgPwdWindow",
+                    "name": "ChgPwdWindow.js",
+                    "path": "app/view/west/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.Field",
+                    "name": "Field.js",
+                    "path": "../extjs-4.1/src/layout/component/field/"
+                },
+                {
+                    "clsName": "Ext.layout.component.BoundList",
+                    "name": "BoundList.js",
+                    "path": "../extjs-4.1/src/layout/component/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.Trigger",
+                    "name": "Trigger.js",
+                    "path": "../extjs-4.1/src/layout/component/field/"
+                },
+                {
+                    "clsName": "Ext.button.Split",
+                    "name": "Split.js",
+                    "path": "../extjs-4.1/src/button/"
+                },
+                {
+                    "clsName": "Ext.picker.Month",
+                    "name": "Month.js",
+                    "path": "../extjs-4.1/src/picker/"
+                },
+                {
+                    "clsName": "Ext.data.Tree",
+                    "name": "Tree.js",
+                    "path": "../extjs-4.1/src/data/"
+                },
+                {
+                    "clsName": "Ext.data.NodeInterface",
+                    "name": "NodeInterface.js",
+                    "path": "../extjs-4.1/src/data/"
+                },
+                {
+                    "clsName": "FV.lib.KeyMapMng",
+                    "name": "KeyMapMng.js",
+                    "path": "app/lib/"
+                },
+                {
+                    "clsName": "FV.model.Sch",
+                    "name": "Sch.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.JiangL",
+                    "name": "JiangL.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.ChuF",
+                    "name": "ChuF.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.RuWHJL",
+                    "name": "RuWHJL.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.model.GangWZGDJLSh",
+                    "name": "GangWZGDJLSh.js",
+                    "path": "app/model/"
+                },
+                {
                     "clsName": "Ext.toolbar.TextItem",
                     "name": "TextItem.js",
                     "path": "../extjs-4.1/src/toolbar/"
+                },
+                {
+                    "clsName": "Ext.selection.Model",
+                    "name": "Model.js",
+                    "path": "../extjs-4.1/src/selection/"
+                },
+                {
+                    "clsName": "Ext.grid.ColumnComponentLayout",
+                    "name": "ColumnComponentLayout.js",
+                    "path": "../extjs-4.1/src/grid/"
+                },
+                {
+                    "clsName": "Ext.grid.ColumnLayout",
+                    "name": "ColumnLayout.js",
+                    "path": "../extjs-4.1/src/grid/"
+                },
+                {
+                    "clsName": "Ext.form.field.VTypes",
+                    "name": "VTypes.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.Text",
+                    "name": "Text.js",
+                    "path": "../extjs-4.1/src/layout/component/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Field",
+                    "name": "Field.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.AbstractPlugin",
+                    "name": "AbstractPlugin.js",
+                    "path": "../extjs-4.1/src/"
                 },
                 {
                     "clsName": "Ext.form.action.Action",
@@ -895,9 +975,14 @@
                     "path": "../extjs-4.1/src/layout/container/"
                 },
                 {
-                    "clsName": "Ext.form.field.VTypes",
-                    "name": "VTypes.js",
-                    "path": "../extjs-4.1/src/form/field/"
+                    "clsName": "Ext.dd.DragZone",
+                    "name": "DragZone.js",
+                    "path": "../extjs-4.1/src/dd/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.TextArea",
+                    "name": "TextArea.js",
+                    "path": "../extjs-4.1/src/layout/component/field/"
                 },
                 {
                     "clsName": "Ext.layout.component.ProgressBar",
@@ -905,24 +990,114 @@
                     "path": "../extjs-4.1/src/layout/component/"
                 },
                 {
-                    "clsName": "Ext.form.Labelable",
-                    "name": "Labelable.js",
-                    "path": "../extjs-4.1/src/form/"
+                    "clsName": "Ext.dd.Registry",
+                    "name": "Registry.js",
+                    "path": "../extjs-4.1/src/dd/"
                 },
                 {
-                    "clsName": "Ext.form.field.Field",
-                    "name": "Field.js",
-                    "path": "../extjs-4.1/src/form/field/"
+                    "clsName": "Ext.dd.DDTarget",
+                    "name": "DDTarget.js",
+                    "path": "../extjs-4.1/src/dd/"
                 },
                 {
-                    "clsName": "Ext.layout.component.field.Field",
-                    "name": "Field.js",
+                    "clsName": "Ext.dd.ScrollManager",
+                    "name": "ScrollManager.js",
+                    "path": "../extjs-4.1/src/dd/"
+                },
+                {
+                    "clsName": "FV.store.DanWLists",
+                    "name": "DanWLists.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.ZhengZhMMs",
+                    "name": "ZhengZhMMs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.XueLs",
+                    "name": "XueLs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.ZhuanYDLs",
+                    "name": "ZhuanYDLs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.PeiXXShs",
+                    "name": "PeiXXShs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.ZhiWDJ3s",
+                    "name": "ZhiWDJ3s.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.YesNos",
+                    "name": "YesNos.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.JingXWJ3s",
+                    "name": "JingXWJ3s.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.JiShDJs",
+                    "name": "JiShDJs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.JiShZhWs",
+                    "name": "JiShZhWs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.JiangLDJs",
+                    "name": "JiangLDJs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.XingBs",
+                    "name": "XingBs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "FV.store.GangWZGDJs",
+                    "name": "GangWZGDJs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.FieldContainer",
+                    "name": "FieldContainer.js",
                     "path": "../extjs-4.1/src/layout/component/field/"
                 },
                 {
-                    "clsName": "Ext.selection.Model",
-                    "name": "Model.js",
-                    "path": "../extjs-4.1/src/selection/"
+                    "clsName": "Ext.form.FieldContainer",
+                    "name": "FieldContainer.js",
+                    "path": "../extjs-4.1/src/form/"
+                },
+                {
+                    "clsName": "Ext.layout.component.field.ComboBox",
+                    "name": "ComboBox.js",
+                    "path": "../extjs-4.1/src/layout/component/field/"
+                },
+                {
+                    "clsName": "Ext.picker.Date",
+                    "name": "Date.js",
+                    "path": "../extjs-4.1/src/picker/"
+                },
+                {
+                    "clsName": "Ext.data.TreeStore",
+                    "name": "TreeStore.js",
+                    "path": "../extjs-4.1/src/data/"
+                },
+                {
+                    "clsName": "FV.store.DanWs",
+                    "name": "DanWs.js",
+                    "path": "app/store/"
                 },
                 {
                     "clsName": "FV.view.sub.JiangLLst",
@@ -945,14 +1120,19 @@
                     "path": "app/view/sub/"
                 },
                 {
+                    "clsName": "FV.view.sch.SchView",
+                    "name": "SchView.js",
+                    "path": "app/view/sch/"
+                },
+                {
                     "clsName": "FV.view.sch.SchTiaoJ",
                     "name": "SchTiaoJ.js",
                     "path": "app/view/sch/"
                 },
                 {
-                    "clsName": "FV.view.sch.SchView",
-                    "name": "SchView.js",
-                    "path": "app/view/sch/"
+                    "clsName": "FV.store.Schs",
+                    "name": "Schs.js",
+                    "path": "app/store/"
                 },
                 {
                     "clsName": "FV.store.JiangLs",
@@ -973,76 +1153,6 @@
                     "clsName": "FV.store.GangWZGDJLShs",
                     "name": "GangWZGDJLShs.js",
                     "path": "app/store/"
-                },
-                {
-                    "clsName": "Ext.ux.statusbar.StatusBar",
-                    "name": "StatusBar.js",
-                    "path": "../extjs-4.1/ux/statusbar/"
-                },
-                {
-                    "clsName": "Ext.form.action.Submit",
-                    "name": "Submit.js",
-                    "path": "../extjs-4.1/src/form/action/"
-                },
-                {
-                    "clsName": "Ext.form.action.Load",
-                    "name": "Load.js",
-                    "path": "../extjs-4.1/src/form/action/"
-                },
-                {
-                    "clsName": "Ext.ProgressBar",
-                    "name": "ProgressBar.js",
-                    "path": "../extjs-4.1/src/"
-                },
-                {
-                    "clsName": "Ext.form.field.Base",
-                    "name": "Base.js",
-                    "path": "../extjs-4.1/src/form/field/"
-                },
-                {
-                    "clsName": "Ext.form.field.Display",
-                    "name": "Display.js",
-                    "path": "../extjs-4.1/src/form/field/"
-                },
-                {
-                    "clsName": "Ext.layout.component.field.Text",
-                    "name": "Text.js",
-                    "path": "../extjs-4.1/src/layout/component/field/"
-                },
-                {
-                    "clsName": "Ext.form.field.Text",
-                    "name": "Text.js",
-                    "path": "../extjs-4.1/src/form/field/"
-                },
-                {
-                    "clsName": "Ext.layout.component.field.TextArea",
-                    "name": "TextArea.js",
-                    "path": "../extjs-4.1/src/layout/component/field/"
-                },
-                {
-                    "clsName": "Ext.form.field.TextArea",
-                    "name": "TextArea.js",
-                    "path": "../extjs-4.1/src/form/field/"
-                },
-                {
-                    "clsName": "Ext.window.MessageBox",
-                    "name": "MessageBox.js",
-                    "path": "../extjs-4.1/src/window/"
-                },
-                {
-                    "clsName": "Ext.form.Basic",
-                    "name": "Basic.js",
-                    "path": "../extjs-4.1/src/form/"
-                },
-                {
-                    "clsName": "Ext.form.Panel",
-                    "name": "Panel.js",
-                    "path": "../extjs-4.1/src/form/"
-                },
-                {
-                    "clsName": "FV.view.sch.Search",
-                    "name": "Search.js",
-                    "path": "app/view/sch/"
                 },
                 {
                     "clsName": "Ext.selection.DataViewModel",
@@ -1075,14 +1185,14 @@
                     "path": "../extjs-4.1/src/grid/"
                 },
                 {
-                    "clsName": "FV.view.sch.List",
-                    "name": "List.js",
-                    "path": "app/view/sch/"
+                    "clsName": "Ext.data.NodeStore",
+                    "name": "NodeStore.js",
+                    "path": "../extjs-4.1/src/data/"
                 },
                 {
-                    "clsName": "FV.controller.Sch",
-                    "name": "Sch.js",
-                    "path": "app/controller/"
+                    "clsName": "Ext.tree.View",
+                    "name": "View.js",
+                    "path": "../extjs-4.1/src/tree/"
                 },
                 {
                     "clsName": "Ext.selection.RowModel",
@@ -1090,69 +1200,74 @@
                     "path": "../extjs-4.1/src/selection/"
                 },
                 {
-                    "clsName": "Ext.selection.CellModel",
-                    "name": "CellModel.js",
+                    "clsName": "Ext.selection.TreeModel",
+                    "name": "TreeModel.js",
                     "path": "../extjs-4.1/src/selection/"
                 },
                 {
-                    "clsName": "Ext.selection.CheckboxModel",
-                    "name": "CheckboxModel.js",
-                    "path": "../extjs-4.1/src/selection/"
+                    "clsName": "Ext.ux.statusbar.StatusBar",
+                    "name": "StatusBar.js",
+                    "path": "../extjs-4.1/ux//statusbar/"
                 },
                 {
-                    "clsName": "Ext.grid.PagingScroller",
-                    "name": "PagingScroller.js",
-                    "path": "../extjs-4.1/src/grid/"
+                    "clsName": "FV.view.sch.List",
+                    "name": "List.js",
+                    "path": "app/view/sch/"
                 },
                 {
-                    "clsName": "Ext.view.TableLayout",
-                    "name": "TableLayout.js",
+                    "clsName": "Ext.form.field.Base",
+                    "name": "Base.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Text",
+                    "name": "Text.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Trigger",
+                    "name": "Trigger.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Picker",
+                    "name": "Picker.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Date",
+                    "name": "Date.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Spinner",
+                    "name": "Spinner.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Number",
+                    "name": "Number.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.toolbar.Paging",
+                    "name": "Paging.js",
+                    "path": "../extjs-4.1/src/toolbar/"
+                },
+                {
+                    "clsName": "Ext.view.BoundList",
+                    "name": "BoundList.js",
                     "path": "../extjs-4.1/src/view/"
                 },
                 {
-                    "clsName": "Ext.view.TableChunker",
-                    "name": "TableChunker.js",
+                    "clsName": "Ext.view.BoundListKeyNav",
+                    "name": "BoundListKeyNav.js",
                     "path": "../extjs-4.1/src/view/"
                 },
                 {
-                    "clsName": "Ext.grid.ColumnLayout",
-                    "name": "ColumnLayout.js",
-                    "path": "../extjs-4.1/src/grid/"
-                },
-                {
-                    "clsName": "Ext.grid.LockingView",
-                    "name": "LockingView.js",
-                    "path": "../extjs-4.1/src/grid/"
-                },
-                {
-                    "clsName": "Ext.AbstractPlugin",
-                    "name": "AbstractPlugin.js",
-                    "path": "../extjs-4.1/src/"
-                },
-                {
-                    "clsName": "Ext.dd.DragZone",
-                    "name": "DragZone.js",
-                    "path": "../extjs-4.1/src/dd/"
-                },
-                {
-                    "clsName": "Ext.dd.Registry",
-                    "name": "Registry.js",
-                    "path": "../extjs-4.1/src/dd/"
-                },
-                {
-                    "clsName": "Ext.dd.ScrollManager",
-                    "name": "ScrollManager.js",
-                    "path": "../extjs-4.1/src/dd/"
-                },
-                {
-                    "clsName": "Ext.dd.DDTarget",
-                    "name": "DDTarget.js",
-                    "path": "../extjs-4.1/src/dd/"
-                },
-                {
-                    "clsName": "Ext.grid.Lockable",
-                    "name": "Lockable.js",
-                    "path": "../extjs-4.1/src/grid/"
+                    "clsName": "Ext.form.field.ComboBox",
+                    "name": "ComboBox.js",
+                    "path": "../extjs-4.1/src/form/field/"
                 },
                 {
                     "clsName": "Ext.grid.plugin.HeaderResizer",
@@ -1160,9 +1275,59 @@
                     "path": "../extjs-4.1/src/grid/plugin/"
                 },
                 {
+                    "clsName": "Ext.form.action.Load",
+                    "name": "Load.js",
+                    "path": "../extjs-4.1/src/form/action/"
+                },
+                {
+                    "clsName": "Ext.form.action.Submit",
+                    "name": "Submit.js",
+                    "path": "../extjs-4.1/src/form/action/"
+                },
+                {
                     "clsName": "Ext.grid.header.DragZone",
                     "name": "DragZone.js",
                     "path": "../extjs-4.1/src/grid/header/"
+                },
+                {
+                    "clsName": "Ext.form.field.TextArea",
+                    "name": "TextArea.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.form.field.Display",
+                    "name": "Display.js",
+                    "path": "../extjs-4.1/src/form/field/"
+                },
+                {
+                    "clsName": "Ext.ProgressBar",
+                    "name": "ProgressBar.js",
+                    "path": "../extjs-4.1/src/"
+                },
+                {
+                    "clsName": "Ext.window.MessageBox",
+                    "name": "MessageBox.js",
+                    "path": "../extjs-4.1/src/window/"
+                },
+                {
+                    "clsName": "Ext.form.Basic",
+                    "name": "Basic.js",
+                    "path": "../extjs-4.1/src/form/"
+                },
+                {
+                    "clsName": "Ext.form.Panel",
+                    "name": "Panel.js",
+                    "path": "../extjs-4.1/src/form/"
+                },
+                {
+                    "clsName": "FV.view.sch.Search",
+                    "name": "Search.js",
+                    "path": "app/view/sch/"
+                },
+                {
+                    "clsName": "FV.controller.Sch",
+                    "name": "Sch.js",
+                    "path": "app/controller/"
                 },
                 {
                     "clsName": "Ext.dd.DropTarget",
@@ -1190,14 +1355,69 @@
                     "path": "../extjs-4.1/src/grid/header/"
                 },
                 {
-                    "clsName": "Ext.grid.ColumnComponentLayout",
-                    "name": "ColumnComponentLayout.js",
-                    "path": "../extjs-4.1/src/grid/"
-                },
-                {
                     "clsName": "Ext.grid.column.Column",
                     "name": "Column.js",
                     "path": "../extjs-4.1/src/grid/column/"
+                },
+                {
+                    "clsName": "Ext.tree.Column",
+                    "name": "Column.js",
+                    "path": "../extjs-4.1/src/tree/"
+                },
+                {
+                    "clsName": "Ext.tree.Panel",
+                    "name": "Panel.js",
+                    "path": "../extjs-4.1/src/tree/"
+                },
+                {
+                    "clsName": "FV.lib.DanWsTreeCombo",
+                    "name": "DanWsTreeCombo.js",
+                    "path": "app/lib/"
+                },
+                {
+                    "clsName": "FV.model.DictList",
+                    "name": "DictList.js",
+                    "path": "app/model/"
+                },
+                {
+                    "clsName": "FV.store.BianZhZhWs",
+                    "name": "BianZhZhWs.js",
+                    "path": "app/store/"
+                },
+                {
+                    "clsName": "Ext.selection.CheckboxModel",
+                    "name": "CheckboxModel.js",
+                    "path": "../extjs-4.1/src/selection/"
+                },
+                {
+                    "clsName": "Ext.grid.PagingScroller",
+                    "name": "PagingScroller.js",
+                    "path": "../extjs-4.1/src/grid/"
+                },
+                {
+                    "clsName": "Ext.view.TableChunker",
+                    "name": "TableChunker.js",
+                    "path": "../extjs-4.1/src/view/"
+                },
+                {
+                    "clsName": "Ext.selection.CellModel",
+                    "name": "CellModel.js",
+                    "path": "../extjs-4.1/src/selection/"
+                },
+                {
+                    "clsName": "Ext.view.TableLayout",
+                    "name": "TableLayout.js",
+                    "path": "../extjs-4.1/src/view/"
+                },
+                {
+                    "clsName": "Ext.grid.LockingView",
+                    "name": "LockingView.js",
+                    "path": "../extjs-4.1/src/grid/"
+                },
+                {
+                    "clsName": "Ext.grid.Lockable",
+                    "name": "Lockable.js",
+                    "path": "../extjs-4.1/src/grid/"
                 }
             ]
         },

@@ -1,7 +1,13 @@
-ѹ��js��
-װ��sencha SDK,��root\mainĿ¼��������ִ�У�
+﻿压缩js：
+装入sencha SDK,在root\main目录下命令行执行：
 /opt/SenchaSDKTools-2.0.0-beta3/sencha build -p app.jsb3 -d . -v
 /opt/SenchaSDKTools-2.0.0-beta3/sencha build -p export.jsb3 -d . -v
 /opt/SenchaSDKTools-2.0.0-beta3/sencha build -p import.jsb3 -d . -v
 /opt/SenchaSDKTools-2.0.0-beta3/sencha build -p qianf.jsb3 -d . -v
 /opt/SenchaSDKTools-2.0.0-beta3/sencha build -p sch.jsb3 -d . -v
+
+生成jsb3文件方法：
+1，先修改http_servlet.c，关闭用户验证功能（参考其中注释）；
+2，在root\main目录下命令行执行：
+/opt/SenchaSDKTools-2.0.0-beta3/sencha create jsb -a http://127.0.0.1:8088/main/sch.app -p sss.jsb3 -v
+  
