@@ -1884,15 +1884,13 @@ Ext.define('FV.controller.RenYs', {
 			return;
 		}
 		var fff=function(){
-			if(fen.hasChildNodes()){
-				Ext.Msg.alert('警告','不能删除非空节点。');
-				this.danga_btn = false;
-				return;
-			}
 			Ext.Msg.confirm('警告!','确定要删除此份么?',function(kid){
 				if(kid=='yes'){
 					var m = tb.tree.getSelectionModel();
 					m.deselect(fen);
+					if(fen.hasChildNodes()){
+						fen.removeAll();
+					}
 					fen.remove();
 					st.sync({
 						success: function(batch,opt){
