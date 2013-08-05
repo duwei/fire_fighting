@@ -102,9 +102,9 @@ Ext.define('FV.lib.KeyMapMng', {
 		}
 		if(Ext.isObject(conf)){
 			Ext.apply(rt,conf);
-		}
-		if(conf.multiSelect){
-			rt.getSubmitValue = this.combFGSV;
+			if(conf.multiSelect){
+				rt.getSubmitValue = this.combFGSV;
+			}
 		}
 		return rt;
 	},
