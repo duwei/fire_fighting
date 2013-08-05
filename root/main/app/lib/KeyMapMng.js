@@ -103,7 +103,16 @@ Ext.define('FV.lib.KeyMapMng', {
 		if(Ext.isObject(conf)){
 			Ext.apply(rt,conf);
 		}
+		if(conf.multiSelect){
+			rt.getSubmitValue = this.combFGSV;
+		}
 		return rt;
+	},
+	combFGSV: function(){
+		var v = this.getValue();
+		if(v==null)return v;
+		if(Ext.isArray(v))return v.join(this.delimiter);
+		return v;
 	},
 	formatDate: function(dt) {
 		if(dt&&dt.length==8){

@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 520,
+    height: 550,
     width: 750,
 	//modal: true,
     title: '搜索条件',
@@ -51,19 +51,22 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					margin:'0 0 5 0'
 				},
                 items: [{
-					defaultType: 'textfield',
 					items: [{
+						xtype: 'danwstreecombo',
 						name: '单位',
-						flex: 0.6,
+						flex: 1,
+						store: FV.lib.KeyMapMng.getStore('DanWs'),
 						fieldLabel: '单位'
-					},
-						FV.lib.KeyMapMng.getCombField('职务','职务','BianZhZhWs',false,0.4,{queryMode: 'remote',labelWidth: 30}),
-					{
+					}]
+				},{
+					items: [{
+						xtype: 'textfield',
 						fieldLabel: '姓名',
-						flex: 0.5,
+						flex: 1,
 						name: '姓名'
 					},
-						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,0.5,{labelWidth: 70})
+						FV.lib.KeyMapMng.getCombField('职务','职务','BianZhZhWs',false,0.5,{queryMode: 'remote',labelWidth: 30,multiSelect:true,delimiter:','}),
+						FV.lib.KeyMapMng.getCombField('政治面貌','政治面貌','ZhengZhMMs',false,0.5,{labelWidth: 70,multiSelect:true,delimiter:','})
 					]
 				},{
 					defaults: {
@@ -137,13 +140,13 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							}
 						]
 					},
-						FV.lib.KeyMapMng.getCombField('学历','学历','XueLs',false,1,{}),
-						FV.lib.KeyMapMng.getCombField('专业','专业','ZhuanYDLs',false,1,{labelWidth: 42})
+						FV.lib.KeyMapMng.getCombField('学历','学历','XueLs',false,1,{multiSelect:true,delimiter:','}),
+						FV.lib.KeyMapMng.getCombField('专业','专业','ZhuanYDLs',false,1,{labelWidth: 42,multiSelect:true,delimiter:','})
 					]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('培训形式','培训形式','PeiXXShs',false,1,{}),
-						FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJ3s',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('培训形式','培训形式','PeiXXShs',false,1,{multiSelect:true,delimiter:','}),
+						FV.lib.KeyMapMng.getCombField('行政职务等级','行政职务等级','ZhiWDJ3s',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '职务等级时间',
@@ -171,7 +174,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 				},{
 					items: [
 						FV.lib.KeyMapMng.getCombField('是否班组成员','是否班组成员','YesNos',false,1,{}),
-						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJ3s',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('警衔文级','警衔文级','JingXWJ3s',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '衔级时间',
@@ -198,7 +201,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '技术等级时间',
@@ -225,7 +228,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{}), 
+						FV.lib.KeyMapMng.getCombField('技术职务','技术职务','JiShZhWs',false,1,{multiSelect:true,delimiter:','}), 
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '技术职务时间',
@@ -252,7 +255,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('技术资格','技术资格','JiShZhWs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('技术资格','技术资格','JiShZhWs',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '初评资格时间',
@@ -389,7 +392,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 					}]
 				},{
 					items: [
-						FV.lib.KeyMapMng.getCombField('奖励等级','奖励等级','JiangLDJs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('奖励等级','奖励等级','JiangLDJs',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '奖励时间',
@@ -417,7 +420,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 				},{
 					items: [
 						FV.lib.KeyMapMng.getCombField('性别','性别','XingBs',false,1,{}),
-						FV.lib.KeyMapMng.getCombField('岗位资格等级','岗位资格等级','GangWZGDJs',false,1,{}),
+						FV.lib.KeyMapMng.getCombField('岗位资格等级','岗位资格等级','GangWZGDJs',false,1,{multiSelect:true,delimiter:','}),
 					{
 						xtype: 'fieldcontainer',
 						fieldLabel: '岗位资格时间',
