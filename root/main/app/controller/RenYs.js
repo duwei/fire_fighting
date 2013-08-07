@@ -1741,6 +1741,7 @@ Ext.define('FV.controller.RenYs', {
 		m.deselect(rec);
 		rec.set(vl);
 		if(!rec.dirty){
+			m.select(rec);
 			this.danga_btn = false;
 			return;
 		}
@@ -1748,6 +1749,8 @@ Ext.define('FV.controller.RenYs', {
 			a = this._chk_xu(rec,p);
 			if(a===false){
 				Ext.Msg.alert('警告','序不能重复！');
+				m.select(rec);
+				this.danga_btn = false;
 				return;
 			}
 			if(a!==true){
@@ -1766,6 +1769,11 @@ Ext.define('FV.controller.RenYs', {
 				rec.set('页数',vl['页数']);
 				tb.set(vl);
 			}
+			if(!rec.dirty){
+				m.select(rec);
+				this.danga_btn = false;
+				return;
+			}
 		}else{
 			ys = 0;
 		}
@@ -1777,6 +1785,7 @@ Ext.define('FV.controller.RenYs', {
 					rec.set('text',vl['类']+'.'+(pid>0?(tb.curFen.get('序')+'.'):'')+ vl['序']+'. '+vl['材料名称']);
 					rec.commit();
 					if(ys>0){
+						this.danga_btn = false;
 						this.danganshow_add2.call(this,null,ys);
 					}
 					if(pid<0){
@@ -1877,7 +1886,8 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
-			fen = tb.curFen;
+			fen = tb.curFen,
+			lei = tb.curLei;
 		if(fen==null){
 			Ext.Msg.alert('警告','请先选择份！');
 			this.danga_btn = false;
@@ -1891,14 +1901,16 @@ Ext.define('FV.controller.RenYs', {
 					if(fen.hasChildNodes()){
 						fen.removeAll();
 					}
+					lei.set('页数',lei.get('页数')-fen.get('页数'));
+					lei.commit();
 					fen.remove();
 					st.sync({
 						success: function(batch,opt){
 							tb.curFen = null;
 							tb.curRec = null;
 							
-							this.danga_btn = false;
 							m.select(tb.curLei);
+							this.danga_btn = false;
 						},
 						failure: function(batch,opt){
 							Ext.Msg.alert('警告','删除份出错!');
@@ -2001,7 +2013,9 @@ Ext.define('FV.controller.RenYs', {
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
 			st = this.getDangAsStore(),
-			rec = tb.curRec;
+			rec = tb.curRec,
+			fen = tb.curFen,
+			lei = tb.curLei;
 		if(rec==null||rec.get('pid')<=0){
 			Ext.Msg.alert('警告','请先选择页！');
 			this.danga_btn = false;
@@ -2012,10 +2026,13 @@ Ext.define('FV.controller.RenYs', {
 				var m = tb.tree.getSelectionModel();
 				m.deselect(rec);
 				rec.remove();
+				lei.set('页数',lei.get('页数')-1);
+				lei.commit();
+				fen.set('页数',fen.get('页数')-1);
 				st.sync({
 					success: function(batch,opt){
 						tb.curRec = null;
-						m.select(tb.curFen);
+						m.select(fen);
 						this.danga_btn = false;
 					},
 					failure: function(batch,opt){
@@ -2057,6 +2074,8 @@ Ext.define('FV.controller.RenYs', {
 						success: function(batch,opt){
 							tb.curFen = null;
 							tb.curRec = null;
+							rec.set('页数',0);
+							rec.commit();
 							m.select(rec);
 							this.danga_btn = false;
 						},
