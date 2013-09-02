@@ -381,6 +381,9 @@ Ext.define('FV.controller.RenYs', {
 			},
 			'danganshow button[action=delete3]': {
 				click: this.danganshow_delete3
+			},
+			'danganshow button[action=prt]': {
+				click: this.danganshow_prt
 			}
         });
     },
@@ -2090,6 +2093,38 @@ Ext.define('FV.controller.RenYs', {
 		};
 		tb.tree.expandNode(rec,true,fff,this);
 	},
+	danganshow_prt: function(){
+		var win = this.getDangAnShow(),
+			tb = this._init_ds_tb(win),
+			img = tb.img,
+			rec = tb.curRec,
+			pid = rec.get('pid'),
+			url = [];
+		if(rec==null||pid==0){
+			Ext.Msg.alert('警告','请先选择页或者份！');
+			return;
+		}
+		if(pid<0){
+			var fff = function(){
+				if(!rec.hasChildNodes()){
+					Ext.Msg.alert('信息','无档案内容。');
+					return;
+				}
+				rec.eachChild(function(r){
+					url[url.length]='/data/danga.app?name='+r.get('id')+'.'+r.get('ext');
+				});
+				FV.lib.Utils.printUrl(url);
+			}
+			if(rec.isExpanded()){
+				fff.call(this);
+			}else{
+				tb.tree.expandNode(rec,false,fff,this);
+			}
+		}else{
+			url.push('/data/danga.app?name='+rec.get('id')+'.'+rec.get('ext'));
+			FV.lib.Utils.printUrl(url);
+		}
+	},
 	danganshow_upload: function(btn){
 		var win = this.getDangAnShow(),
 			tb = this._init_ds_tb(win),
@@ -2400,6 +2435,5 @@ Ext.define('FV.controller.RenYs', {
 			update: upfun,
 			scope: this
 		});
-	},
-
+	}
 });

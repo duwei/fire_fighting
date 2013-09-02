@@ -10,6 +10,9 @@
 .add {
     background-image: url( ../images/add.gif ) !important;
 }
+.printer {
+    background-image: url( ../images/printer.png ) !important;
+}
 .add16 {
     background-image: url( ../images/add16.gif ) !important;
 }

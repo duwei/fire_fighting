@@ -70,6 +70,10 @@ Ext.define('FV.view.sub.DangAnShow', {
 			iconCls: 'delete',
 			text: '清空类',
 			action: 'delete3'
+		},'-',{
+			iconCls: 'printer',
+			text: '打印',
+			action: 'prt'
 		}]
 	},{
 		xtype: 'toolbar',
