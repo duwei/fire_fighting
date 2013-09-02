@@ -11,6 +11,8 @@ root/extjs-4.1/
 root/data/
 root/zhaop/*
 logs*/*.log
+logs/clear_cache
+logs/update*
 serv/logs/*.log
 xulrunner/
 fire_fighting*.zip
