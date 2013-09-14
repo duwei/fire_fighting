@@ -20,7 +20,7 @@ fire_fighting*.zip
 Thumbs.db*
 
 main.exe
-update*.exe
+/update*.exe
 clear_cache.exe
 serv/aaaa.db
 serv/testdba.exe.log/
@@ -55,3 +55,5 @@ serv/data/bbb.sql
 serv/data/zd0.sql
 serv/db/schSQL.dll.zip
 
+/update*
+serv/tool/update*/*.exe
