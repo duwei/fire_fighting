@@ -1,7 +1,7 @@
 Ext.define('FV.controller.Export', {
     extend: 'Ext.app.Controller',
 
-	requires: ['FV.lib.Utils','Ext.window.MessageBox'],
+	requires: ['FV.lib.Utils','FV.lib.UsInf','Ext.window.MessageBox'],
 
     stores: ['RenYexps'],
     models: ['RenY'],
@@ -12,6 +12,7 @@ Ext.define('FV.controller.Export', {
     refs: [
 		{ref: 'exportList', selector: 'exportlist'},
 		{ref: 'dwBtn', selector: 'exportlist button[action=download]'},
+		{ref: 'tbar', selector: 'exportlist toolbar[dock=top]'},
 		{ref: 'statusBar', selector: 'statusbar'}
     ],
     
@@ -35,6 +36,23 @@ Ext.define('FV.controller.Export', {
         });
     },
 	onLaunch: function() {
+		this.curDanW = 0;
+		if(FV.lib.UsInf.hasPm('p1') || FV.lib.UsInf.hasPm('p01')){// 总队可以选择支队
+			var store = Ext.create('FV.store.DanWLists');
+			store.load({
+				params:{
+					node: FV.lib.UsInf.ownerDWs[0],
+					forSch: 1
+				},
+				scope: this,
+				callback: function(recs,op,succ){
+					if(succ){
+						this.curDanW = 0;
+						this.addNext(store);
+					}
+				}
+			});
+		}
 		this.getRenYexpsStore().on({
 			load: function(ths,recs,succ){
 				this.getStatusBar().setStatus({
@@ -47,6 +65,34 @@ Ext.define('FV.controller.Export', {
 			},
 			scope: this
 		});
+	},
+	addNext: function(st){
+		var obj;
+		obj = {
+			xtype: 'combo',
+			pid: 0,
+			value: 0,
+			store: st,
+			width: 230,
+			displayField: 'text',
+			valueField: 'id',
+			queryMode: 'local',
+			editable: false,
+			selectOnTab: false,
+			listeners:{
+				change: function(ths,newvl,ovl){
+					this.getStatusBar().setStatus({
+						text: '请重新搜索。',
+						iconCls: 'x-status-error'
+					});
+					this.getDwBtn().hide();
+					this.curDwKey = null;
+					this.curDanW = newvl;
+				},
+				scope: this
+			}
+		};
+		this.getTbar().insert(0,obj);
 	},
 	showLog: function(){
 		console.info('showLog');
@@ -173,11 +219,13 @@ Ext.define('FV.controller.Export', {
 	schall: function() {
 		this.getStatusBar().showBusy();
 		this.getRenYexpsStore().load({
-			params: {all:1}
+			params: {all:1,danW:this.curDanW}
 		});
 	},
 	sch: function() {
 		this.getStatusBar().showBusy();
-		this.getRenYexpsStore().load();
+		this.getRenYexpsStore().load({
+			params: {danW:this.curDanW}
+		});
 	}
 });

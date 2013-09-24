@@ -810,6 +810,11 @@
                     "path": "../extjs-4.1/src/draw/engine/"
                 },
                 {
+                    "clsName": "FV.lib.UsInf",
+                    "name": "UsInf.js",
+                    "path": "app/lib/"
+                },
+                {
                     "clsName": "FV.lib.Utils",
                     "name": "Utils.js",
                     "path": "app/lib/"
