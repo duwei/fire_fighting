@@ -57,3 +57,4 @@ serv/db/schSQL.dll.zip
 
 /update*
 serv/tool/update*/*.exe
+/others/
