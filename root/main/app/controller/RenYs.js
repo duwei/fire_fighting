@@ -349,6 +349,12 @@ Ext.define('FV.controller.RenYs', {
 			'dangandetails button[action=save]': {
 				click: this.dangandetails_save
 			},
+			'dangandetails button[action=openGui]': {
+				click: this.dangandetails_openGui
+			},
+			'dangandetails button[action=closeGui]': {
+				click: this.dangandetails_closeGui
+			},
 			'danganshow button[action=add1]': {
 				click: this.danganshow_add1
 			},
@@ -1649,6 +1655,12 @@ Ext.define('FV.controller.RenYs', {
 			},
 			scope: this
 		});
+	},
+	dangandetails_openGui: function(btn){
+		console.log('openGui');
+	},
+	dangandetails_closeGui: function(btn){
+		console.log('closeGui');
 	},
 	_init_ds_tb: function(win){
 		var tb = this.danganshow_tb;

@@ -201,12 +201,35 @@ Ext.define('FV.view.sub.DangAnDetails', {
 					items: [{
 						items: [{
 							fieldLabel: '档案号',
+							flex: 4,
 							name: '档案号'
-						}, 
+						}, {
+							fieldLabel: 'RFID',
+							flex: 2,
+							name: '条形码'
+						}, {
+							xtype: 'numberfield',
+							allowDecimals: false,
+							minValue: 1,
+							maxValue: 10,
+							fieldLabel: '档案柜',
+							flex: 1,
+							name: '档案柜'
+						}, {
+							xtype: 'numberfield',
+							allowDecimals: false,
+							minValue: 1,
+							maxValue: 10,
+							fieldLabel: '层数',
+							flex: 1,
+							name: '层数'
+						}]
+					},{
+						items: [
 							FV.lib.KeyMapMng.getCombField('档案现状','档案现状','DangAnXZhs',false), 
 						{
 							fieldLabel: '存放位置',
-							flex: 2,
+							flex: 3,
 							name: '存放位置'
 						}]
 					},{
@@ -270,14 +293,11 @@ Ext.define('FV.view.sub.DangAnDetails', {
 							name: '缺件情况'
 						}]
 					},{
+						anchor: '50%',
 						items: [
 							FV.lib.KeyMapMng.getCombField('扫描档案','扫描档案','YouWs',false), 
-							FV.lib.KeyMapMng.getCombField('扫描照片','扫描照片','YouWs',false), 
-						{
-							fieldLabel: '条形码',
-							flex: 2,
-							name: '条形码'
-						}]
+							FV.lib.KeyMapMng.getCombField('扫描照片','扫描照片','YouWs',false)
+						]
 					}]
 				},{
 					xtype: 'fieldset',
@@ -379,6 +399,16 @@ Ext.define('FV.view.sub.DangAnDetails', {
 				buttons: [{
 					text: '保存',
 					action: 'save'
+				},{
+					text: '关闭',
+					scope: this,
+					handler: function(){this.up('danganinfo').close();}
+				},'-',{
+					text: '打开档案柜',
+					action: 'openGui'
+				},{
+					text: '关闭档案柜',
+					action: 'closeGui'
 				}]
 			}]
         });
