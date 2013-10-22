@@ -58,3 +58,5 @@ serv/db/schSQL.dll.zip
 /update*
 serv/tool/update*/*.exe
 /others/
+fire_fighting.7z
+dbtools.exe
