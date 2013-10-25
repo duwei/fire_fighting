@@ -26,6 +26,7 @@ Ext.define('FV.view.sch.List', {
 				{text: '单位',	dataIndex:'单位',	width:250 },
 				{text: '职务',	dataIndex:'职务',	width:100 },
 				{text: '姓名',	dataIndex:'姓名',	width:60,renderer: this.xingM },
+				{text: '性别',	dataIndex:'性别',	width:40 },
 				{text: '出生时间',	dataIndex:'出生时间',	width:80, renderer:FV.lib.KeyMapMng.formatDate},
 				{text: '年龄',	dataIndex:'年龄',	width:40 },
 				{text: '入伍时间',	dataIndex:'入伍时间',	width:80, renderer:FV.lib.KeyMapMng.formatDate },
