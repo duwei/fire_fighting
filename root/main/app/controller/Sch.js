@@ -3,7 +3,7 @@ Ext.define('FV.controller.Sch', {
 
 	requires: [],
 
-    stores: ['TongJ1','TongJ2','TongJ3','TongJ4','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
+    stores: ['TongJ1','TongJ2','TongJ3','TongJ4','TongJ5','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
     models: ['DanWList'],
     views: [
 		'sub.JiangLLst',
@@ -19,6 +19,7 @@ Ext.define('FV.controller.Sch', {
 		'sch.TongJ2',
 		'sch.TongJ3',
 		'sch.TongJ4',
+		'sch.TongJ5',
 		'sch.Tab'
 	],
     

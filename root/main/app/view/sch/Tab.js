@@ -98,7 +98,26 @@ Ext.define('FV.view.sch.Tab', {
 			]
 		},
 		{
-			title:'统计表（五）'
+			title:'统计表（五）',
+			layout: {
+				type:'vbox',
+				padding:'2',
+				align:'stretch'
+			},
+			items: [
+				{
+					frame: true,
+					html: '<div style="text-align: center;font-size: 16px;">支队级班子成员年龄分析</div>'
+				},
+				{
+					frame: true,
+					layout: 'ux.center',
+					items:{
+						xtype: 'tongj5list',
+					},
+					flex: 1
+				}
+			]
 		},
 		{
 			title:'饼图'
