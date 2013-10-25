@@ -423,7 +423,7 @@ Ext.define('FV.controller.RenYs', {
 	},
 	wenZhGB_chg: function(fld,newVl,oldVl){
 		var fm = fld.up('form'),
-			zwdj = fm.down('combobox[fieldLabel=行政职务等级]'),
+			zwdj = fm.down('combobox[fieldLabel=职务等级]'),
 			jxwj = fm.down('combobox[fieldLabel=警衔文级]'),
 			rec = fm.getRecord(),
 			zw = rec.get('行政职务等级'),
