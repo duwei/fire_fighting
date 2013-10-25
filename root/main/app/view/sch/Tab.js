@@ -32,7 +32,26 @@ Ext.define('FV.view.sch.Tab', {
 			]
 		},
 		{
-			title:'统计表（二）'
+			title:'统计表（二）',
+			layout: {
+				type:'vbox',
+				padding:'2',
+				align:'stretch'
+			},
+			items: [
+				{
+					frame: true,
+					html: '<div style="text-align: center;font-size: 16px;">山东省公安消防部队干部数质量统计表（二）</div>'
+				},
+				{
+					frame: true,
+					layout: 'ux.center',
+					items:{
+						xtype: 'tongj2list',
+					},
+					flex: 1
+				}
+			]
 		},
 		{
 			title:'统计表（三）'
