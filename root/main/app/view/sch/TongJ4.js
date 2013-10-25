@@ -68,12 +68,10 @@ Ext.define('FV.view.sch.TongJ4', {
                 items: [{
                     iconCls: 'refresh',
                     text: '刷新',
-                    action: 'sch'
-                },'-',{
-                    iconCls: 'refresh',
-                    text: '结果下载',
-					hidden: true,
-                    action: 'download'
+                    handler: function(btn){
+						this.store.load();
+					},
+					scope: this
                 }]
             }]
         });

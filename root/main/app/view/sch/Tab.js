@@ -120,7 +120,8 @@ Ext.define('FV.view.sch.Tab', {
 			]
 		},
 		{
-			title:'饼图'
+			title:'饼图',
+			xtype: 'schchart'
 		},
 		{
 			title:'综合查询',
