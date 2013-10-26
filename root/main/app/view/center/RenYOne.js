@@ -355,7 +355,16 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '上次评审时间',
 							name: '上次评审时间'
 						}]
-					},{
+					}]
+				},{
+					xtype: 'fieldset',
+					title: '技术资格',
+					defaultType: 'textfield',
+					layout: 'anchor',
+					defaults: {
+						anchor: '100%'
+					},
+					items: [{
 						xtype: 'container',
 						layout: 'hbox',
 						defaultType: 'datefield',
