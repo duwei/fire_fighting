@@ -14,6 +14,7 @@ Ext.define('FV.view.west.MenuTree', {
 		}
 		c.push({ text: "数据导出", leaf: true, url:'/main/export.app',iframe:true });
 		c.push({ text: "数据导入", leaf: true, url:'/main/import.app',iframe:true });
+		c.push({ text: "档案柜盘库", leaf: true, url:'/main/panku.app',iframe:true });
 		c.push({ text: "修改密码", leaf: true });
 		c.push({ text: "恢复数据库备份", leaf: true });
 		//c.push({ text: "系统安全", leaf: true });// 数据库手工备份／恢复
