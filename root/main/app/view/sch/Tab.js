@@ -28,6 +28,7 @@ Ext.define('FV.view.sch.Tab', {
 				{
 					frame: true,
 					layout: 'ux.center',
+					autoScroll:true,
 					items:{
 						xtype: 'tongj1list',
 					},
@@ -50,6 +51,7 @@ Ext.define('FV.view.sch.Tab', {
 				{
 					frame: true,
 					layout: 'ux.center',
+					autoScroll:true,
 					items:{
 						xtype: 'tongj2list',
 					},
@@ -72,6 +74,7 @@ Ext.define('FV.view.sch.Tab', {
 				{
 					frame: true,
 					layout: 'ux.center',
+					autoScroll:true,
 					items:{
 						xtype: 'tongj3list',
 					},
@@ -94,6 +97,7 @@ Ext.define('FV.view.sch.Tab', {
 				{
 					frame: true,
 					layout: 'ux.center',
+					autoScroll:true,
 					items:{
 						xtype: 'tongj4list',
 					},
@@ -116,6 +120,7 @@ Ext.define('FV.view.sch.Tab', {
 				{
 					frame: true,
 					layout: 'ux.center',
+					autoScroll:true,
 					items:{
 						xtype: 'tongj5list',
 					},
