@@ -79,10 +79,10 @@ Ext.define('FV.view.sch.SchChart', {
 				border: false,
 				width:800,
 				html:'<p style="font-size: 16px; font-weight: bold; text-align: center; padding: 20px 20px 0px;">干部信息概述</p>'
-					+'<p style="font-size: 14px; padding: 10px;text-indent: 2em;line-height: 1.5;">全省公安消防部队共有在职干部1000名，男警员800名，女警员200名。'
-					+'行政警官800名，占干部总数的80%，其中，副军职1名，正师职1名，副师职1名，正团职1名，副团职1名，正营职1名，副营职1名，正连职1名，副连职1名，排职1名。'
-					+'专业技术警官400名，其中，5级2名，6级2名，7级2名，8级2名，9级2名，10级2名，11级2名，12级2名，13级2名，14级2名；'
-					+'高级专业技术职务1名，中级1名，初级1名；高级专业技术资格1名，中级1名，初级1名。'
+					+'<p style="font-size: 14px; padding: 10px;text-indent: 2em;line-height: 1.5;">全省公安消防部队共有在职干部<span id="gaiSh1">___</span>名，男警员<span id="gaiSh2">___</span>名，女警员<span id="gaiSh3">___</span>名。'
+					+'<span id="gaiSh4">行政警官800名，占干部总数的80%，其中，副军职1名，正师职1名，副师职1名，正团职1名，副团职1名，正营职1名，副营职1名，正连职1名，副连职1名，排职1名</span>。'
+					+'<span id="gaiSh5">专业技术警官400名，其中，5级2名，6级2名，7级2名，8级2名，9级2名，10级2名，11级2名，12级2名，13级2名，14级2名</span>；'
+					+'<span id="gaiSh5">高级专业技术职务1名，中级1名，初级1名；高级专业技术资格1名，中级1名，初级1名</span>。'
 					+'</p>'
 			},{
 				border: false,
