@@ -42,7 +42,8 @@ Ext.define('FV.controller.RenYs', {
 		'FV.lib.UsInf',
 		'FV.lib.Utils',
 		'FV.lib.KeyMapMng',
-		'Ext.window.MessageBox'
+		'Ext.window.MessageBox',
+		'FV.lib.Config'
 	],
 	
     stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs','DangAs'],
@@ -63,7 +64,8 @@ Ext.define('FV.controller.RenYs', {
 		'center.ZhanBWindow',
 		'center.BianZhWindow',
 		'center.RenYMain',
-		'center.RenYOne'
+		'center.RenYOne',
+		'center.PwdWindow'
 	],
     
     refs: [
@@ -163,7 +165,14 @@ Ext.define('FV.controller.RenYs', {
 			selector: 'danganinfo'
 		},
 		{ref: 'dangAnTree', selector: 'dangantree'},
-		{ref: 'dangAnShow', selector: 'danganshow'}
+		{ref: 'dangAnShow', selector: 'danganshow'},
+        {ref: 'pwdForm', selector: 'pwdwindow form'},
+        {
+            ref: 'pwdWindow', 
+            selector: 'pwdwindow', 
+            autoCreate: true,
+            xtype: 'pwdwindow'
+        }
     ],
     
     // At this point things haven't rendered yet since init gets called on controllers before the launch function
@@ -390,7 +399,10 @@ Ext.define('FV.controller.RenYs', {
 			},
 			'danganshow button[action=prt]': {
 				click: this.danganshow_prt
-			}
+			},
+            'pwdwindow button[action=save]': {
+				click: this.pwdwindow_save
+            }
         });
     },
     onLaunch: function() {
@@ -1657,10 +1669,110 @@ Ext.define('FV.controller.RenYs', {
 		});
 	},
 	dangandetails_openGui: function(btn){
-		console.log('openGui');
+		var win = this.getPwdWindow(),
+			form = this.getPwdForm(),
+			ff = form.getForm();
+		ff.reset();
+		win.show();
+	},
+	dangAnGuiCtrl: function(param,cb){
+		var ccb = cb;
+		var fail = function(response){
+			console.log('服务器错误');
+			console.dir(response);
+			Ext.Msg.alert('错误！','服务器错误');
+		};
+		var succ = function(response){
+			var m = response.responseText,a;
+			if(m=='PWDERR'){
+				Ext.Msg.alert('错误！','密码错误，请重新输入。');
+			}else if(m=='ERR'){
+				Ext.Msg.alert('错误！','网络错误，请确保档案柜管理系统正确启动。');
+			}else{
+				a = m||'';
+				a = a.split(',');
+				if(a.length<4){
+					Ext.Msg.alert('错误！','协议错误：'+m);
+				}else{
+					if(a[3]=='9'){
+						var task = new Ext.util.DelayedTask(function(){
+							Ext.Ajax.request({
+								url: '/ctrl/tcp.app',
+								params: {
+									ip: FV.lib.Config.gui_ip,
+									port: FV.lib.Config.gui_port,
+									data: '4,AA,9'
+								},
+								success: succ,
+								failure: fail,
+								scope: this
+							});
+						});
+						task.delay(500);
+					}else if(a[3]=='0'){
+						Ext.Msg.alert('成功！','操作成功.',function(){if(ccb)ccb.call(this);});
+					}else{
+						Ext.Msg.alert('错误！','协议错误：'+m);
+					}
+				}
+			}
+		};
+		Ext.Ajax.request({
+			url: '/ctrl/tcp.app',
+			params: param,
+			success: succ,
+			failure: fail,
+			scope: this
+		});
+	},
+	pwdwindow_save: function(btn){
+		var win = this.getPwdWindow(),
+			form = this.getPwdForm(),
+			vs = form.getValues(),
+			v,g,c;
+			
+		v = vs.password;
+		if(!v || v.trim()==''){
+			Ext.Msg.alert('警告','请输入密码。');
+			return;
+		}
+		g = this.getDangAnInfo();
+		form = g.down('form[formId=dangAnBase]');
+		vs = form.getValues();
+		g = vs['档案柜'];
+		c = vs['层数'];
+		if(!g || g==0 || !c || c==0){
+			Ext.Msg.alert('警告','请输入档案柜和层数。');
+			return;
+		}
+		g = 'AA,1,'+g+','+c+',1';
+		g = g.length+','+g;
+		this.dangAnGuiCtrl({
+				pwd: v,
+				ip: FV.lib.Config.gui_ip,
+				port: FV.lib.Config.gui_port,
+				data: g
+			},function(){
+				win.close();
+			});
 	},
 	dangandetails_closeGui: function(btn){
-		console.log('closeGui');
+		var g = this.getDangAnInfo();
+		var form = g.down('form[formId=dangAnBase]');
+		var vs = form.getValues();
+		g = vs['档案柜'];
+		c = vs['层数'];
+		if(!g || g==0 || !c || c==0){
+			Ext.Msg.alert('警告','请输入档案柜和层数。');
+			return;
+		}
+		g = 'AA,1,'+g+','+c+',2';
+		g = g.length+','+g;
+		this.dangAnGuiCtrl({
+				ip: FV.lib.Config.gui_ip,
+				port: FV.lib.Config.gui_port,
+				data: g
+			});
 	},
 	_init_ds_tb: function(win){
 		var tb = this.danganshow_tb;
