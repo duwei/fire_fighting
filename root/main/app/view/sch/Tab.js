@@ -10,6 +10,10 @@ Ext.define('FV.view.sch.Tab', {
     initComponent: function() {
         this.items = [
 		{
+			title:'饼图',
+			xtype: 'schchart'
+		},
+		{
 			title:'统计表（一）',
 			layout: {
 				type:'vbox',
@@ -118,10 +122,6 @@ Ext.define('FV.view.sch.Tab', {
 					flex: 1
 				}
 			]
-		},
-		{
-			title:'饼图',
-			xtype: 'schchart'
 		},
 		{
 			title:'综合查询',
