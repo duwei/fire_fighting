@@ -267,6 +267,9 @@ Ext.define('FV.controller.RenYs', {
             'xuandry button[action=importDangAn]': {
                 click: this.xd_importDangAn
             },
+            'xuandry button[action=closeAllGui]': {
+                click: this.xd_closeAllGui
+            },
 			'renyone image': {
 				afterrender: this.addImageMenu
             },
@@ -1772,6 +1775,13 @@ Ext.define('FV.controller.RenYs', {
 				ip: FV.lib.Config.gui_ip,
 				port: FV.lib.Config.gui_port,
 				data: g
+			});
+	},
+	xd_closeAllGui: function(btn){
+		this.dangAnGuiCtrl({
+				ip: FV.lib.Config.gui_ip,
+				port: FV.lib.Config.gui_port,
+				data: '10,AA,1,0,0,2'
 			});
 	},
 	_init_ds_tb: function(win){
