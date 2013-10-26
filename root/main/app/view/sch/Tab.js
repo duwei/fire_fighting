@@ -10,7 +10,7 @@ Ext.define('FV.view.sch.Tab', {
     initComponent: function() {
         this.items = [
 		{
-			title:'饼图',
+			title:'概述',
 			xtype: 'schchart'
 		},
 		{

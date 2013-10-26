@@ -36,8 +36,8 @@ Ext.define('FV.view.sch.TongJ5', {
 				{text: '32岁',	dataIndex:'n32',	width:40, renderer: this.shuZi },
 				{text: '31岁',	dataIndex:'n31',	width:40, renderer: this.shuZi },
 				{text: '30以下',	dataIndex:'n30',	width:50, renderer: this.shuZi },
-				{text: '平均年龄',	dataIndex:'平均年龄',	width:60, renderer: this.shuZi },
-				{text: '主官平均年龄',	dataIndex:'主官平均年龄',	width:80, renderer: this.shuZi }
+				{text: '平均年龄',	dataIndex:'平均年龄',	width:60, renderer: this.shuZi2 },
+				{text: '主官平均年龄',	dataIndex:'主官平均年龄',	width:80, renderer: this.shuZi2 }
 			],
             dockedItems:[{
                 xtype: 'toolbar',
@@ -69,6 +69,10 @@ Ext.define('FV.view.sch.TongJ5', {
     },
 	shuZi: function(vl,metaData,record,rowIndex,colIndex,store,view){
 		if(vl>0)return vl;
+		return '';
+	},
+	shuZi2: function(vl,metaData,record,rowIndex,colIndex,store,view){
+		if(vl>0)return Ext.util.Format.number(vl,'0.00');
 		return '';
 	},
 	biLi: function(vl,metaData,record,rowIndex,colIndex,store,view){
