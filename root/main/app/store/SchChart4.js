@@ -3,7 +3,7 @@ Ext.define('FV.store.SchChart4', {
 
     requires: ['FV.reader.MyJson'],
 
-    model: 'FV.model.LabelValue',
+    model: 'FV.model.SchChart',
 
 	autoLoad: true,
 	proxy: {
