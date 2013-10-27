@@ -7,7 +7,7 @@ Ext.define('FV.view.west.MenuTree', {
 
     initComponent: function() {
 		var c = [
-			{ text: "综合查询", leaf: true, url:'/main/sch.app',iframe:true }
+			{ text: "统计查询", leaf: true, url:'/main/sch.app',iframe:true }
 		];
 		if(FV.lib.UsInf.hasPm('p01') || FV.lib.UsInf.hasPm('p02')){
 			c.push({ text: "主任签发", leaf: true, url:'/main/qianf.app',iframe:true });

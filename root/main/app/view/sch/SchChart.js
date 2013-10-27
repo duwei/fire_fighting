@@ -49,7 +49,7 @@ Ext.define('FV.view.sch.SchChart', {
 							});
 							this.tttt = total;
 						}
-						this.setTitle(storeItem.get('label') + ': ' + Ext.util.Format.number(storeItem.get('value') / total * 100,'0.00') + '%,共'+storeItem.get('value')+'位');
+						this.setTitle(storeItem.get('label') + ': ' + Ext.util.Format.number(storeItem.get('value') / total * 100,'0.00') + '%,共'+storeItem.get('value')+'名');
 					  }
 					},
 					highlight: {
