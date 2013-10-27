@@ -32,6 +32,7 @@ Ext.define('FV.controller.Panku', {
 				});
 				this.data_num = succ?recs.length:0;
 				this.curDwKey = null;
+				Ext.Msg.hide();
 			},
 			scope: this
 		});
@@ -78,6 +79,7 @@ Ext.define('FV.controller.Panku', {
 				}
 			}
 		};
+		Ext.Msg.wait('请稍候','正在操作档案柜...','');
 		Ext.Ajax.request({
 			url: '/ctrl/tcp.app',
 			params: param,
