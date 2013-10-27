@@ -20,7 +20,6 @@ color: #2C2D31;
 margin: 0;
 padding: 0;
 text-align: center;
-background-color: #DFE8F6;
 }
 img, form {
 border: medium none;
@@ -50,7 +49,7 @@ top: 0;
 left: 0;
 margin: 0;
 right: 0;
-height: 410px;
+height: 560px;
 }
 table {
 border: 0 none;
@@ -153,11 +152,10 @@ font-weight: normal;
 clear: both;
 }
 .loginForm {
-    left: 140px;
     margin: 0 auto;
     position: relative;
     text-align: left;
-    top: 270px;
+    width: 240px;
 }
 .loginForm td.labelCell {
 text-align: right;
@@ -181,7 +179,9 @@ padding: 2px;
 text-align: left;
 }
 .loginEntries {
-width: 18ex;
+    border: 0 none;
+    font-size: 20px;
+    width: 180px;
 }
 .loginButton {
 float: right;
@@ -256,24 +256,11 @@ function init(){
         </h1>
     </div>
 <div class="mainPane">
-<table class="loginForm">
-<tbody>
-<tr>
-    <td class="labelCell"><label class="" for="user" id="lblUserName">用户名:</label></td>
-    <td><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></td>
-</tr>
-<tr>
-    <td class="labelCell"><label for="password" id="lblPasswd">密  码:</label></td>
-    <td><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></td>
-</tr>
-<tr>
-    <td class="loginButtonPane" colspan="2">
-        <div class="customButton loginButton">
-            <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><span class="rightDoor">登录</span></a>
-        </div>
-    </td>
-</tr>
-</tbody></table>
+    <div class="loginForm" style="top: 496px; left: -220px;"><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></div>
+    <div class="loginForm" style="left: 150px; top: 460px;"><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></div>
+    <div class="loginForm" style="top: 414px; left: 371px;">
+        <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><img src="images/s.gif" height="50" width="140"></a>
+    </div>
 </div>
 </div>
 </div>
