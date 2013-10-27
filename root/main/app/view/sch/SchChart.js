@@ -76,14 +76,20 @@ Ext.define('FV.view.sch.SchChart', {
 			},
 			autoScroll:true,
 			items:[{
+				id: 'gaiShuInfo',
 				border: false,
 				width:800,
-				html:'<p style="font-size: 16px; font-weight: bold; text-align: center; padding: 20px 20px 0px;">干部信息概述</p>'
-					+'<p style="font-size: 14px; padding: 10px;text-indent: 2em;line-height: 1.5;">全省公安消防部队共有在职干部<span id="gaiSh1">___</span>名，男警员<span id="gaiSh2">___</span>名，女警员<span id="gaiSh3">___</span>名。'
-					+'<span id="gaiSh4">行政警官800名，占干部总数的80%，其中，副军职1名，正师职1名，副师职1名，正团职1名，副团职1名，正营职1名，副营职1名，正连职1名，副连职1名，排职1名</span>。'
-					+'<span id="gaiSh5">专业技术警官400名，其中，5级2名，6级2名，7级2名，8级2名，9级2名，10级2名，11级2名，12级2名，13级2名，14级2名</span>；'
-					+'<span id="gaiSh5">高级专业技术职务1名，中级1名，初级1名；高级专业技术资格1名，中级1名，初级1名</span>。'
-					+'</p>'
+				tpl:['<p style="font-size: 16px; font-weight: bold; text-align: center; padding: 20px 20px 0px;">干部信息概述</p>'
+					,'<p style="font-size: 14px; padding: 10px;text-indent: 2em;line-height: 1.5;">全省公安消防部队共有在职干部{t1}名，男警员{t2}名，女警员{t3}名。'
+					,'行政警官{t4}名，占干部总数的{[this.biLi(values.t4,values.t1)]}%，其中，副军职{t5}名，正师职{t6}名，副师职{t7}名，正团职{t8}名，副团职{t9}名，正营职{t10}名，副营职{t11}名，正连职{t12}名，副连职{t13}名，排职{t14}名。'
+					,'专业技术警官{t15}名，其中，5级{t16}名，6级{t17}名，7级{t18}名，8级{t19}名，9级{t20}名，10级{t21}名，11级{t22}名，12级{t23}名，13级{t24}名，14级{t25}名；'
+					,'高级专业技术职务{t26}名，中级{t27}名，初级{t28}名；高级专业技术资格{t29}名，中级{t30}名，初级{t31}名。'
+					,'</p>'
+					,{
+						biLi: function(v,t){
+							return Ext.util.Format.number(v*100/t,'0.00');
+						}
+					}]
 			},{
 				border: false,
 				items: [
