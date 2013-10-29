@@ -1720,7 +1720,7 @@ Ext.define('FV.controller.RenYs', {
 				}
 			}
 		};
-		Ext.Msg.wait('请稍候','正在操作档案柜...','');
+		Ext.Msg.wait('请稍候','正在操作...','');
 		Ext.Ajax.request({
 			url: '/ctrl/tcp.app',
 			params: param,

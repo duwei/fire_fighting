@@ -23,15 +23,12 @@ Ext.define('FV.controller.Panku', {
         });
     },
 	onLaunch: function() {
-		this.curDanW = 0;
 		this.getPankuStore().on({
 			load: function(ths,recs,succ){
 				this.getStatusBar().setStatus({
-					text:succ?'共'+recs.length+'条数据。':'发生错误！',
+					text:succ?'从档案柜中共读出'+this.panku_num+'份档案。':'发生错误！',
 					iconCls: succ?'x-status-valid':'x-status-error'
 				});
-				this.data_num = succ?recs.length:0;
-				this.curDwKey = null;
 				Ext.Msg.hide();
 			},
 			scope: this
@@ -101,10 +98,11 @@ Ext.define('FV.controller.Panku', {
 			port: FV.lib.Config.gui_port,
 			data: m
 		},function(a){
-			var b = a[5];
+			var b = a[6];
 			if(b){
 				b = b.split('|');
-				//if(b.length!=a[4]){}///判断协议
+				//if(b.length!=a[5]){}///判断协议
+				this.panku_num = a[5];
 				this.getPankuStore().load({
 					params: {
 						gui: g,

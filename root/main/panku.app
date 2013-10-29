@@ -21,6 +21,12 @@
 	<script type="text/javascript" src="panku.js"></script>
 
 	<style type="text/css" media="screen">
+		.sch_chaobian .x-grid-cell {
+			background-color:#FFFFBB !important;
+		}
+		.sch_kongbian .x-grid-cell {
+			background-color:#FFBBFF !important;
+		}
 		.my-disabledCls .x-mask {
 			opacity: 0 !important;
 		}
