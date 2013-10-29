@@ -22,7 +22,7 @@
     <script type="text/javascript" src="sch2.js"></script>
 
     <style type="text/css" media="screen">
-		.x-btn-default-small .x-btn-inner {
+		.m-btn.x-btn-default-small .x-btn-inner {
 			font-size: 14px;
 			font-weight: bold;
 		}

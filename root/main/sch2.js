@@ -30,6 +30,7 @@ Ext.application({
 						align:'stretch'
 					},
 					defaults:{
+						cls: 'm-btn',
 						margins:'0 0 20 0',
 						height: 40
 					},
@@ -60,6 +61,7 @@ Ext.application({
 					},{
 						xtype:'button',
 						text: '系统设置',
+						menuAlign: 'tr-br?',
 						menu:[{
 							action: 'btn7',
 							text:'修改密码'
