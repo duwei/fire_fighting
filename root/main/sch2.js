@@ -36,28 +36,30 @@ Ext.application({
 					},
 					items: [{
 						xtype:'button',
-						action: 'btn1',
-						text: '统计查询'
+						action: 'btn2',
+						text: '信息维护'
 					},{
 						xtype:'button',
-						action: 'btn2',
-						text: '编辑维护'
+						action: 'btn1',
+						text: '统计分析'
 					},{
 						xtype:'button',
 						action: 'btn3',
-						text: '数据审核'
+						text: '数据签发'
 					},{
 						xtype:'button',
-						action: 'btn4',
-						text: '导入数据'
-					},{
-						xtype:'button',
-						action: 'btn5',
-						text: '导出数据'
-					},{
-						xtype:'button',
-						action: 'btn6',
-						text: '档案柜盘库'
+						text: '数据更新',
+						menuAlign: 'tr-br?',
+						menu:[{
+							action: 'btn5',
+							text:'导出数据'
+						},{
+							action: 'btn4',
+							text:'导入数据'
+						},{
+							action: 'btn6',
+							text:'档案柜盘库'
+						}]
 					},{
 						xtype:'button',
 						text: '系统设置',

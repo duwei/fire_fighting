@@ -45,13 +45,13 @@ Ext.define('FV.controller.Sch2', {
            'button[action=btn3]': {
                 click: this.btn3
             },
-           'button[action=btn4]': {
+           'menuitem[action=btn4]': {
                 click: this.btn4
             },
-           'button[action=btn5]': {
+           'menuitem[action=btn5]': {
                 click: this.btn5
             },
-           'button[action=btn6]': {
+           'menuitem[action=btn6]': {
                 click: this.btn6
             },
            'menuitem[action=btn7]': {
@@ -93,7 +93,7 @@ Ext.define('FV.controller.Sch2', {
 	btn1: function() {
 		var w = this.btn1_win;
 		if(w==null){
-			w = this.newWin('查询统计','sch.app');
+			w = this.newWin('统计分析','sch.app');
 			this.btn1_win = w;
 		}
 		w.show();
@@ -101,7 +101,7 @@ Ext.define('FV.controller.Sch2', {
 	btn2: function() {
 		var w = this.btn2_win;
 		if(w==null){
-			w = this.newWin('编辑','index.app');
+			w = this.newWin('信息维护','index.app');
 			this.btn2_win = w;
 		}
 		w.show();
