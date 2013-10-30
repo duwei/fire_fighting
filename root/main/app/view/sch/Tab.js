@@ -9,10 +9,10 @@ Ext.define('FV.view.sch.Tab', {
     
     initComponent: function() {
         this.items = [
-		{
-			title:'概述',
-			xtype: 'schchart'
-		},
+//		{
+//			title:'概述',
+//			xtype: 'schchart'
+//		},
 		{
 			title:'统计表（一）',
 			layout: {

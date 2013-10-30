@@ -86,6 +86,7 @@ Ext.define('FV.controller.Sch2', {
 			maximized: true,
 			resizable: false,
 			shadow: false,
+			constrain: true,
 			html:'<iframe frameborder="0" onload="" src="' + url + '" width="100%" height="100%"></iframe>'
 		});
 		return win;

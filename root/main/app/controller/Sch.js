@@ -3,7 +3,7 @@ Ext.define('FV.controller.Sch', {
 
 	requires: [],
 
-    stores: ['GaiSh','SchChart1','SchChart2','SchChart3','SchChart4','TongJ1','TongJ2','TongJ3','TongJ4','TongJ5','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
+    stores: [/*'GaiSh','SchChart1','SchChart2','SchChart3','SchChart4',*/'TongJ1','TongJ2','TongJ3','TongJ4','TongJ5','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
     models: ['DanWList'],
     views: [
 		'sub.JiangLLst',
@@ -20,7 +20,7 @@ Ext.define('FV.controller.Sch', {
 		'sch.TongJ3',
 		'sch.TongJ4',
 		'sch.TongJ5',
-		'sch.SchChart',
+		//'sch.SchChart',
 		'sch.Tab'
 	],
     
@@ -178,14 +178,14 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
-		this.getGaiShStore().on({
-			load: function(ths,recs,succ){
-				if(succ){
-					Ext.getCmp('gaiShuInfo').update(recs[0].data);
-				}
-			},
-			scope: this
-		});
+//		this.getGaiShStore().on({
+//			load: function(ths,recs,succ){
+//				if(succ){
+//					Ext.getCmp('gaiShuInfo').update(recs[0].data);
+//				}
+//			},
+//			scope: this
+//		});
 	},
 	savePwd: function(){
 		var win = this.getPwdWindow(),
