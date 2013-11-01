@@ -276,6 +276,19 @@ Ext.define('FV.view.center.RenYOne', {
 							fieldLabel: '职级时间',
 							name: '职级时间'
 						}]
+					},{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'displayfield',
+						defaults: {
+							labelWidth: 60,
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [
+							FV.lib.KeyMapMng.getCombField('人员类别','人员类别','RenYLBs',false,1,{queryMode: 'local'}),
+							{
+						}]
 					}]
 				},{
 					xtype: 'fieldset',
@@ -354,6 +367,19 @@ Ext.define('FV.view.center.RenYOne', {
 							submitFormat : 'Ymd',
 							fieldLabel: '上次评审时间',
 							name: '上次评审时间'
+						}]
+					},{
+						xtype: 'container',
+						layout: 'hbox',
+						defaultType: 'displayfield',
+						defaults: {
+							labelWidth: 60,
+							flex: 1,
+							margin:'0 0 5 0'
+						},
+						items: [
+							FV.lib.KeyMapMng.getCombField('技术系列','专业系列','JiShXL2s',false,1,{queryMode: 'local'}),
+							{
 						}]
 					}]
 				},{
