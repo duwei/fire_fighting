@@ -15,6 +15,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
     closeAction: 'hide',
     iconCls: 'slct-bianzh',
     layout: 'fit',
+	constrainHeader: true,
 
     initComponent: function() {
         Ext.apply(this, {

@@ -37,11 +37,15 @@ Ext.application({
 					items: [{
 						xtype:'button',
 						action: 'btn2',
-						text: '信息维护'
+						text: '干部信息维护'
 					},{
 						xtype:'button',
 						action: 'btn1',
-						text: '统计分析'
+						text: '数质量统计分析'
+					},{
+						xtype:'button',
+						action: 'btn2',
+						text: '干部档案管理'
 					},{
 						xtype:'button',
 						action: 'btn3',
