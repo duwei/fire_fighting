@@ -3,7 +3,7 @@ Ext.define('FV.view.west.Tab', {
     alias: 'widget.westtab',
     
     requires: [
-		'FV.view.west.DanWTree'//,'FV.view.west.MenuTree'
+		'FV.view.west.DanWTree','FV.view.west.MenuTree'
 	],
     
     activeTab: 0,
@@ -14,10 +14,13 @@ Ext.define('FV.view.west.Tab', {
         this.items = [{
             xtype: 'danwtree',
             title: '单位树'
-//        },{
-//            xtype: 'menutree',
-//            title: '菜单树'
         }];
+		if(!FV.lib.UsInf.isZD){
+			this.items.push({
+				xtype: 'menutree',
+				title: '菜单树'
+			});
+		}
         this.on('tabchange',function(ths,newTab){ths.setTitle(newTab.title);});
 		//this.on('',function(){alert('aaaa');});
         this.callParent(arguments);

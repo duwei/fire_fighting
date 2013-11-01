@@ -7,14 +7,16 @@ Ext.define('FV.view.west.MenuTree', {
 
     initComponent: function() {
 		var c = [
-			{ text: "统计查询", leaf: true, url:'/main/sch.app',iframe:true }
+			{ text: "统计查询", leaf: true, url:'/main/schZhiD.app',iframe:true }
 		];
 		if(FV.lib.UsInf.hasPm('p01') || FV.lib.UsInf.hasPm('p02')){
 			c.push({ text: "主任签发", leaf: true, url:'/main/qianf.app',iframe:true });
 		}
 		c.push({ text: "数据导出", leaf: true, url:'/main/export.app',iframe:true });
 		c.push({ text: "数据导入", leaf: true, url:'/main/import.app',iframe:true });
-		c.push({ text: "档案柜盘库", leaf: true, url:'/main/panku.app',iframe:true });
+		if(FV.lib.UsInf.isZD){
+			c.push({ text: "档案柜盘库", leaf: true, url:'/main/panku.app',iframe:true });
+		}
 		c.push({ text: "修改密码", leaf: true });
 		c.push({ text: "恢复数据库备份", leaf: true });
 		//c.push({ text: "系统安全", leaf: true });// 数据库手工备份／恢复
