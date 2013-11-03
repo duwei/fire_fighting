@@ -182,7 +182,13 @@ Ext.define('FV.controller.Import', {
 						});
 						this.getRenYimpsStore().load();
 					}else if(s=='OK2'){
+						ww._flg = true;
+						ths.un({
+							update: upfun,
+							scope: this
+						});
 						Ext.Msg.alert('成功！','数据同步成功！');
+						return;
 					}else if(s.startsWith('ERR')){
 						ths.un({
 							update: upfun,
