@@ -4,7 +4,6 @@ Ext.define('FV.store.JingXWJ3s', {// 警衔文级 警官+文职干部
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 14,   label: '少将'},
         {value: 21,   label: '大校'},
         {value: 22,   label: '上校'},

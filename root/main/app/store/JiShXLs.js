@@ -4,7 +4,6 @@ Ext.define('FV.store.JiShXLs', {//技术系列 技术职务 职务资格  两位
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '工程系列'},
         {value: 2,   label: '医学系列'},
         {value: 3,   label: '护理学系列'},
@@ -14,7 +13,7 @@ Ext.define('FV.store.JiShXLs', {//技术系列 技术职务 职务资格  两位
         {value: 7,   label: '编辑系列'},
         {value: 8,   label: '出版系列'},
         {value: 9,   label: '教育系列'},
-        {value: 12,   label: '医学系列2'},
+        {value: 12,  label: '医学系列2'},
         {value: 0,   label: '_'}
 	]
 });

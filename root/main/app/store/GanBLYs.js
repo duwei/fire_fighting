@@ -4,7 +4,6 @@ Ext.define('FV.store.GanBLYs', {// 干部来源
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
 		{value: 1,   label: '部队院校战士毕业生'},
         {value: 2,   label: '部队院校青年毕业生'},
         {value: 6,   label: '部队院校保送毕业生'},

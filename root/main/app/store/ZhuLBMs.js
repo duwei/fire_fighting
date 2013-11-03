@@ -4,7 +4,6 @@ Ext.define('FV.store.ZhuLBMs', {// 主类别码
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '军事干部'},
         {value: 2,   label: '政治干部'},
         {value: 3,   label: '后勤干部'},

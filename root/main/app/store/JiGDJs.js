@@ -4,7 +4,6 @@ Ext.define('FV.store.JiGDJs', {// 机构等级
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         //{value: 1,   label: '军委总部'},
         //{value: 2,   label: '正大区级'},
         //{value: 3,   label: '副大区级'},

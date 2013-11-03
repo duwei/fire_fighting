@@ -4,7 +4,6 @@ Ext.define('FV.store.JiangLDJs', {// 奖励等级
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1 ,   label: '荣誉称号'},
         {value: 2 ,   label: '全国优秀人民警察'},
         {value: 3 ,   label: '省级优秀人民警察'},

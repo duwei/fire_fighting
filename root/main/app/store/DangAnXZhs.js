@@ -4,7 +4,6 @@ Ext.define('FV.store.DangAnXZhs', {// 档案现状
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '有正本'},
         {value: 2,   label: '有副本'},
         {value: 3,   label: '正本已借出'},

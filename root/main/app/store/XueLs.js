@@ -4,7 +4,6 @@ Ext.define('FV.store.XueLs', {// 学历 文化程度
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '研究生'},
         {value: 2,   label: '大学本科'},
         {value: 3,   label: '大学专科'},

@@ -4,7 +4,6 @@ Ext.define('FV.store.BenRChFs', {// 本人成分
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '学生'},
         {value: 2,   label: '工人'},
         {value: 3,   label: '农民'},

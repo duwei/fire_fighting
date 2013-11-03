@@ -4,7 +4,6 @@ Ext.define('FV.store.JiShZhWDJs', {//技术职务等级 技术职务 职务资�
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '正高职'},
         {value: 2,   label: '副高职'},
         {value: 3,   label: '中职'},

@@ -4,7 +4,6 @@ Ext.define('FV.store.ChuFDJs', {// 处分等级
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1 ,   label: '警告'},
         {value: 2 ,   label: '严重警告'},
         {value: 3 ,   label: '记过'},

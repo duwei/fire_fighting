@@ -4,7 +4,6 @@ Ext.define('FV.store.MinZs', {// 民族
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '汉族'},
         {value: 2,   label: '蒙古族'},
         {value: 3,   label: '回族'},

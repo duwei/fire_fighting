@@ -4,7 +4,6 @@ Ext.define('FV.store.JiShZhWs', {// 技术职务 职务资格  两位数字： �
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 12,   label: '高级工程师'},
         {value: 13,   label: '工程师'},
         {value: 14,   label: '助理工程师'},

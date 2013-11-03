@@ -4,7 +4,6 @@ Ext.define('FV.store.CaiLMChs', {// 材料名称
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '干部履历书'},
         {value: 2,   label: '自传'},
         {value: 3,   label: '履历变化补充报告表'},

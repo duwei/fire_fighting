@@ -4,7 +4,6 @@ Ext.define('FV.store.XueWs', {// 学位
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 200,   label: '博士'},
         {value: 201,   label: '哲学博士'},
         {value: 202,   label: '经济学博士'},

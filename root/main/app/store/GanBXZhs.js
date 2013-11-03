@@ -4,7 +4,6 @@ Ext.define('FV.store.GanBXZhs', {// 干部性质
     model: 'FV.model.LabelValue',
 
     data: [
-        {value: null,   label: '请选择...'},
         {value: 1,   label: '现职干部'},
         {value: 2,   label: '免职干部'},
         {value: 3,   label: '离休干部'},
