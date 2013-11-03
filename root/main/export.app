@@ -6,11 +6,11 @@
 	<meta http-equiv="expires" content="0">
 	<title id="page-title">干部信息管理系统</title>
 
-	<link rel="stylesheet" type="text/css" href="../extjs-4.1/resources/css/ext-all.css">
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
 	<link rel="stylesheet" type="text/css" href="../style/icon.css">
 
-	<script type="text/javascript" src="../extjs-4.1/ext.js"></script>
-	<script type="text/javascript" src="../extjs-4.1/locale/ext-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+	<script type="text/javascript" src="../extjs4/locale/ext-lang-zh_CN.js"></script>
 	<script type="text/javascript">
 		Ext.Loader.setConfig({
 			disableCaching: false,
@@ -18,7 +18,7 @@
 	</script>
 
 	<script type="text/javascript" src="Inf.js.app"></script>
-	<script type="text/javascript" src="export-all.js"></script>
+	<script type="text/javascript" src="export.js"></script>
 
 	<style type="text/css" media="screen">
 		.my-disabledCls .x-mask {

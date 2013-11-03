@@ -1,3 +1,54 @@
+.x-dd-drag-ghost,.x-mask-msg-inner,.x-progress-default .x-progress-text,.x-btn-default-small .x-btn-inner,.x-btn-default-medium .x-btn-inner,.x-btn-default-large .x-btn-inner,
+.x-btn-default-toolbar-small .x-btn-inner,.x-btn-default-toolbar-medium .x-btn-inner,.x-btn-default-toolbar-large .x-btn-inner,.x-toolbar,.x-toolbar-text,.x-panel-header-default,
+.x-panel-header-text-container-default,.x-panel-header-default-framed,.x-panel-header-text-container-default-framed,.x-tip-header-text-container-default,.x-tip-body-default,
+.x-tip-header-text-container-form-invalid,.x-tip-body-form-invalid,.x-btn-group-header-text-container-default,.x-btn-group-header-text-container-default-framed,
+.x-window-header-default,.x-window-header-text-container-default,.x-form-invalid-under,
+.x-datepicker-date,.x-monthpicker-item,.x-html-editor-tb .x-font-select,.x-grid-empty,.x-menu-item-text,.x-menu-item .x-form-item-label {
+  font-size: 12px;
+}
+.x-toolbar-item .x-form-item-label {
+  font: normal 12px/15px tahoma, arial, verdana, sans-serif;
+}
+.x-toolbar-item .x-form-display-field {
+  font: normal 12px/15px tahoma, arial, verdana, sans-serif;
+}
+.x-toolbar-item .x-form-cb-label {
+  font: normal 12px/15px tahoma, arial, verdana, sans-serif;
+}
+.x-fieldset-header-text {
+  font: 12px/15px bold tahoma, arial, verdana, sans-serif;
+}
+.x-grid-cell {
+  font: normal 12px/14px tahoma, arial, verdana, sans-serif;
+}
+.x-column-header {
+  font: normal 12px/14px tahoma, arial, verdana, sans-serif;
+}
+.x-grid-group-title {
+  font: bold 12px/14px tahoma, arial, verdana, sans-serif;
+}
+.x-grid-rowbody {
+  font: normal 12px/14px tahoma, arial, verdana, sans-serif;
+}
+.x-grid-row-summary .x-grid-cell,
+.x-grid-row-summary .x-grid-rowwrap,
+.x-grid-row-summary .x-grid-cell-rowbody {
+  font: normal 12px/14px tahoma, arial, verdana, sans-serif;
+}
+.x-grid-editor .x-form-text {
+  font: normal 12px/15px tahoma, arial, verdana, sans-serif;
+}
+.x-grid-editor .x-form-display-field {
+  font: normal 12px/15px tahoma, arial, verdana, sans-serif;
+}
+.x-tab-default .x-tab-inner {
+  font-size: 12px;
+  line-height: 14px;
+}
+.x-tree-node-text {
+  font-size: 12px;
+  line-height: 14px;
+}
 .list-icon {
     background-image: url( ../images/grid.png ) !important;
 }

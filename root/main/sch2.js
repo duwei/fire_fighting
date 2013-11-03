@@ -3,7 +3,7 @@ Ext.application({
 
     // All the paths for custom classes
     paths: {
-        'Ext.ux': '../extjs-4.1/ux/'
+        'Ext.ux': '../extjs4/ux/'
     },
 
 	requires: ['Ext.ux.layout.Center'],

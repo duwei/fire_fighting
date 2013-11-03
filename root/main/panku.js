@@ -2,7 +2,7 @@ Ext.application({
     name: 'FV',
 
     paths: {
-        'Ext.ux': '/extjs-4.1/ux/'
+        'Ext.ux': '/extjs4/ux/'
     },
 
     controllers: [
