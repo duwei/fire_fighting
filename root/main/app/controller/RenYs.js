@@ -47,7 +47,7 @@ Ext.define('FV.controller.RenYs', {
 	],
 	
     stores: ['RenYs','RenYShHs','BianZhs','RenYslct','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs','DangAs'],
-    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh','DangAXX','DangA'],
+    models: ['RenY','RenYShH','RenY2','BianZh','ZhanB','JiangL','ChuF','RuWHJL','GangWZGDJLSh','DangAXX','DangA','ShouQM'],
     views: [
 		'sub.JiangLLst',
 		'sub.JiangLEd',
@@ -65,7 +65,8 @@ Ext.define('FV.controller.RenYs', {
 		'center.BianZhWindow',
 		'center.RenYMain',
 		'center.RenYOne',
-		'center.PwdWindow'
+		'center.PwdWindow',
+		'center.ShouQWindow'
 	],
     
     refs: [
@@ -173,6 +174,13 @@ Ext.define('FV.controller.RenYs', {
             selector: 'pwdwindow', 
             autoCreate: true,
             xtype: 'pwdwindow'
+        },
+        {ref: 'shouQForm', selector: 'shouqwindow form'},
+        {
+            ref: 'shouQWindow', 
+            selector: 'shouqwindow', 
+            autoCreate: true,
+            xtype: 'shouqwindow'
         }
     ],
     
@@ -295,6 +303,9 @@ Ext.define('FV.controller.RenYs', {
 			'renyone button[action=save]': {
 				click: this.renyone_save
             },
+			'renyone button[action=shouQ]': {
+				click: this.renyone_shouQ
+            },
 			'renyone checkbox[boxLabel=文职干部]': {
 				change: this.wenZhGB_chg
             },
@@ -409,6 +420,9 @@ Ext.define('FV.controller.RenYs', {
 			},
             'pwdwindow button[action=save]': {
 				click: this.pwdwindow_save
+            },
+            'shouqwindow button[action=save]': {
+				click: this.shouqwindow_save
             }
         });
     },
@@ -824,7 +838,73 @@ Ext.define('FV.controller.RenYs', {
 			});
 		}
 	},
+	renyone_shouQ: function(btn){
+		var win = this.getShouQWindow(),
+			form = this.getShouQForm(),
+			ff = form.getForm(),
+			ro = btn.up('renyone'),
+			f1 = ro.down('form[formId=renY1]'),
+			r1 = f1.getRecord();
+
+		ff.reset();
+		this.shouQ_ID = r1.get('id');
+		if(this.shouQ_ID>0){
+			this.shouQ_btn = btn;
+			this.shouQ_win = win;
+			win.show();
+		}else{
+			Ext.Msg.alert('警告','请先保存数据。');
+		}
+	},
+	shouqwindow_save: function(btn){
+		var o = {
+			id:this.shouQ_ID,
+			'授权码':this.getShouQForm().getValues()['授权码']
+		},rec;
+		if(o['授权码']==null||o['授权码'].trim().length==0){
+			Ext.Msg.alert('警告','请输入授权码');
+			return;
+		}
+		o['授权码'] = o['授权码'].trim();
+		if(FV.lib.UsInf.isZD){
+			rec = FV.model.ShouQM.create(o);
+			rec.save({
+				scope: this,
+				success: function(record, operation) {
+					Ext.Msg.alert('成功','请把授权码['+o['授权码']+']通知支队用以数据修改的授权。',function(){this.shouQ_win.close();delete this.shouQ_win;},this);
+				},
+				failure: function(record, operation) {
+					Ext.Msg.alert('警告','设置授权码失败!');
+				}
+			});
+		}else{
+			FV.model.ShouQM.load(this.shouQ_ID,{
+				params: o,
+				scope: this,
+				success: function(record, operation) {
+					if(record!=null){
+						this.renyone_save_0(this.shouQ_btn);
+						this.shouQ_win.close();
+						delete this.shouQ_win;
+						record.destroy();
+					}else{
+						Ext.Msg.alert('警告','授权失败!请确认授权码是否正确。');
+					}
+				},
+				failure: function(record, operation) {
+					Ext.Msg.alert('警告','获取授权码失败!');
+				}
+			});
+		}
+	},
 	renyone_save: function(btn){
+		if(FV.lib.UsInf.isZD||FV.lib.Config.shouQ==false){
+			this.renyone_save_0(btn);
+		}else{
+			this.renyone_shouQ(btn);
+		}
+	},
+	renyone_save_0: function(btn){
 		var ro = btn.up('renyone'),
 			f1 = ro.down('form[formId=renY1]'),
 			f2 = ro.down('form[formId=renY2]'),
@@ -1056,6 +1136,11 @@ Ext.define('FV.controller.RenYs', {
 				tab.down('button[action=tongG]').show();
 			}else{
 				tab.down('button[action=tongG]').hide();
+			}
+			if(FV.lib.UsInf.isZD&&FV.lib.Config.shouQ){
+				tab.down('button[action=shouQ]').show();
+			}else{
+				tab.down('button[action=shouQ]').hide();
 			}
 		}
 		if(b)viewer.setActiveTab(tab);            

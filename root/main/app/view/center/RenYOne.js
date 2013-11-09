@@ -655,6 +655,9 @@ Ext.define('FV.view.center.RenYOne', {
 			},{
 				xtype: 'panel',
 				buttons: [{
+					text: '授权',
+					action: 'shouQ'
+				}, {
 					text: '档案管理',
 					action: 'dangAnInfo'
 				}, {
