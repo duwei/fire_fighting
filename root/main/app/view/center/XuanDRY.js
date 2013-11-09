@@ -51,7 +51,16 @@ Ext.define('FV.view.center.XuanDRY', {
                     iconCls: 'open-all',
                     text: '关闭所有档案柜',
                     action: 'closeAllGui'
-                },'->',{
+                },'-',{
+					labelWidth: 30,
+					width: 90,
+					xtype: 'textfield',
+					fieldLabel: '姓名',
+					name: 'xingMin'
+                },{
+                    text: '搜索',
+                    action: 'schXM'
+				},'-','->',{
                     iconCls: 'open-all',
                     text: '清除',
                     action: 'clean'

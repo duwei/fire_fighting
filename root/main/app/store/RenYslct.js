@@ -8,7 +8,7 @@ Ext.define('FV.store.RenYslct', {
 	proxy: {
 		type: 'ajax',
 		api: {
-			read: '/data/get_reny_shenh.app',
+			read: '/data/get_reny_slct.app',
 		},
 		reader: {
 			type: 'myjson'

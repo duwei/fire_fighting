@@ -71,6 +71,7 @@ Ext.define('FV.controller.RenYs', {
     refs: [
 		{ref: 'danWTree', selector: 'danwtree'},
 		{ref: 'xuanDRY', selector: 'xuandry'},
+		{ref: 'schXM', selector: 'xuandry textfield'},
 		{ref: 'renYXX', selector: 'renyxx'},
 		{ref: 'bianZhXX', selector: 'bianzhxx'},
 		{ref: 'changYXX', selector: 'changyxx'},
@@ -269,6 +270,9 @@ Ext.define('FV.controller.RenYs', {
             },
             'xuandry button[action=closeAllGui]': {
                 click: this.xd_closeAllGui
+            },
+            'xuandry button[action=schXM]': {
+                click: this.xd_schXM
             },
 			'renyone image': {
 				afterrender: this.addImageMenu
@@ -1784,6 +1788,13 @@ Ext.define('FV.controller.RenYs', {
 				port: FV.lib.Config.gui_port,
 				data: '10,AA,1,0,0,2'
 			});
+	},
+	xd_schXM: function(btn){
+		this.getRenYslctStore().load({
+			params: {
+				'姓名': this.getSchXM().getValue()
+			}
+		});
 	},
 	_init_ds_tb: function(win){
 		var tb = this.danganshow_tb;
