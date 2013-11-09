@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 		xmlns:html="http://www.w3.org/1999/xhtml"
-		id="main" title="干部信息管理系统6.0" width="1124" height="700" 
+		id="main" title="干部信息管理系统6.0" width="1210" height="870" 
 		windowtype="myXUL:browser"
 		persist="screenX screenY width height sizemode" 
 		onload="init();" 
