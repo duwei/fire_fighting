@@ -5,7 +5,7 @@ Ext.define('FV.store.TongJ4', {
 
     model: 'FV.model.TongJ4',
 
-	//autoLoad: true,
+	autoLoad: true,
 	proxy: {
 		type: 'ajax',
 		api: {
