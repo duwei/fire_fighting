@@ -20,6 +20,7 @@ color: #2C2D31;
 margin: 0;
 padding: 0;
 text-align: center;
+background-color:#F2F2F2;
 }
 img, form {
 border: medium none;
@@ -49,7 +50,7 @@ top: 0;
 left: 0;
 margin: 0;
 right: 0;
-height: 560px;
+height: 802px;
 }
 table {
 border: 0 none;
@@ -181,7 +182,7 @@ text-align: left;
 .loginEntries {
     border: 0 none;
     font-size: 20px;
-    width: 180px;
+    width: 246px;
 }
 .loginButton {
 float: right;
@@ -256,10 +257,10 @@ function init(){
         </h1>
     </div>
 <div class="mainPane">
-    <div class="loginForm" style="top: 496px; left: -220px;"><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></div>
-    <div class="loginForm" style="left: 150px; top: 460px;"><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></div>
-    <div class="loginForm" style="top: 414px; left: 371px;">
-        <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><img src="images/s.gif" height="50" width="140"></a>
+    <div class="loginForm" style="top: 546px; left: -8px;"><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></div>
+    <div class="loginForm" style="left: -8px; top: 574px;"><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></div>
+    <div class="loginForm" style="left: 279px; top: 498px;">
+        <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><img src="images/s.gif" height="84" width="108"></a>
     </div>
 </div>
 </div>
