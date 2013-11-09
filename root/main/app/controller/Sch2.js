@@ -3,6 +3,7 @@ Ext.define('FV.controller.Sch2', {
 
 	requires: [
 		'FV.lib.KeyMapMng',
+		'FV.lib.Config',
 		'FV.lib.UsInf',
 		'FV.lib.Utils'
 	],
@@ -59,6 +60,12 @@ Ext.define('FV.controller.Sch2', {
             },
            'menuitem[action=btn8]': {
                 click: this.btn8
+            },
+           'menuitem[action=btn9]': {
+                click: this.btn9
+            },
+           'menuitem[action=btn10]': {
+                click: this.btn10
             },
             'chgpwdwindow button[action=save]': {
 				click: this.savePwd
@@ -153,6 +160,67 @@ Ext.define('FV.controller.Sch2', {
 	btn8: function() {
 		var win = this.getRestoreWindow();
 		win.show();
+	},
+	btn9: function() {
+		this.dangAnGuiCtrl({
+				ip: FV.lib.Config.gui_ip,
+				port: FV.lib.Config.gui_port,
+				data: '10,AA,1,0,0,2'
+			});
+	},
+	btn10: function() {
+		var w = this.btn10_win;
+		if(w==null){
+			w = this.newWin('曾管库维护','cenggk.app');
+			this.btn10_win = w;
+		}
+		w.show();
+	},
+	dangAnGuiCtrl: function(param){
+		var fail = function(response){
+			Ext.Msg.alert('错误！','服务器错误');
+		};
+		var succ = function(response){
+			var m = response.responseText,a;
+			if(m=='ERR'){
+				Ext.Msg.alert('错误！','网络错误，请确保档案柜管理系统正确启动。');
+			}else{
+				a = m||'';
+				a = a.split(',');
+				if(a.length<4){
+					Ext.Msg.alert('错误！','协议错误：'+m);
+				}else{
+					if(a[3]=='9'){
+						var task = new Ext.util.DelayedTask(function(){
+							Ext.Ajax.request({
+								url: '/ctrl/tcp.app',
+								params: {
+									ip: FV.lib.Config.gui_ip,
+									port: FV.lib.Config.gui_port,
+									data: '4,AA,9'
+								},
+								success: succ,
+								failure: fail,
+								scope: this
+							});
+						});
+						task.delay(500);
+					}else if(a[3]=='0'){
+						Ext.Msg.alert('成功！','操作成功.');
+					}else{
+						Ext.Msg.alert('错误！','协议错误：'+m);
+					}
+				}
+			}
+		};
+		Ext.Msg.wait('请稍候','正在操作...','');
+		Ext.Ajax.request({
+			url: '/ctrl/tcp.app',
+			params: param,
+			success: succ,
+			failure: fail,
+			scope: this
+		});
 	},
 	savePwd: function(){
 		var win = this.getPwdWindow(),

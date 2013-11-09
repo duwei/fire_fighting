@@ -63,6 +63,12 @@ Ext.application({
 						},{
 							action: 'btn6',
 							text:'档案柜盘库'
+						},{
+							action: 'btn9',
+							text:'关闭所有档案柜'
+						},{
+							action: 'btn10',
+							text:'曾管库维护'
 						}]
 					},{
 						xtype:'button',

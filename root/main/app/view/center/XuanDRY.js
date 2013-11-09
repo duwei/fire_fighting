@@ -47,11 +47,11 @@ Ext.define('FV.view.center.XuanDRY', {
                     iconCls: 'open-all',
                     text: '档案导入',
                     action: 'importDangAn'
-                },{
+                /*},{
                     iconCls: 'open-all',
                     text: '关闭所有档案柜',
                     action: 'closeAllGui'
-                },'-',{
+                */},'-',{
 					labelWidth: 30,
 					width: 90,
 					xtype: 'textfield',

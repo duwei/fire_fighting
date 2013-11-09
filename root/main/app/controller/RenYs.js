@@ -1770,8 +1770,6 @@ Ext.define('FV.controller.RenYs', {
 	dangAnGuiCtrl: function(param,cb){
 		var ccb = cb;
 		var fail = function(response){
-			console.log('服务器错误');
-			console.dir(response);
 			Ext.Msg.alert('错误！','服务器错误');
 		};
 		var succ = function(response){
