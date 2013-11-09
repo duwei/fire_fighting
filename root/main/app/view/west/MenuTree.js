@@ -14,6 +14,7 @@ Ext.define('FV.view.west.MenuTree', {
 		}
 		c.push({ text: "数据导出", leaf: true, url:'/main/export.app',iframe:true });
 		c.push({ text: "数据导入", leaf: true, url:'/main/import.app',iframe:true });
+		c.push({ text: "曾管库维护", leaf: true, url:'/main/cenggk.app',iframe:true });
 		if(FV.lib.UsInf.isZD){
 			c.push({ text: "档案柜盘库", leaf: true, url:'/main/panku.app',iframe:true });
 		}
