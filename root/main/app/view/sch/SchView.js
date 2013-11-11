@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchView', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 500,
+    height: 540,
     width: 700,
 	//modal: true,
 	resizable: false,
@@ -74,7 +74,7 @@ Ext.define('FV.view.sch.SchView', {
 						xtype: 'container',
 						layout: 'anchor',
 						width: 600,
-						height: 238,
+						height: 258,
 						defaults: {
 							xtype: 'container',
 							defaultType: 'displayfield',
