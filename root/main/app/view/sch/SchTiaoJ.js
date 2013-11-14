@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 550,
+    height: 570,
     width: 750,
 	//modal: true,
     title: '搜索条件',
@@ -200,6 +200,11 @@ Ext.define('FV.view.sch.SchTiaoJ', {
 							}
 						]
 					}]
+				},{
+					items: [
+						FV.lib.KeyMapMng.getCombField('人员类别','人员类别','RenYLBs',false,1,{multiSelect:true,delimiter:','}),
+						FV.lib.KeyMapMng.getCombField('专业系列','技术系列','JiShXL2s',false,1,{multiSelect:true,delimiter:','})
+					]
 				},{
 					items: [
 						FV.lib.KeyMapMng.getCombField('技术等级','技术等级','JiShDJs',false,1,{multiSelect:true,delimiter:','}),
