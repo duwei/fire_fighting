@@ -24,6 +24,7 @@ Ext.define('FV.controller.Sch', {
 	],
     
     refs: [
+        {ref: 'tongj5dt', selector: 'tongj5list datefield'},
         {ref: 'pwdForm', selector: 'chgpwdwindow form'},
         {ref: 'schtab', selector: 'schtab'},
         {
@@ -182,6 +183,7 @@ Ext.define('FV.controller.Sch', {
 		FV.tongj2 = this.sch_tongj2.bind(this);
 		FV.tongj3 = this.sch_tongj3.bind(this);
 		FV.tongj4 = this.sch_tongj4.bind(this);
+		FV.tongj5 = this.sch_tongj5.bind(this);
 	},
 	sch_tongj1: function(dw,xb,xl,xl2,hSh,hSh2){
 		var vl = {
@@ -221,6 +223,17 @@ Ext.define('FV.controller.Sch', {
 		if(xl>0)vl['技术系列'] = xl;
 		if(jb>0)vl['技术职务2'] = jb;
 		if(zg>0)vl['技术资格2'] = zg;
+		this.sch_tongj(vl);
+	},
+	sch_tongj5: function(dw,n,n0,n1 ){
+		var vl = {
+			tongJDanW:dw,
+			tongZhiD:1,
+			dt:this.getTongj5dt().getSubmitValue()
+		};
+		if(n>0)vl['年龄'] = n;
+		if(n0>0)vl['年龄0'] = n0;
+		if(n1>0)vl['年龄1'] = n1;
 		this.sch_tongj(vl);
 	},
 	sch_tongj: function(vl) {
