@@ -8,7 +8,7 @@ Ext.define('FV.view.sch.SchView', {
 		'FV.lib.KeyMapMng'
 	],
 
-    height: 540,
+    height: 560,
     width: 700,
 	//modal: true,
 	resizable: false,
@@ -212,6 +212,15 @@ Ext.define('FV.view.sch.SchView', {
 						renderer: this.rdDate,
 						fieldLabel: '衔级时间',
 						name: '衔级时间'
+					}
+					]
+				},{
+					items: [{
+						fieldLabel: '人员类别',
+						name: '人员类别'
+					},{
+						fieldLabel: '专业系列',
+						name: '技术系列'
 					}
 					]
 				},{
