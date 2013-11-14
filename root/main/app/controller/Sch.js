@@ -178,7 +178,20 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
+		FV.tongj1 = this.sch_tongj1.bind(this);
 		FV.tongj3 = this.sch_tongj3.bind(this);
+	},
+	sch_tongj1: function(dw,xb,xl,xl2,hSh,hSh2){
+		var vl = {
+			tongJDanW:dw
+		};
+		if(xb>0)vl['性别'] = xb;
+		if(xl>0)vl['文化程度'] = xl;
+		if(xl2>0)vl['文化程度2'] = xl2;
+		if(hSh>0)vl['函授学历'] = hSh;
+		if(hSh2>0)vl['函授学历2'] = hSh2;
+		
+		this.sch_tongj(vl);
 	},
 	sch_tongj3: function(dw,jSh,zhJ,xZh ){
 		var vl = {
