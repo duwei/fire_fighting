@@ -181,6 +181,7 @@ Ext.define('FV.controller.Sch', {
 		FV.tongj1 = this.sch_tongj1.bind(this);
 		FV.tongj2 = this.sch_tongj2.bind(this);
 		FV.tongj3 = this.sch_tongj3.bind(this);
+		FV.tongj4 = this.sch_tongj4.bind(this);
 	},
 	sch_tongj1: function(dw,xb,xl,xl2,hSh,hSh2){
 		var vl = {
@@ -209,6 +210,17 @@ Ext.define('FV.controller.Sch', {
 		if(jSh>0)vl['是否技术干部'] = jSh;
 		if(zhJ>0)vl['技术等级'] = zhJ;
 		if(xZh>0)vl['是否行政干部'] = xZh;
+		this.sch_tongj(vl);
+	},
+	sch_tongj4: function(dw,jSh,xZh,xl,jb,zg){
+		var vl = {
+			tongJDanW:dw
+		};
+		if(jSh>0)vl['是否技术干部'] = jSh;
+		if(xZh>0)vl['是否行政干部'] = xZh;
+		if(xl>0)vl['技术系列'] = xl;
+		if(jb>0)vl['技术职务2'] = jb;
+		if(zg>0)vl['技术资格2'] = zg;
 		this.sch_tongj(vl);
 	},
 	sch_tongj: function(vl) {

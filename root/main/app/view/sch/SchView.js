@@ -220,7 +220,7 @@ Ext.define('FV.view.sch.SchView', {
 						name: '人员类别'
 					},{
 						fieldLabel: '专业系列',
-						name: '技术系列'
+						name: '专业系列'
 					}
 					]
 				},{
