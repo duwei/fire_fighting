@@ -3,7 +3,7 @@ Ext.define('FV.controller.Sch', {
 
 	requires: [],
 
-    stores: [/*'GaiSh','SchChart1','SchChart2','SchChart3','SchChart4',*/'TongJ1','TongJ2','TongJ3','TongJ4','TongJ5','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
+    stores: ['TongJ1','TongJ2','TongJ3','TongJ4','TongJ5','Schs','JiangLs','ChuFs','RuWHJLs','GangWZGDJLShs'],
     models: ['DanWList'],
     views: [
 		'sub.JiangLLst',
@@ -20,12 +20,12 @@ Ext.define('FV.controller.Sch', {
 		'sch.TongJ3',
 		'sch.TongJ4',
 		'sch.TongJ5',
-		//'sch.SchChart',
 		'sch.Tab'
 	],
     
     refs: [
         {ref: 'pwdForm', selector: 'chgpwdwindow form'},
+        {ref: 'schtab', selector: 'schtab'},
         {
             ref: 'pwdWindow', 
             selector: 'chgpwdwindow', 
@@ -87,7 +87,7 @@ Ext.define('FV.controller.Sch', {
             'schlist': {
                 itemdblclick: this.showIt
             },
-           'schlist button[action=sch]': {
+            'schlist button[action=sch]': {
                 click: this.schall
             },
             'schlist button[action=adv]': {
@@ -178,14 +178,26 @@ Ext.define('FV.controller.Sch', {
 			},
 			scope: this
 		});
-//		this.getGaiShStore().on({
-//			load: function(ths,recs,succ){
-//				if(succ){
-//					Ext.getCmp('gaiShuInfo').update(recs[0].data);
-//				}
-//			},
-//			scope: this
-//		});
+		FV.tongj3 = this.sch_tongj3.bind(this);
+	},
+	sch_tongj3: function(dw,jSh,zhJ,xZh ){
+		var vl = {
+			tongJDanW:dw
+		};
+		if(jSh>0)vl['是否技术干部'] = jSh;
+		if(zhJ>0)vl['技术等级'] = zhJ;
+		if(xZh>0)vl['是否行政干部'] = xZh;
+		
+		this.sch_tongj(vl);
+	},
+	sch_tongj: function(vl) {
+		this.getStatusBar().showBusy();
+		this.schParam = vl;
+		this.curDwKey = null;
+		this.getSchsStore().load({
+			params: this.schParam
+		});
+		this.getSchtab().setActiveTab(5);
 	},
 	savePwd: function(){
 		var win = this.getPwdWindow(),
