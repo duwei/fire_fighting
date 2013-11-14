@@ -179,6 +179,7 @@ Ext.define('FV.controller.Sch', {
 			scope: this
 		});
 		FV.tongj1 = this.sch_tongj1.bind(this);
+		FV.tongj2 = this.sch_tongj2.bind(this);
 		FV.tongj3 = this.sch_tongj3.bind(this);
 	},
 	sch_tongj1: function(dw,xb,xl,xl2,hSh,hSh2){
@@ -190,7 +191,15 @@ Ext.define('FV.controller.Sch', {
 		if(xl2>0)vl['文化程度2'] = xl2;
 		if(hSh>0)vl['函授学历'] = hSh;
 		if(hSh2>0)vl['函授学历2'] = hSh2;
-		
+		this.sch_tongj(vl);
+	},
+	sch_tongj2: function(dw,jSh,zhJ,xZh ){
+		var vl = {
+			tongJDanW:dw
+		};
+		if(jSh>0)vl['是否技术干部'] = jSh;
+		if(zhJ>0)vl['行政职务等级'] = zhJ;
+		if(xZh>0)vl['是否行政干部'] = xZh;
 		this.sch_tongj(vl);
 	},
 	sch_tongj3: function(dw,jSh,zhJ,xZh ){
@@ -200,7 +209,6 @@ Ext.define('FV.controller.Sch', {
 		if(jSh>0)vl['是否技术干部'] = jSh;
 		if(zhJ>0)vl['技术等级'] = zhJ;
 		if(xZh>0)vl['是否行政干部'] = xZh;
-		
 		this.sch_tongj(vl);
 	},
 	sch_tongj: function(vl) {

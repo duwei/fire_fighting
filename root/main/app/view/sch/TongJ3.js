@@ -22,17 +22,17 @@ Ext.define('FV.view.sch.TongJ3', {
 					{text: '兼职干部',	dataIndex:'兼职干部',	width:60, renderer: this.shuZi, params:{jSh:1,xZh:1} }
 				]},
 				{text: '专业技术干部职级分布', columns:[
-					{text: '4级',	dataIndex:'4级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:4} },
-					{text: '5级',	dataIndex:'5级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:5} },
-					{text: '6级',	dataIndex:'6级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:6} },
-					{text: '7级',	dataIndex:'7级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:7} },
-					{text: '8级',	dataIndex:'8级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:8} },
-					{text: '9级',	dataIndex:'9级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:9} },
-					{text: '10级',	dataIndex:'10级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:10} },
-					{text: '11级',	dataIndex:'11级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:11} },
-					{text: '12级',	dataIndex:'12级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:12} },
-					{text: '13级',	dataIndex:'13级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:13} },
-					{text: '14级',	dataIndex:'14级',	width:50, renderer: this.shuZi, params:{jSh:1,zhJ:14} }
+					{text: '4级',	dataIndex:'4级',	width:50, renderer: this.shuZi, params:{zhJ:4} },
+					{text: '5级',	dataIndex:'5级',	width:50, renderer: this.shuZi, params:{zhJ:5} },
+					{text: '6级',	dataIndex:'6级',	width:50, renderer: this.shuZi, params:{zhJ:6} },
+					{text: '7级',	dataIndex:'7级',	width:50, renderer: this.shuZi, params:{zhJ:7} },
+					{text: '8级',	dataIndex:'8级',	width:50, renderer: this.shuZi, params:{zhJ:8} },
+					{text: '9级',	dataIndex:'9级',	width:50, renderer: this.shuZi, params:{zhJ:9} },
+					{text: '10级',	dataIndex:'10级',	width:50, renderer: this.shuZi, params:{zhJ:10} },
+					{text: '11级',	dataIndex:'11级',	width:50, renderer: this.shuZi, params:{zhJ:11} },
+					{text: '12级',	dataIndex:'12级',	width:50, renderer: this.shuZi, params:{zhJ:12} },
+					{text: '13级',	dataIndex:'13级',	width:50, renderer: this.shuZi, params:{zhJ:13} },
+					{text: '14级',	dataIndex:'14级',	width:50, renderer: this.shuZi, params:{zhJ:14} }
 				]}
 			],
             dockedItems:[{
