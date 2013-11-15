@@ -23,8 +23,11 @@
 
     <style type="text/css" media="screen">
 		.m-btn.x-btn-default-small .x-btn-inner {
-			font-size: 14px;
+			font-size: 16px;
 			font-weight: bold;
+		}
+		.m-btn.x-btn-default-small.x-btn-over .x-btn-inner {
+			font-size: 20px;
 		}
         /**
          * Icons 
