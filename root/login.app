@@ -182,7 +182,7 @@ text-align: left;
 .loginEntries {
     border: 0 none;
     font-size: 20px;
-    width: 246px;
+    width: 304px;
 }
 .loginButton {
 float: right;
@@ -257,10 +257,10 @@ function init(){
         </h1>
     </div>
 <div class="mainPane">
-    <div class="loginForm" style="top: 546px; left: -8px;"><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></div>
-    <div class="loginForm" style="left: -8px; top: 574px;"><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></div>
-    <div class="loginForm" style="left: 279px; top: 498px;">
-        <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><img src="images/s.gif" height="84" width="108"></a>
+    <div class="loginForm" style="top: 389px; left: -32px;"><input type="text" maxlength="256" class="loginEntries" id="user" name="username"></div>
+    <div class="loginForm" style="left: -33px; top: 429px;"><input type="password" maxlength="256" class="loginEntries" id="password" name="password"></div>
+    <div class="loginForm" style="top: 322px; left: 316px;">
+        <a name="btnLogin" id="btnLogin" title="单击此处后登录" href="javascript:submitForm()" class="leftDoor"><img src="images/s.gif" height="98" width="102"></a>
     </div>
 </div>
 </div>
