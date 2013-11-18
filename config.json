@@ -1,0 +1,10 @@
+{
+	"db_type"    : "sqlite3",
+	// 正常使用这个参数
+	"db_params"  : "serv/data/data1.db",
+	// 演示使用这个参数
+	//"db_params"  : "c:/serv/data1.db",
+	
+	// 签发模式,1:签发后进入“已签发”状态; 2:签发后直接进入“正常”状态
+	"qianFa_mode" : 2
+}
