@@ -35,7 +35,8 @@ Ext.define('FV.controller.Panku', {
 		});
 	},
 	dangAnGuiCtrl: function(param,cb,scope){
-		var ccb = cb;
+		var ccb = cb,pp = param;
+		var nnn = 4;
 		var fail = function(response){
 			console.log('服务器错误');
 			console.dir(response);
@@ -71,7 +72,21 @@ Ext.define('FV.controller.Panku', {
 					}else if(a[3]=='0'){
 						if(ccb)ccb.call(scope||this,a);
 					}else{
-						Ext.Msg.alert('错误！','协议错误：'+m);
+						if(nnn<=0){
+							Ext.Msg.alert('警告','通讯异常,请重试.');
+						}else{
+							var task = new Ext.util.DelayedTask(function(){
+								Ext.Ajax.request({
+									url: '/ctrl/tcp.app',
+									params: pp,
+									success: succ,
+									failure: fail,
+									scope: this
+								});
+							});
+							task.delay(500);
+							nnn --;
+						}
 					}
 				}
 			}
